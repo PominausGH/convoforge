@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build
+.next/
+dist/
+build/
+*.so
+
+# System
+.DS_Store
+Thumbs.db
+
+# Project Specific
+pgdata/
+convoforge-recordings/

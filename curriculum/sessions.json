@@ -1,0 +1,272 @@
+[
+  {
+    "lesson_id": 1,
+    "title": "The Power of a Name",
+    "carnegie_principle": "Remember that a person's name is to that person the sweetest and most important sound in any language.",
+    "modern_context": "Personalizing digital openers (Slack, Email, LinkedIn) to cut through the noise.",
+    "practice_prompt": "You are messaging a busy stakeholder, Sarah, for the first time. Open the conversation naturally using her name and a clear reason for reaching out.",
+    "success_criteria": ["Uses name correctly", "Warm but professional tone", "Concise"],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 2,
+    "title": "Smile on Camera",
+    "carnegie_principle": "Smile.",
+    "modern_context": "Projecting warmth and presence in high-stakes video calls even when you're tired.",
+    "practice_prompt": "Join this mock Zoom meeting and introduce yourself. Focus on maintaining a genuine smile and steady eye contact with the camera lens.",
+    "success_criteria": ["Maintains smile > 50% of introduction", "Eyes fixed on camera, not the screen", "Open posture"],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 3,
+    "title": "Kill the Filler",
+    "carnegie_principle": "Be a good listener. Encourage others to talk about themselves.",
+    "modern_context": "Using strategic pauses to eliminate 'um', 'ah', and 'like' for more authority.",
+    "practice_prompt": "Explain your current project in 60 seconds. Every time you want to say a filler word, take a breath and pause instead.",
+    "success_criteria": ["Filler rate < 2 per minute", "Deliberate pauses", "Steady pace"],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 4,
+    "title": "Become Genuinely Interested",
+    "carnegie_principle": "Become genuinely interested in other people.",
+    "modern_context": "Active listening and room-reading in a hybrid work environment.",
+    "practice_prompt": "Ask three insightful follow-up questions to the AI avatar after they describe their weekend trip to Japan.",
+    "success_criteria": ["Questions are open-ended", "Demonstrates specific detail recall", "Avoids 'I' statements"],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 5,
+    "title": "Let Others Talk",
+    "carnegie_principle": "Let the other person do a great deal of the talking.",
+    "modern_context": "Facilitating vs dominating meetings. Learning when to yield the floor.",
+    "practice_prompt": "You are leading a stand-up. Practice a transition that invites a quieter teammate to share their progress without putting them on the spot.",
+    "success_criteria": ["Inclusive language", "Warm hand-off", "Brevity"],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 6,
+    "title": "Avoid Criticism",
+    "carnegie_principle": "Don't criticize, condemn or complain.",
+    "modern_context": "Delivering radical candor via the SBI (Situation, Behavior, Impact) framework without triggering defensiveness.",
+    "practice_prompt": "A colleague missed a deadline. Give them feedback using the SBI framework without being critical of their character.",
+    "success_criteria": ["Objective facts only", "No 'you' statements", "Focus on impact"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 7,
+    "title": "Talk in Terms of Their Interests",
+    "carnegie_principle": "Talk in terms of the other person's interests.",
+    "modern_context": "Stakeholder management. Framing your request as a win for their specific KPIs.",
+    "practice_prompt": "Pitch a new software tool to a CFO who only cares about cost reduction and ROI. Frame your entire pitch around those two points.",
+    "success_criteria": ["Value-driven language", "Direct ROI mention", "No technical jargon"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 8,
+    "title": "The Sincere Compliment",
+    "carnegie_principle": "Give honest and sincere appreciation.",
+    "modern_context": "Specific vs generic praise. How to compliment a peer so it actually lands.",
+    "practice_prompt": "Observe the AI avatar's 'presentation' and give one specific, sincere compliment about a particular detail of their performance.",
+    "success_criteria": ["Specificity", "Sincerity score > 80", "No flattery"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 9,
+    "title": "Admit Mistakes Quickly",
+    "carnegie_principle": "If you are wrong, admit it quickly and emphatically.",
+    "modern_context": "Building psychological safety. Leading with vulnerability when a project slips.",
+    "practice_prompt": "You made a mistake in the quarterly report. Practice a 30-second Slack video message to the team admitting the error and outlining the fix.",
+    "success_criteria": ["Direct ownership", "No excuses", "Actionable solution"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 10,
+    "title": "The 2-Minute Pitch",
+    "carnegie_principle": "Dramatize your ideas.",
+    "modern_context": "Hook → Insight → Ask. The foundational structure of persuasive leadership.",
+    "practice_prompt": "You have two minutes with a high-level executive. Pitch your vision for the company's next AI initiative.",
+    "success_criteria": ["Strong hook", "Clear 'Ask'", "Compelling delivery"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 11,
+    "title": "Slack Tone: The Digital Handshake",
+    "carnegie_principle": "Make the other person feel important - and do it sincerely.",
+    "modern_context": "Mastering the nuance of async text communication. Avoiding 'Hey' without context.",
+    "practice_prompt": "Rewrite a blunt request for data into a warm, context-rich message that makes the recipient feel valued.",
+    "success_criteria": ["Clear context", "Respectful of time", "Warm sign-off"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 12,
+    "title": "LinkedIn Voice: Professional Sincerity",
+    "carnegie_principle": "Arouse in the other person an eager want.",
+    "modern_context": "Writing a cold reach-out that isn't spam. Building genuine bridges.",
+    "practice_prompt": "Draft a personalized connection request to a mentor you admire. Explain why you want to connect in terms of their work.",
+    "success_criteria": ["High personalization", "Clear value-add", "Zero generic phrases"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 13,
+    "title": "Async Video: Authority + Warmth",
+    "carnegie_principle": "Be hearty in your approbation and lavish in your praise.",
+    "modern_context": "Using Loom or Slack video for feedback. Using your face and voice to build trust async.",
+    "practice_prompt": "Record a 60-second video update on a successful project milestone. Focus on praising the team's specific contributions.",
+    "success_criteria": ["Open body language", "Specific praise", "High energy"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 14,
+    "title": "Email That Lands",
+    "carnegie_principle": "Call attention to people's mistakes indirectly.",
+    "modern_context": "Writing tough emails that don't burn bridges. Managing up via text.",
+    "practice_prompt": "Email a manager who forgot to include you in a critical meeting. Point it out without being accusatory.",
+    "success_criteria": ["Constructive framing", "Solution-oriented", "Neutral tone"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 15,
+    "title": "The Power of One-on-Ones",
+    "carnegie_principle": "Show respect for the other person's opinions. Never say, 'You're wrong.'",
+    "modern_context": "Structuring high-trust recurring meetings. Listening for what's NOT being said.",
+    "practice_prompt": "Start a 1:1 with a direct report who has been underperforming lately. Create a safe space for them to speak first.",
+    "success_criteria": ["Deep listening", "Open-ended inquiry", "Safe environment"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 16,
+    "title": "The Art of Disagreement",
+    "carnegie_principle": "The only way to get the best of an argument is to avoid it.",
+    "modern_context": "Navigating technical or strategic disagreements in public channels.",
+    "practice_prompt": "Disagree with a colleague's technical proposal in a mock Slack thread. Validate their points before offering your alternative.",
+    "success_criteria": ["Validation first", "Reasoned alternative", "Collaborative language"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 17,
+    "title": "Leading Through Uncertainty",
+    "carnegie_principle": "Give the other person a fine reputation to live up to.",
+    "modern_context": "Communicating during a pivot or reorg. Keeping the team focused on the mission.",
+    "practice_prompt": "Give a short 'all-hands' update about a difficult project pivot. Reaffirm the team's strengths.",
+    "success_criteria": ["Confident delivery", "Vision-focused", "Affirming"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 18,
+    "title": "The Sincere No",
+    "carnegie_principle": "Make the other person happy about doing the thing you suggest.",
+    "modern_context": "Setting boundaries without losing influence. Saying 'no' to a project but 'yes' to the person.",
+    "practice_prompt": "Turn down a request to join a new committee while maintaining the relationship with the person who asked.",
+    "success_criteria": ["Firm boundary", "Clear rationale", "Warm relationship preservation"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 19,
+    "title": "Handling Digital Confrontation",
+    "carnegie_principle": "Begin in a friendly way.",
+    "modern_context": "De-escalating a heated thread. When to take it off-line.",
+    "practice_prompt": "A client is angry in a shared Slack channel. Write a response that de-escalates and moves the conversation to a 1:1 call.",
+    "success_criteria": ["Immediate de-escalation", "Professional poise", "Clear next step"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 20,
+    "title": "Mastering the Hybrid Meeting",
+    "carnegie_principle": "Ask questions instead of giving direct orders.",
+    "modern_context": "Ensuring remote participants feel as included as those in the room.",
+    "practice_prompt": "You are facilitating a hybrid brainstorm. Explicitly pull in a remote participant who hasn't spoken yet.",
+    "success_criteria": ["Inclusive facilitation", "Smooth transitions", "Balanced focus"],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 21,
+    "title": "Authentic Executive Presence",
+    "carnegie_principle": "Let the other person feel that the idea is his or hers.",
+    "modern_context": "Leading without appearing to command. The 'Inception' method of leadership.",
+    "practice_prompt": "Guide an AI executive to your proposed strategy using only Socratic questioning.",
+    "success_criteria": ["Strategic inquiry", "Zero direct orders", "Outcome alignment"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 22,
+    "title": "High-Stakes Negotiation",
+    "carnegie_principle": "Try honestly to see things from the other person's point of view.",
+    "modern_context": "Salary or contract negotiation. Finding the 'Third Way' where everyone wins.",
+    "practice_prompt": "Negotiate a 15% budget increase with a skeptical AI department head.",
+    "success_criteria": ["Perspective-taking", "Mutual benefit framing", "Poised delivery"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 23,
+    "title": "The Sincerity of Leadership",
+    "carnegie_principle": "Use encouragement. Make the fault seem easy to correct.",
+    "modern_context": "Coaching a high-performer through a slump. Moving from 'Manager' to 'Coach'.",
+    "practice_prompt": "Deliver a coaching session to a star player who just failed a major launch.",
+    "success_criteria": ["Encouragement-first", "Growth mindset", "High sincerity score"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 24,
+    "title": "Complex Conflict Resolution",
+    "carnegie_principle": "Be sympathetic with the other person's ideas and desires.",
+    "modern_context": "Mediating a deep rift between two powerful stakeholders.",
+    "practice_prompt": "Practice the first 5 minutes of a mediation session between two AI co-founders who aren't speaking.",
+    "success_criteria": ["Neutrality", "Emotional intelligence", "Trust building"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 25,
+    "title": "Visionary Storytelling",
+    "carnegie_principle": "Appeal to the nobler motives.",
+    "modern_context": "Rallying a global team around a difficult, long-term mission.",
+    "practice_prompt": "Deliver a 'Founder's Vision' talk for a project that won't show results for 3 years.",
+    "success_criteria": ["Inspiring delivery", "Values-alignment", "Authenticity"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 26,
+    "title": "The Radical Candor Reset",
+    "carnegie_principle": "Talk about your own mistakes before criticizing the other person.",
+    "modern_context": "Correcting toxic culture by leading with your own growth areas.",
+    "practice_prompt": "Address a team-wide burnout issue by first sharing your own struggles with work-life balance.",
+    "success_criteria": ["Vulnerability", "Credibility", "Path forward"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 27,
+    "title": "Negotiating with Power",
+    "carnegie_principle": "Let the other person save face.",
+    "modern_context": "How to win a strategic argument with your CEO without embarrassing them.",
+    "practice_prompt": "Propose a complete reversal of a CEO's pet project in a private meeting.",
+    "success_criteria": ["Face-saving language", "Respectful directness", "Compelling data"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 28,
+    "title": "Public Authenticity",
+    "carnegie_principle": "Dramatize your ideas.",
+    "modern_context": "Handling Q&A in front of 500+ people. Projecting calm under fire.",
+    "practice_prompt": "Answer three difficult, confrontational audience questions after a keynote.",
+    "success_criteria": ["Calm physiology", "Gracious responses", "Clear authority"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 29,
+    "title": "Building Lasting Influence",
+    "carnegie_principle": "Praise the slightest improvement and praise every improvement.",
+    "modern_context": "Cultivating long-term champions in your organization.",
+    "practice_prompt": "Practice a series of small, authentic 'nudges' that build up a junior colleague over time.",
+    "success_criteria": ["Consistency", "Genuine interest", "Long-term framing"],
+    "tier_required": "orb"
+  },
+  {
+    "lesson_id": 30,
+    "title": "The Authentic Leader's Legacy",
+    "carnegie_principle": "Arouse in the other person an eager want.",
+    "modern_context": "The final capstone. Defining your own leadership philosophy.",
+    "practice_prompt": "Summarize your core leadership values and how you will apply them to your next decade of work.",
+    "success_criteria": ["Clarity of vision", "Alignment with principles", "Emotional resonance"],
+    "tier_required": "orb"
+  }
+]

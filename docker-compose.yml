@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: cf_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER:-andrew}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-convoforge}
+      POSTGRES_DB: convoforge
+    ports:
+      - "5433:5432" # Mapping to 5433 to match your .env preference
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: 
+      context: ./services/api
+    container_name: cf_api
+    restart: always
+    depends_on:
+      - db
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${DB_USER:-andrew}:${DB_PASSWORD:-convoforge}@db:5432/convoforge
+    ports:
+      - "8000:8000"
+
+  web:
+    build:
+      context: ./apps/web
+      args:
+        BACKEND_URL: ${BACKEND_URL:-http://localhost:8000}
+    container_name: cf_web
+    restart: always
+    depends_on:
+      - api
+    env_file: .env
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:

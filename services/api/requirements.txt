@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sqlalchemy[asyncio]
+asyncpg
+alembic
+pgvector
+pydantic
+stripe
+httpx
+python-dotenv
+boto3
