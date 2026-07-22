@@ -9,3 +9,6 @@ stripe
 httpx
 python-dotenv
 boto3
+anthropic
+websockets>=13
+sentry-sdk[fastapi,sqlalchemy]>=2.0

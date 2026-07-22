@@ -2,6 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Blog post typography — Markdown compiled into .prose-post */
+.prose-post {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgb(63, 63, 70); /* zinc-700 */
+}
+.dark .prose-post {
+  color: rgb(212, 212, 216); /* zinc-300 */
+}
+.prose-post p,
+.prose-post ul,
+.prose-post ol,
+.prose-post pre,
+.prose-post blockquote {
+  margin: 1.25em 0;
+}
+.prose-post h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 2em 0 0.6em;
+  color: rgb(24, 24, 27);
+}
+.dark .prose-post h2 { color: rgb(244, 244, 245); }
+.prose-post h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 1.6em 0 0.4em;
+  color: rgb(24, 24, 27);
+}
+.dark .prose-post h3 { color: rgb(244, 244, 245); }
+.prose-post ul,
+.prose-post ol {
+  padding-left: 1.4em;
+}
+.prose-post ul { list-style: disc; }
+.prose-post ol { list-style: decimal; }
+.prose-post li {
+  margin: 0.4em 0;
+}
+.prose-post li > p {
+  margin: 0.4em 0;
+}
+.prose-post strong {
+  color: rgb(24, 24, 27);
+  font-weight: 700;
+}
+.dark .prose-post strong { color: rgb(244, 244, 245); }
+.prose-post em { font-style: italic; }
+.prose-post a {
+  color: rgb(225, 29, 72); /* rose-600 */
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-post a:hover { color: rgb(244, 63, 94); }
+.prose-post blockquote {
+  border-left: 3px solid rgb(228, 228, 231);
+  padding-left: 1.25em;
+  font-style: italic;
+  color: rgb(82, 82, 91);
+}
+.dark .prose-post blockquote {
+  border-left-color: rgb(63, 63, 70);
+  color: rgb(161, 161, 170);
+}
+.prose-post code {
+  background: rgb(244, 244, 245);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+}
+.dark .prose-post code {
+  background: rgb(39, 39, 42);
+}
+.prose-post hr {
+  border: none;
+  border-top: 1px solid rgb(228, 228, 231);
+  margin: 2.4em 0;
+}
+.dark .prose-post hr { border-top-color: rgb(39, 39, 42); }
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

@@ -1,24 +1,52 @@
-from fastapi import APIRouter, HTTPException, Depends
-from pydantic import BaseModel
-from typing import List, Optional
+import json
 import os
-import httpx
-from ..db import get_db
-from sqlalchemy.ext.asyncio import AsyncSession
+from typing import Optional
+
+from anthropic import AsyncAnthropic
+from fastapi import APIRouter, HTTPException
+from pydantic import BaseModel
+
+from utils.transcript import analyze_transcript
 
 router = APIRouter()
 
-# --- Request/Response Models ---
+ANTHROPIC_MODEL = "claude-sonnet-4-20250514"
+
+CARNEGIE_SYSTEM_PROMPT = """You are a Carnegie 2026 communication coach analyzing a practice session.
+Return JSON only, no preamble. Schema:
+{
+  "carnegie": {
+    "other_focus_score": int 0-100,
+    "principle_alignment": [string]
+  },
+  "overall_forge_score": int 0-100,
+  "top_insight": string (one actionable sentence, judgment-free, <30 words),
+  "next_session_focus": string (one of: filler_words, eye_contact, hedging, pace, sincerity, openness)
+}
+Weight: verbal 40%, visual 30%, carnegie 30%."""
+
+SINCERITY_SYSTEM_PROMPT = """Analyse this speech transcript for authentic vs performative communication.
+Return JSON only, no preamble. Schema:
+{
+  "sincerity_score": int 0-100,
+  "other_focus_ratio": float 0-1,
+  "scripted_language_penalty": int,
+  "congruence": int 0-100,
+  "manipulation_flags": [string],
+  "coaching_note": string|null  // populate only when sincerity_score < 60, judgment-free, <20 words
+}"""
+
 
 class MultimodalData(BaseModel):
     user_id: str
     module_id: int
     transcript: str
-    visual_landmarks: dict # MediaPipe JSON
-    tier: str # free | pro
+    visual: dict  # { eye_contact_pct, smile_frequency, posture }
+    duration_seconds: float = 90.0
+    tier: str = "free"
+
 
 class FeedbackResponse(BaseModel):
-    session_id: Optional[str] = None
     verbal: dict
     visual: dict
     carnegie: dict
@@ -26,83 +54,95 @@ class FeedbackResponse(BaseModel):
     top_insight: str
     next_session_focus: str
 
-# --- Sincerity System Prompt (Pro Only) ---
 
-SINCERITY_SYSTEM_PROMPT = """
-Analyse this speech transcript for authentic vs performative communication.
-Score 0-100 on each dimension. Return JSON only. No preamble.
+def _mock_feedback(verbal: dict, visual: dict, tier: str) -> FeedbackResponse:
+    return FeedbackResponse(
+        verbal=verbal,
+        visual=visual,
+        carnegie={
+            "sincerity_score": 80 if tier == "pro" else None,
+            "other_focus_score": 65,
+            "principle_alignment": ["genuine_interest"],
+        },
+        overall_forge_score=75,
+        top_insight="[DEV MOCK] Replace 'I think maybe' with a direct statement.",
+        next_session_focus="hedging",
+    )
 
-Dimensions:
-- other_focus_ratio: % of content centred on the other person vs self
-- scripted_language_penalty: deduct for formulaic phrases ("I really value your input")
-- congruence: does emotional language match the delivery energy in the transcript?
-- manipulation_flags: list any Carnegie principles being weaponised rather than applied
 
-If sincerity_score < 60, include a single coaching note (judgment-free, <20 words).
-"""
+def _extract_json(text: str) -> dict:
+    text = text.strip()
+    if text.startswith("```"):
+        text = text.strip("`")
+        if text.lower().startswith("json"):
+            text = text[4:]
+    start = text.find("{")
+    end = text.rfind("}")
+    if start == -1 or end == -1:
+        raise ValueError(f"No JSON object in response: {text[:200]}")
+    return json.loads(text[start : end + 1])
 
-# --- Analyze Session Endpoint ---
+
+async def _call_claude(client: AsyncAnthropic, system: str, user_payload: dict) -> dict:
+    msg = await client.messages.create(
+        model=ANTHROPIC_MODEL,
+        max_tokens=600,
+        system=system,
+        messages=[{"role": "user", "content": json.dumps(user_payload)}],
+    )
+    text = "".join(block.text for block in msg.content if hasattr(block, "text"))
+    return _extract_json(text)
+
 
 @router.post("/analyze-session", response_model=FeedbackResponse)
-async def analyze_session(data: MultimodalData, db: AsyncSession = Depends(get_db)):
-    # 1. Basic Heuristics (Filler/WPM Calculation)
-    fillers = ["um", "ah", "uh", "like", "so"]
-    filler_count = sum(data.transcript.lower().count(f) for f in fillers)
-    words = data.transcript.split()
-    wpm = len(words) # Assumed 60s practice duration for now
+async def analyze_session(data: MultimodalData):
+    verbal = analyze_transcript(data.transcript, data.duration_seconds)
 
-    # 2. Call Anthropic Claude for Carnegie Analysis
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
-        # Fallback for dev if no API key
-        return create_mock_feedback(data)
+    api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
+    if not api_key or api_key.endswith("..."):
+        return _mock_feedback(verbal, data.visual, data.tier)
 
-    async with httpx.AsyncClient() as client:
-        # Construct analysis prompt
-        prompt = f"""
-        User Tier: {data.tier}
-        Transcript: {data.transcript}
-        Success Criteria: (Refer to module {data.module_id})
-        
-        Analyze this session based on Carnegie 2026 principles. 
-        Return a JSON with keys: verbal_score, carnegie_score, top_insight, next_focus.
-        """
-        
-        # Note: In production, use the actual Anthropic SDK and system prompt
-        # This is a conceptual flow for the Task C output
-        
-    # 3. Create Final Schema
-    feedback = {
-        "verbal": {
-            "filler_rate": filler_count,
-            "wpm": wpm,
-            "hedging_count": 0, # To be added via NLP
-            "conciseness_score": 85
-        },
-        "visual": {
-            "eye_contact_pct": 72, # Extracted from MediaPipe JSON
-            "smile_frequency": 0.5,
-            "posture": "open"
-        },
-        "carnegie": {
-            "sincerity_score": 80 if data.tier == "pro" else None,
-            "other_focus_score": 65,
-            "principle_alignment": ["genuine_interest"]
-        },
-        "overall_forge_score": 75,
-        "top_insight": "You used 'um' 3 times. Try to pause instead of filling the silence.",
-        "next_session_focus": "filler_words"
-    }
+    client = AsyncAnthropic(api_key=api_key)
 
-    return feedback
+    try:
+        carnegie_payload = {
+            "module_id": data.module_id,
+            "transcript": data.transcript,
+            "verbal_metrics": verbal,
+            "visual_metrics": data.visual,
+        }
+        carnegie_result = await _call_claude(client, CARNEGIE_SYSTEM_PROMPT, carnegie_payload)
+    except Exception as exc:
+        # Don't 502 the whole session over an LLM blip — fall back to mock so the
+        # user still gets a forge score and the front-end flow completes.
+        print(f"[analyze] Carnegie call failed, using mock: {exc}")
+        return _mock_feedback(verbal, data.visual, data.tier)
 
-def create_mock_feedback(data: MultimodalData):
-    """Fallback for dev without API keys."""
-    return {
-        "verbal": {"filler_rate": 2, "wpm": 140, "hedging_count": 1, "conciseness_score": 80},
-        "visual": {"eye_contact_pct": 75, "smile_frequency": 0.6, "posture": "open"},
-        "carnegie": {"sincerity_score": 85 if data.tier == "pro" else 0, "other_focus_score": 70, "principle_alignment": ["smile"]},
-        "overall_forge_score": 78,
-        "top_insight": "[DEV MOCK] Focus on holding eye contact during the transition.",
-        "next_session_focus": "eye_contact"
-    }
+    carnegie_block = carnegie_result.get("carnegie", {})
+
+    if data.tier == "pro":
+        try:
+            sincerity = await _call_claude(
+                client,
+                SINCERITY_SYSTEM_PROMPT,
+                {"transcript": data.transcript},
+            )
+            carnegie_block.update(
+                {
+                    "sincerity_score": sincerity.get("sincerity_score"),
+                    "other_focus_ratio": sincerity.get("other_focus_ratio"),
+                    "manipulation_flags": sincerity.get("manipulation_flags", []),
+                    "coaching_note": sincerity.get("coaching_note"),
+                }
+            )
+        except Exception:
+            carnegie_block["sincerity_score"] = None
+
+    return FeedbackResponse(
+        verbal=verbal,
+        visual=data.visual,
+        carnegie=carnegie_block,
+        overall_forge_score=int(carnegie_result.get("overall_forge_score", 70)),
+        top_insight=carnegie_result.get("top_insight", "Keep practicing daily."),
+        next_session_focus=carnegie_result.get("next_session_focus", "filler_words"),
+    )

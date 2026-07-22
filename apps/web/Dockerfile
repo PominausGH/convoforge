@@ -11,9 +11,19 @@ RUN npm install
 COPY . .
 
 # Build the application
-# We use build-time env vars for the backend URL
+# Build-time env vars
 ARG BACKEND_URL
+ARG NEXT_PUBLIC_API_WS_URL
+ARG NEXT_PUBLIC_SITE_URL
+ARG NEXT_PUBLIC_UMAMI_SRC
+ARG NEXT_PUBLIC_UMAMI_ID
+ARG NEXT_PUBLIC_SENTRY_DSN
 ENV NEXT_PUBLIC_BACKEND_URL=$BACKEND_URL
+ENV NEXT_PUBLIC_API_WS_URL=$NEXT_PUBLIC_API_WS_URL
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_UMAMI_SRC=$NEXT_PUBLIC_UMAMI_SRC
+ENV NEXT_PUBLIC_UMAMI_ID=$NEXT_PUBLIC_UMAMI_ID
+ENV NEXT_PUBLIC_SENTRY_DSN=$NEXT_PUBLIC_SENTRY_DSN
 
 RUN npm run build
 
@@ -24,6 +34,7 @@ WORKDIR /app
 
 # Copy built assets
 COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules

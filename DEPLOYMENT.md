@@ -83,6 +83,8 @@ volumes:
 - [ ] **Nginx Proxy Manager**: Set up two hosts:
     - `convoforge.yourdomain.com` -> `http://localhost:3000`
     - `api.convoforge.yourdomain.com` -> `http://localhost:8000`
+    - On the API host, enable **Websockets Support** (the Deepgram audio relay at
+      `/api/deepgram/stream` is a WebSocket).
 - [ ] **SSL**: Enable Let's Encrypt (Force SSL) in Nginx Proxy Manager.
 - [ ] **Firewall**: Ensure ports 80 and 443 are open, but 5432, 8000, and 3000 are blocked from outside access.
 

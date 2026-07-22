@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, String, Integer, DateTime
+from sqlalchemy import Column, String, Integer, DateTime, Text, Boolean
 from sqlalchemy.orm import DeclarativeBase
 
 class Base(DeclarativeBase):
@@ -14,3 +14,6 @@ class User(Base):
     last_session_at = Column(DateTime)
     created_at = Column(DateTime, default=datetime.utcnow)
     persona_id = Column(String, default='global_pro')
+    email = Column(Text, nullable=True)
+    newsletter_opt_in = Column(Boolean, default=False, nullable=False)
+    email_captured_at = Column(DateTime, nullable=True)

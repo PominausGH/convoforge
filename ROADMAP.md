@@ -13,12 +13,13 @@
 - [x] Client-side Vision Analysis (MediaPipe WASM)
 - [x] Avatar System Prompt & Persona Development
 - [ ] Real-time Low-latency TTS Integration (VoxCPM2/Vapi)
+- [x] End-to-end Forge Session: Deepgram STT → MediaPipe → Anthropic /analyze → persist
 
 ### Sprint 3: Monetization & Curriculum (Weeks 5-6)
 - [x] Stripe Checkout with PPP support
 - [x] Full Carnegie 2026 Curriculum (30 Sessions)
-- [ ] User Progress Tracking & Streak System
-- [ ] Shareable Post-session Cards
+- [x] User Progress Tracking & Streak System
+- [x] Shareable Post-session Cards
 
 ### Sprint 4: Polish & Performance (Weeks 7-8)
 - [ ] Cloudflare R2 Ephemeral Recording Lifecycle

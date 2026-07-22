@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from sqlalchemy import Column, String, Numeric, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
-from .user import Base
+from models.user import Base
 
 class Payment(Base):
     __tablename__ = 'cf_payments'

@@ -1,0 +1,24 @@
+# ConvoForge
+
+> Daily AI communication coaching. Five-minute, Carnegie-grounded "Forge Session" lessons with real-time verbal and visual feedback.
+
+- Site: https://convoforge.app/
+- Pricing: Free (3 sessions/week) + Pro $9/month (unlimited)
+
+## What it is
+
+ConvoForge builds a daily communication-coaching habit through short (five-minute) AI-coached practice sessions ("Forge Sessions"), grounded in Carnegie-style principles, with real-time verbal and visual scoring during practice.
+
+## Pricing (USD)
+
+- **Free** — $0 forever. Three sessions per week, 10 lessons (Carnegie + Remote), verbal + visual scoring, Forge Score with one insight per session, on-device privacy.
+- **Pro** — $9/month, regional pricing via Stripe. Unlimited sessions, all 45 lessons (including Psychology & High-Stakes scenarios), a Claude-scored sincerity detector, Carnegie alignment and manipulation flags, priority access to new lessons. Early-adopter pricing of $9/month is locked in for life for anyone who upgrades now.
+- Cancel anytime. Seven-day refund, no questions asked.
+
+## Frequently asked questions
+
+### Do I need to pay to start?
+No — the free tier gives three sessions per week with no time limit on how long you stay on it.
+
+### What makes ConvoForge different from generic AI chat practice?
+Sessions are grounded in Carnegie-style communication principles, with real-time verbal and visual feedback during the conversation itself, plus a sincerity detector on the Pro tier that flags manipulation vs. genuine communication.

@@ -1,6 +1,6 @@
 import os
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
-from .models.user import Base
+from models.user import Base
 
 # Using placeholder DATABASE_URL, in practice would be pulled from .env
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://andrew:convoforge@localhost:5433/postgres-main")
