@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import { captureEmail } from '@/lib/api';
 import { initiateProPayment } from '@/lib/stripe';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://convoforge.app';
+const SHARE_URL = `${SITE_URL}/?utm_source=share&utm_medium=social&utm_campaign=score_share`;
+
 interface ScoreCardProps {
     score: number;
     streak?: number | null;
@@ -68,11 +71,11 @@ export default function ScoreCard({
         };
         try {
             if (typeof nav.share === 'function') {
-                await nav.share({ title: 'ConvoForge', text: shareText });
+                await nav.share({ title: 'ConvoForge', text: shareText, url: SHARE_URL });
                 setShareState('shared');
                 return;
             }
-            await nav.clipboard.writeText(shareText);
+            await nav.clipboard.writeText(`${shareText} ${SHARE_URL}`);
             setShareState('copied');
         } catch (err) {
             const aborted = err instanceof DOMException && err.name === 'AbortError';

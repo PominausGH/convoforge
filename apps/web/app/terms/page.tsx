@@ -51,8 +51,8 @@ export default function TermsPage() {
                 <h2 className="text-xl font-bold mt-8 mb-3">Free and Pro tiers</h2>
                 <p>
                     The free tier allows three sessions per rolling 7-day window
-                    and access to the first five lessons. Pro unlocks unlimited
-                    sessions and all 45 lessons. Pro is billed through Stripe at
+                    and access to 13 free lessons. Pro unlocks unlimited
+                    sessions and all 161 lessons. Pro is billed through Stripe at
                     localized prices. Subscriptions auto-renew until cancelled.
                 </p>
 

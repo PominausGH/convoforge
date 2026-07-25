@@ -4,9 +4,9 @@ import { curriculum } from '@/lib/curriculum'
 import UpgradeButton from '@/components/UpgradeButton'
 
 export const metadata: Metadata = {
-    title: 'Full Curriculum — 158 Communication Lessons | ConvoForge',
+    title: 'Full Curriculum — 161 Communication Lessons | ConvoForge',
     description:
-        'Browse all 158 ConvoForge lessons across Carnegie, Chris Voss, Cialdini, NVC, Crucial Conversations, and more. 10 free lessons. 148 Pro lessons with AI coaching.',
+        'Browse all 161 ConvoForge lessons across Carnegie, Chris Voss, Cialdini, NVC, Crucial Conversations, and more. 13 free lessons. 148 Pro lessons with AI coaching.',
     alternates: { canonical: '/curriculum' },
 }
 
@@ -118,7 +118,7 @@ export default function CurriculumPage() {
                         Full curriculum
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-6">
-                        158 lessons.<br />14 frameworks.<br />One daily habit.
+                        161 lessons.<br />14 frameworks.<br />One daily habit.
                     </h1>
                     <p className="text-zinc-300 text-lg max-w-2xl leading-relaxed mb-8">
                         Carnegie, Voss, Cialdini, NVC, Crucial Conversations, Kahneman, Cuddy — every major framework in communication and persuasion, broken into five-minute practice sessions with live AI feedback.
@@ -213,7 +213,7 @@ export default function CurriculumPage() {
             <section className="bg-gradient-to-br from-black via-zinc-900 to-zinc-950 text-white">
                 <div className="max-w-3xl mx-auto px-6 py-16 text-center">
                     <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4">
-                        Ready to work through all 158?
+                        Ready to work through all 161?
                     </h2>
                     <p className="text-zinc-300 mb-8">
                         Five minutes a day. One lesson at a time. Your Forge Score tracks the progress.
@@ -223,7 +223,7 @@ export default function CurriculumPage() {
                             href="/forge"
                             className="bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
                         >
-                            Start free — 10 lessons, no signup
+                            Start free — 13 lessons, no signup
                         </Link>
                         <UpgradeButton className="bg-violet-600 hover:bg-violet-500 text-white font-bold px-6 py-3 rounded-full transition-colors">
                             Unlock Pro — $9/month

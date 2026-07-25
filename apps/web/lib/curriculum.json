@@ -2174,5 +2174,47 @@
       "No apologetic language"
     ],
     "tier_required": "pro"
+  },
+  {
+    "lesson_id": 159,
+    "title": "Names Under Pressure",
+    "carnegie_principle": "It's genuine interest, not a flawless memory, that makes a name land — asking again shows more respect than faking it.",
+    "modern_context": "Live introductions — a meeting, a work event, a first call — where your brain blanks the instant someone says their name, and the panic of not wanting to ask again makes it worse.",
+    "practice_prompt": "You've just been introduced to two new colleagues, Priya and Marcus, on a live call. Greet them, using each name out loud within your first sentence to them. If you already lost track of one, ask 'Sorry, could you say your name again?' instead of avoiding it.",
+    "success_criteria": [
+      "Says each name out loud at least once",
+      "If forgotten, asks directly rather than avoiding or guessing",
+      "Tone stays warm, not flustered"
+    ],
+    "tier_required": "free",
+    "sort_order": 1.5
+  },
+  {
+    "lesson_id": 161,
+    "title": "Reframing the Fear",
+    "carnegie_principle": "‘I’m excited’ and ‘I’m nervous’ are physiologically identical — the only difference is the story you tell yourself. Choose the story that helps you.",
+    "modern_context": "That racing-heart, tight-chest feeling right before you join a group conversation you're dreading — a meeting, a call, a work social — and the instinct to read it as dread instead of energy.",
+    "practice_prompt": "Before your next team stand-up or group call, record a 20-second voice note: name the physical feeling you notice (racing heart, tight chest, whatever it is), say the words 'I'm excited' out loud, and name one specific thing you're looking forward to saying.",
+    "success_criteria": [
+      "Names the physical sensation specifically",
+      "Says 'I'm excited' explicitly, not just 'I'm okay'",
+      "Names one concrete thing looked forward to"
+    ],
+    "tier_required": "free",
+    "sort_order": 2.5
+  },
+  {
+    "lesson_id": 160,
+    "title": "Finding Your Voice in the Room",
+    "carnegie_principle": "Action seems to follow feeling, but really action and feeling go together: by regulating the action, which is under the more direct control of the will, we can indirectly regulate the feeling, which is not.",
+    "modern_context": "Sitting silent in a meeting because you're waiting to feel confident first — when speaking, even briefly, is what actually produces the confidence, not the other way around.",
+    "practice_prompt": "You're in a 6-person team meeting with one relevant point to add. Practice unmuting and saying it as a single, clear sentence within the first 10 seconds — no 'sorry, this might be a dumb question' preamble.",
+    "success_criteria": [
+      "Speaks within the first 10 seconds",
+      "One clear sentence, no apologetic preamble",
+      "Stops after the point lands instead of over-explaining"
+    ],
+    "tier_required": "free",
+    "sort_order": 5.5
   }
 ]

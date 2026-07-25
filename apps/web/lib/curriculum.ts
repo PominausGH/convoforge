@@ -9,6 +9,10 @@ export type Lesson = {
     success_criteria: string[];
     tier_required: 'free' | 'pro';
     track?: string;
+    /** Overrides lesson_id for sequencing, so a lesson can be slotted earlier
+     * in a user's queue without renumbering existing lessons (lesson_id is
+     * persisted as cf_sessions.module_id, so it must never be reassigned). */
+    sort_order?: number;
 };
 
 export const curriculum = sessions as Lesson[];
@@ -35,9 +39,10 @@ export function nextLessonFor(
     tier: 'free' | 'pro',
 ): Lesson {
     const done = new Set(completedIds);
-    const eligible = curriculum.filter(
-        (l) => tier === 'pro' || l.tier_required === 'free',
-    );
+    const eligible = curriculum
+        .filter((l) => tier === 'pro' || l.tier_required === 'free')
+        .slice()
+        .sort((a, b) => (a.sort_order ?? a.lesson_id) - (b.sort_order ?? b.lesson_id));
     const next = eligible.find((l) => !done.has(l.lesson_id));
     return next ?? eligible[eligible.length - 1] ?? curriculum[0];
 }

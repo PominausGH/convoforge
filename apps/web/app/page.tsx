@@ -69,7 +69,7 @@ const jsonLdCourse = {
     '@type': 'Course',
     name: 'ConvoForge — Carnegie + Modern Communication Curriculum',
     description:
-        '158 daily micro-lessons translating Carnegie principles, Nonviolent Communication, Radical Candor, and tactical empathy into modern remote-work scenarios with live AI coaching.',
+        '161 daily micro-lessons translating Carnegie principles, Nonviolent Communication, Radical Candor, and tactical empathy into modern remote-work scenarios with live AI coaching.',
     provider: {
         '@type': 'Organization',
         name: 'ConvoForge',
@@ -298,14 +298,14 @@ export default async function Landing() {
                         The curriculum
                     </div>
                     <h2 id="curriculum-heading" className="text-3xl md:text-4xl font-black tracking-tight">
-                        158 lessons. 3 tracks. Built to last.
+                        161 lessons. 3 tracks. Built to last.
                     </h2>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-5">
                     <Track
                         title="Carnegie Foundations"
-                        count="10 lessons"
+                        count="13 lessons"
                         tier="Free + Pro"
                         samples={[
                             'Remember names',
@@ -343,7 +343,7 @@ export default async function Landing() {
                         href="/curriculum"
                         className="inline-block text-sm font-semibold text-zinc-600 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-700 rounded-full px-5 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
                     >
-                        Browse all 158 lessons across 14 frameworks →
+                        Browse all 161 lessons across 14 frameworks →
                     </Link>
                 </div>
             </section>
@@ -382,7 +382,7 @@ export default async function Landing() {
                                 />
                                 <CompareRow
                                     feature="Curriculum"
-                                    cf="45 lessons across 3 tracks"
+                                    cf="161 lessons across 3 tracks"
                                     yoodli="Open-ended"
                                     poised="None — reactive only"
                                 />
@@ -468,7 +468,7 @@ export default async function Landing() {
                             pitch="Build the daily habit. Five-minute sessions, three per week."
                             features={[
                                 '3 sessions per week',
-                                '10 lessons — Carnegie + Remote',
+                                '13 lessons — Carnegie + Remote',
                                 'Verbal + visual scoring',
                                 'Forge Score + one insight',
                                 'On-device privacy',
@@ -483,7 +483,7 @@ export default async function Landing() {
                             pitch="The full curriculum. Unlimited practice. Sincerity scoring."
                             features={[
                                 'Unlimited sessions',
-                                'All 45 lessons including Psychology & High-Stakes',
+                                'All 161 lessons including Psychology & High-Stakes',
                                 'Sincerity detector (Claude-scored)',
                                 'Carnegie alignment + manipulation flags',
                                 'Priority on new lessons',

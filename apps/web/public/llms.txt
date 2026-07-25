@@ -11,8 +11,8 @@ ConvoForge builds a daily communication-coaching habit through short (five-minut
 
 ## Pricing (USD)
 
-- **Free** — $0 forever. Three sessions per week, 10 lessons (Carnegie + Remote), verbal + visual scoring, Forge Score with one insight per session, on-device privacy.
-- **Pro** — $9/month, regional pricing via Stripe. Unlimited sessions, all 45 lessons (including Psychology & High-Stakes scenarios), a Claude-scored sincerity detector, Carnegie alignment and manipulation flags, priority access to new lessons. Early-adopter pricing of $9/month is locked in for life for anyone who upgrades now.
+- **Free** — $0 forever. Three sessions per week, 13 lessons (Carnegie + Remote), verbal + visual scoring, Forge Score with one insight per session, on-device privacy.
+- **Pro** — $9/month, regional pricing via Stripe. Unlimited sessions, all 161 lessons (including Psychology & High-Stakes scenarios), a Claude-scored sincerity detector, Carnegie alignment and manipulation flags, priority access to new lessons. Early-adopter pricing of $9/month is locked in for life for anyone who upgrades now.
 - Cancel anytime. Seven-day refund, no questions asked.
 
 ## Frequently asked questions

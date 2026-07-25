@@ -71,6 +71,25 @@ export default function PrivacyPage() {
                 resulting score and insight against your anonymous UUID.
             </p>
 
+            <h2 className="text-xl font-bold mt-8 mb-3">Avatar voice (text-to-speech)</h2>
+            <p>
+                When a pre-recorded lesson clip isn&apos;t available, the lesson
+                script (Carnegie principle, context, and practice prompt — not
+                your transcript or any personal data) is sent to OpenAI&apos;s
+                text-to-speech API so the avatar can read it aloud. OpenAI
+                processes this text solely to generate the audio and does not
+                receive your transcript, recordings, or anonymous UUID. See{' '}
+                <a
+                    href="https://openai.com/policies/privacy-policy"
+                    className="underline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    OpenAI&apos;s privacy policy
+                </a>
+                .
+            </p>
+
             <h2 className="text-xl font-bold mt-8 mb-3">Payments</h2>
             <p>
                 Pro upgrades are processed by Stripe Checkout. Stripe handles all
