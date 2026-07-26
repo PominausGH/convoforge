@@ -59,7 +59,7 @@ export default function TermsPage() {
                 <h2 className="text-xl font-bold mt-8 mb-3">Refunds</h2>
                 <p>
                     Full refund within 7 days of purchase, no questions asked.
-                    Request via the contact channel below.
+                    Request via the contact address below.
                 </p>
 
                 <h2 className="text-xl font-bold mt-8 mb-3">Acceptable use</h2>
@@ -96,7 +96,11 @@ export default function TermsPage() {
 
                 <h2 className="text-xl font-bold mt-8 mb-3">Contact</h2>
                 <p>
-                    Reach out via the signalreads.com contact channel.
+                    Reach out at{' '}
+                    <a href="mailto:support@convoforge.app" className="underline">
+                        support@convoforge.app
+                    </a>
+                    .
                 </p>
             </section>
 

@@ -132,8 +132,11 @@ export default function PrivacyPage() {
 
             <h2 className="text-xl font-bold mt-8 mb-3">Contact</h2>
             <p>
-                Questions or requests: reach out via the signalreads.com contact
-                channel. Changes to this policy will be announced on this page with
+                Questions or requests: reach out at{' '}
+                <a href="mailto:support@convoforge.app" className="underline">
+                    support@convoforge.app
+                </a>
+                . Changes to this policy will be announced on this page with
                 an updated effective date.
             </p>
 

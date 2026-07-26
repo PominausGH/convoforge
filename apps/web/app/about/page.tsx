@@ -30,7 +30,7 @@ export default function AboutPage() {
         '@type': 'Course',
         name: 'ConvoForge — Carnegie Communication Curriculum',
         description:
-            '45 daily micro-lessons that translate Dale Carnegie principles into modern digital communication practice, with AI coaching on voice and body language.',
+            '161 daily micro-lessons that translate Dale Carnegie principles into modern digital communication practice, with AI coaching on voice and body language.',
         provider: {
             '@type': 'Organization',
             name: 'ConvoForge',
@@ -81,7 +81,7 @@ export default function AboutPage() {
             </p>
 
             <section className="grid md:grid-cols-3 gap-4 mb-12">
-                <Stat label="Lessons" value="45" />
+                <Stat label="Lessons" value="161" />
                 <Stat label="Free tier" value="3 / week" />
                 <Stat label="Per session" value="≤ 5 min" />
             </section>

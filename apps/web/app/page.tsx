@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const FAQS: Array<[string, string]> = [
     [
         'Do you save my voice or camera feed?',
-        'No. Video runs on-device via MediaPipe WebAssembly — frames never leave your browser. Audio is transcribed in real time and not retained. Only the resulting scores and transcript are stored, keyed to an anonymous ID.',
+        'No. Video runs on-device via MediaPipe WebAssembly — frames never leave your browser. The raw audio is transcribed in real time and then discarded — it is never stored. Only the resulting scores and the text transcript are kept, keyed to an anonymous ID.',
     ],
     [
         'What if I miss a day?',
@@ -613,9 +613,9 @@ export default async function Landing() {
                     <div className="space-y-4">
                         <FAQ q="Do you save my voice or camera feed?">
                             No. Video runs on-device via MediaPipe WebAssembly — frames never
-                            leave your browser. Audio is transcribed in real time and not
-                            retained. Only the resulting scores and transcript are stored,
-                            keyed to an anonymous ID.
+                            leave your browser. The raw audio is transcribed in real time and
+                            then discarded — it is never stored. Only the resulting scores and
+                            the text transcript are kept, keyed to an anonymous ID.
                         </FAQ>
                         <FAQ q="What if I miss a day?">
                             Your streak resets, but all your past sessions and scores stay.
