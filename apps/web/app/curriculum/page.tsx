@@ -4,9 +4,9 @@ import { curriculum } from '@/lib/curriculum'
 import UpgradeButton from '@/components/UpgradeButton'
 
 export const metadata: Metadata = {
-    title: 'Full Curriculum — 161 Communication Lessons | ConvoForge',
+    title: 'Full Curriculum — 173 Communication Lessons | ConvoForge',
     description:
-        'Browse all 161 ConvoForge lessons across Carnegie, Chris Voss, Cialdini, NVC, Crucial Conversations, and more. 13 free lessons. 148 Pro lessons with AI coaching.',
+        'Browse all 173 ConvoForge lessons across Carnegie, Chris Voss, Cialdini, NVC, Crucial Conversations, and more. 16 free lessons. 157 Pro lessons with AI coaching.',
     alternates: { canonical: '/curriculum' },
 }
 
@@ -81,12 +81,17 @@ const TRACK_META: Record<string, { label: string; author: string; description: s
         author: 'Applied practice',
         description: "Cold outreach, delivering bad news, networking, client escalations, returning to work — the situations that don't fit neatly into a framework.",
     },
+    small_talk: {
+        label: 'Small Talk & Making Friends',
+        author: 'Debra Fine',
+        description: 'Practical small-talk mechanics — opening, joining a group, staying in it, following up afterward — built for people who find groups draining rather than energizing.',
+    },
 }
 
 const TRACK_ORDER = [
     'carnegie', 'voss', 'cialdini', 'nvc', 'storytelling', 'rhetoric',
     'fisher_ury', 'crucial_conversations', 'duarte', 'lencioni',
-    'kahneman', 'cuddy', 'peterson', 'real_world',
+    'kahneman', 'cuddy', 'peterson', 'real_world', 'small_talk',
 ]
 
 export default function CurriculumPage() {
@@ -118,7 +123,7 @@ export default function CurriculumPage() {
                         Full curriculum
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-6">
-                        161 lessons.<br />14 frameworks.<br />One daily habit.
+                        173 lessons.<br />15 frameworks.<br />One daily habit.
                     </h1>
                     <p className="text-zinc-300 text-lg max-w-2xl leading-relaxed mb-8">
                         Carnegie, Voss, Cialdini, NVC, Crucial Conversations, Kahneman, Cuddy — every major framework in communication and persuasion, broken into five-minute practice sessions with live AI feedback.
@@ -131,11 +136,11 @@ export default function CurriculumPage() {
                             {proCount} Pro lessons
                         </span>
                         <span className="bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm font-semibold">
-                            14 frameworks
+                            15 frameworks
                         </span>
                     </div>
                     <UpgradeButton className="inline-block bg-violet-600 hover:bg-violet-500 text-white font-bold px-6 py-3 rounded-full transition-colors">
-                        Unlock all 148 Pro lessons — $9/month
+                        Unlock all 157 Pro lessons — $9/month
                     </UpgradeButton>
                 </div>
             </section>
@@ -213,7 +218,7 @@ export default function CurriculumPage() {
             <section className="bg-gradient-to-br from-black via-zinc-900 to-zinc-950 text-white">
                 <div className="max-w-3xl mx-auto px-6 py-16 text-center">
                     <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4">
-                        Ready to work through all 161?
+                        Ready to work through all 173?
                     </h2>
                     <p className="text-zinc-300 mb-8">
                         Five minutes a day. One lesson at a time. Your Forge Score tracks the progress.
@@ -223,7 +228,7 @@ export default function CurriculumPage() {
                             href="/forge"
                             className="bg-white text-black font-bold px-6 py-3 rounded-full hover:bg-zinc-200 transition-colors"
                         >
-                            Start free — 13 lessons, no signup
+                            Start free — 16 lessons, no signup
                         </Link>
                         <UpgradeButton className="bg-violet-600 hover:bg-violet-500 text-white font-bold px-6 py-3 rounded-full transition-colors">
                             Unlock Pro — $9/month

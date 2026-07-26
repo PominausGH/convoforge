@@ -207,7 +207,7 @@ export default function AppDashboard() {
                       onClick={handleUpgrade}
                       className="mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline w-full text-center"
                     >
-                      See all 148 Pro lessons →
+                      See all 157 Pro lessons →
                     </button>
                   </div>
                 </>

@@ -106,7 +106,7 @@ export default function ScoreCard({
                 {tier === 'free' && (
                     <div className="bg-gradient-to-br from-violet-500/10 to-blue-500/10 border border-violet-500/20 p-4 rounded-2xl mb-4">
                         <div className="text-violet-400 text-xs font-bold uppercase mb-1">Unlock Pro</div>
-                        <p className="text-zinc-300 text-sm mb-3">Sincerity scoring, Carnegie alignment flags, and 148 Pro lessons — unlimited sessions.</p>
+                        <p className="text-zinc-300 text-sm mb-3">Sincerity scoring, Carnegie alignment flags, and 157 Pro lessons — unlimited sessions.</p>
                         <button
                             onClick={handleUpgrade}
                             disabled={upgradeLoading}

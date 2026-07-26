@@ -2216,5 +2216,173 @@
     ],
     "tier_required": "free",
     "sort_order": 5.5
+  },
+  {
+    "lesson_id": 162,
+    "title": "The Opener That Isn't a Line",
+    "track": "small_talk",
+    "carnegie_principle": "You don't need a clever line — you need a genuine observation about the shared moment. The easiest opener is always about what's already in the room.",
+    "modern_context": "Standing at the edge of a work social or a friend's group hangout, mind blank, convinced everyone else has a better opening line than you do.",
+    "practice_prompt": "Record a 15-second opener you could say to a stranger standing near you at an event — not a joke, not a compliment, just one honest observation about the shared moment ('This line for coffee is not moving' or 'I don't know a single person here either').",
+    "success_criteria": [
+      "Opener references something both people can see or feel right now",
+      "No rehearsed joke or forced compliment",
+      "Ends in a way that invites a reply, not a dead end"
+    ],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 163,
+    "title": "The One Follow-Up Question",
+    "track": "small_talk",
+    "carnegie_principle": "Small talk turns into a conversation the moment you ask one real follow-up question instead of waiting for your turn to talk.",
+    "modern_context": "Someone answers your question with one flat sentence, the silence lands, and it feels like the conversation just died — when really it just needs one more question to open back up.",
+    "practice_prompt": "Someone just told you where they work in one sentence. Record yourself asking a single specific follow-up question about it — not 'cool, nice' — something that shows you were actually listening to the specific words they used.",
+    "success_criteria": [
+      "Follow-up references a specific detail from their answer, not a generic prompt",
+      "Phrased as a real question, not a statement",
+      "No filler ('cool', 'nice', 'that's interesting') standing in for a question"
+    ],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 164,
+    "title": "Permission to Leave",
+    "track": "small_talk",
+    "carnegie_principle": "Ending a conversation well is as much a skill as starting one — a warm, direct exit is a kindness to both people, not a rudeness.",
+    "modern_context": "Staying stuck in a conversation five minutes past the point you had anything left to say, because you can't find a way out that doesn't feel abrupt or rude.",
+    "practice_prompt": "Record a 10-second exit line you could use to leave a conversation you've been in for a while — name one specific thing you enjoyed about it, then state plainly that you're going to go refill your drink or say hi to someone else.",
+    "success_criteria": [
+      "Names one specific thing from the conversation before leaving",
+      "States the exit plainly instead of trailing off or inventing an excuse",
+      "Under 10 seconds — no over-explaining why you're leaving"
+    ],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 165,
+    "title": "Joining a Group Already Talking",
+    "track": "small_talk",
+    "carnegie_principle": "You join a group with your ears first — listen long enough to know what they're actually talking about, then add to it instead of interrupting it.",
+    "modern_context": "Walking up to three or four people mid-conversation and freezing, unsure whether to jump in, stand nearby, or just walk away and pretend you were headed somewhere else.",
+    "practice_prompt": "Record yourself narrating how you'd join a group of three colleagues already deep in conversation: stand at an open angle, listen for one full exchange, then add one short comment that responds to what was just said — not a new topic.",
+    "success_criteria": [
+      "Waits for a natural pause instead of interrupting",
+      "First contribution responds to the existing topic, not a topic change",
+      "Physically described as standing in the open part of the circle, not behind someone"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 166,
+    "title": "The Comfortable Silence",
+    "track": "small_talk",
+    "carnegie_principle": "A pause is not a failure to perform — it's a normal part of real conversation. Only performers need to fill every second.",
+    "modern_context": "A gap of silence opens up in a conversation and the urge to blurt out anything at all to fill it, even something you'll regret, because silence feels like evidence you're boring.",
+    "practice_prompt": "Sit through 5 seconds of recorded silence on purpose, then continue the conversation with a slower, calmer follow-up question instead of a rushed one — notice how it feels different from filling the gap instantly.",
+    "success_criteria": [
+      "Lets the pause sit for several seconds without rushing to fill it",
+      "The question that follows is calmer/slower than the panic-fill instinct",
+      "No apology for the pause ('sorry, awkward')"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 167,
+    "title": "One Good Question Beats Ten Facts",
+    "track": "small_talk",
+    "carnegie_principle": "People remember how curious you were about them, not how much you said about yourself. Listening well is the introvert's home-court advantage.",
+    "modern_context": "Preparing a list of interesting facts about yourself before a social event, when the people who actually make others feel good in conversation ask more than they tell.",
+    "practice_prompt": "Record a 30-second conversation turn where you ask one specific, curious follow-up question about the other (imagined) person's last answer, and say nothing about yourself at all in this turn.",
+    "success_criteria": [
+      "Zero self-referential statements in this turn",
+      "Question is specific to what they said, not a generic icebreaker",
+      "Tone is curious, not interrogating"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 168,
+    "title": "The Energy Budget",
+    "track": "small_talk",
+    "carnegie_principle": "Managing your social energy deliberately is a strategy, not a limitation — knowing when you're at your best lets you show up well instead of running on empty.",
+    "modern_context": "Pushing through a whole event past the point your energy is gone, ending up quiet and withdrawn right when you wanted to make a good impression, instead of pacing yourself from the start.",
+    "practice_prompt": "Before your next group event, record a 20-second plan out loud: when in the event you expect your energy to be highest, and one specific short break you'll take partway through (step outside, refill a drink alone) to recharge before it's needed.",
+    "success_criteria": [
+      "Names a specific point in the event for a short recharge break",
+      "Break is planned in advance, not a last-minute escape",
+      "Framed as strategy, not as something to feel guilty about"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 169,
+    "title": "From Small Talk to Real Talk",
+    "track": "small_talk",
+    "carnegie_principle": "Small talk is the on-ramp, not the destination — the bridge to a real topic is usually just one honest, slightly more specific question.",
+    "modern_context": "Staying stuck circling surface topics (weather, weekend plans) for the whole conversation because it feels safer than risking a question that goes somewhere real.",
+    "practice_prompt": "Record yourself taking a surface-level answer ('work's been busy') and asking one bridge question that goes one level deeper ('busy in a way that's satisfying, or busy in a way that's draining?') without turning it into an interview.",
+    "success_criteria": [
+      "Bridge question goes one concrete level deeper than the surface answer",
+      "Still phrased casually, not like a therapy question",
+      "Leaves room for the other person to stay light if they want to"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 170,
+    "title": "The Follow-Up Text",
+    "track": "small_talk",
+    "carnegie_principle": "A good conversation becomes a connection only if someone follows up afterward — sending that message is the whole difference between a nice chat and the start of a friendship.",
+    "modern_context": "Having a genuinely good conversation with someone new, then never reaching out afterward because it feels forward, awkward, or like too much effort — and the connection quietly evaporates.",
+    "practice_prompt": "Record a short follow-up message you'd send someone within a day of meeting them — reference one specific thing from your conversation, and end with a low-pressure, concrete next step (not 'we should hang out sometime').",
+    "success_criteria": [
+      "References a specific detail from the actual conversation",
+      "Proposes something concrete, not a vague 'let's hang out sometime'",
+      "Sent same-day or next-day framing, not 'eventually'"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 171,
+    "title": "Remembering the Thread",
+    "track": "small_talk",
+    "carnegie_principle": "Referencing something from an earlier conversation tells someone you were genuinely listening — it's one of the cheapest, most effective ways to make someone feel valued.",
+    "modern_context": "Seeing someone again after a first good conversation and greeting them generically, missing the chance to reference the specific thing they told you last time.",
+    "practice_prompt": "Record how you'd greet someone the second time you see them, referencing one specific detail they told you last time (a trip, a project, a decision they were making) instead of a generic 'hey, good to see you.'",
+    "success_criteria": [
+      "Greeting references a specific detail from the prior conversation",
+      "Feels natural, not like reciting notes",
+      "Followed by a genuine question about how that thing turned out"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 172,
+    "title": "Making the First Move",
+    "track": "small_talk",
+    "carnegie_principle": "Almost everyone is waiting for someone else to make the first move — being the one who does is rare, and rarely unwelcome.",
+    "modern_context": "Wanting to turn an acquaintance into a friend but never proposing plans, assuming they'd say no or that they'd have suggested it themselves if they were interested.",
+    "practice_prompt": "Record yourself proposing a specific, low-stakes plan to someone you'd like to know better — a specific activity, a specific rough timeframe, phrased so a 'no' is easy and doesn't feel like rejection either way.",
+    "success_criteria": [
+      "Plan is specific (activity + rough timing), not vague ('we should hang out')",
+      "Phrased so declining is easy and low-stakes for the other person",
+      "No pre-apologizing or hedging the invitation into meaninglessness"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 173,
+    "title": "The Regular",
+    "track": "small_talk",
+    "carnegie_principle": "Consistent, low-effort presence in the same group over time builds familiarity faster than any single great conversation — showing up again is the whole trick.",
+    "modern_context": "Attending a recurring group once, having a fine time, and then not going back — missing the fact that friendships in groups are usually built by the person who just keeps showing up.",
+    "practice_prompt": "Name one recurring group, class, or meetup you've been to once or twice, and record a 15-second plan for attending it three more times in a row, plus one small thing you'll do each time to be recognizable (sit in the same area, greet the same person by name).",
+    "success_criteria": [
+      "Names a specific recurring group and a concrete number of future attendances",
+      "Includes one repeatable small action, not a one-off gesture",
+      "Framed around consistency, not needing a perfect showing each time"
+    ],
+    "tier_required": "pro"
   }
 ]
