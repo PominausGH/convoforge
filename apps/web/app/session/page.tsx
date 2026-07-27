@@ -52,6 +52,7 @@ function SessionPage() {
     const [streamError, setStreamError] = useState<string | null>(null);
     const [streamStatus, setStreamStatus] = useState<string | null>(null);
     const [transcriptPreview, setTranscriptPreview] = useState<string>('');
+    const [groupMode, setGroupMode] = useState(false);
 
     const visualRef = useRef<VisualMetrics>({
         eye_contact_pct: 0,
@@ -69,7 +70,16 @@ function SessionPage() {
         setUserId(id);
         if (id) fetchUserProfile(id).then((p) => setTier(p.tier)).catch(() => undefined);
         setLesson(findLesson(lessonId));
+        setGroupMode(localStorage.getItem('cf_group_mode') === '1');
     }, [lessonId]);
+
+    const toggleGroupMode = useCallback(() => {
+        setGroupMode((prev) => {
+            const next = !prev;
+            localStorage.setItem('cf_group_mode', next ? '1' : '0');
+            return next;
+        });
+    }, []);
 
     const handleVisualUpdate = useCallback((metrics: VisualMetrics) => {
         visualRef.current = metrics;
@@ -291,7 +301,7 @@ function SessionPage() {
             </div>
 
             <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 [&>*]:min-h-[240px] md:[&>*]:min-h-[400px]">
-                <Avatar status={status} />
+                <Avatar status={status} groupMode={groupMode} />
                 <MediaPipeCamera
                     isRecording={status === 'practice'}
                     onAnalysisUpdate={handleVisualUpdate}
@@ -309,17 +319,30 @@ function SessionPage() {
 
             <div className="h-20 flex items-center justify-center gap-4 bg-zinc-900/50 rounded-3xl border border-white/5 backdrop-blur-md px-6">
                 {status === 'idle' && lesson && (
-                    <div className="flex flex-col items-center gap-2">
+                    <>
                         <button
-                            onClick={() => setStatus('lesson')}
-                            className="bg-white text-black font-bold uppercase tracking-widest text-sm px-8 py-3 rounded-full active:scale-95 transition-all shadow-lg"
+                            onClick={toggleGroupMode}
+                            aria-pressed={groupMode}
+                            className={`flex flex-col items-center gap-0.5 text-[11px] font-semibold uppercase tracking-wide px-4 py-2 rounded-full border transition-colors ${
+                                groupMode
+                                    ? 'bg-violet-500/20 border-violet-500/40 text-violet-300'
+                                    : 'border-zinc-700 text-zinc-400 hover:bg-zinc-800'
+                            }`}
                         >
-                            ▶ Start Lesson
+                            <span>{groupMode ? '✓ Group mode' : 'Group mode'}</span>
                         </button>
-                        <span className="text-[11px] text-zinc-500">
-                            Will ask for camera + microphone
-                        </span>
-                    </div>
+                        <div className="flex flex-col items-center gap-2">
+                            <button
+                                onClick={() => setStatus('lesson')}
+                                className="bg-white text-black font-bold uppercase tracking-widest text-sm px-8 py-3 rounded-full active:scale-95 transition-all shadow-lg"
+                            >
+                                ▶ Start Lesson
+                            </button>
+                            <span className="text-[11px] text-zinc-500">
+                                Will ask for camera + microphone
+                            </span>
+                        </div>
+                    </>
                 )}
                 {status === 'idle' && !lesson && (
                     <p className="text-sm text-zinc-500 animate-pulse">Loading lesson…</p>

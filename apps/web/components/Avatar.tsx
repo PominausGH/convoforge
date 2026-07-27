@@ -1,18 +1,21 @@
 'use client';
 
 import React from 'react';
+import GroupBackground from './GroupBackground';
 
 interface AvatarProps {
     status: 'idle' | 'lesson' | 'practice' | 'live_coaching' | 'feedback';
     persona?: string;
+    groupMode?: boolean;
 }
 
-export default function Avatar({ status, persona = 'global_pro' }: AvatarProps) {
+export default function Avatar({ status, persona = 'global_pro', groupMode = false }: AvatarProps) {
     return (
         <div className="relative w-full h-full bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl flex items-center justify-center p-4 md:p-8 text-center group">
 
             {/* Background elements */}
             <div className="absolute inset-0 bg-gradient-to-t from-blue-500/10 via-transparent to-transparent opacity-50" />
+            {groupMode && <GroupBackground />}
 
             <div className="z-10 flex flex-col items-center">
                 {/* Visual indicator for "Avatar" */}
