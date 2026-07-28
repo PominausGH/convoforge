@@ -32,7 +32,7 @@ export default function CookieBanner() {
             role="dialog"
             aria-live="polite"
             aria-label="Privacy notice"
-            className="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md z-50 bg-zinc-900 text-white rounded-2xl shadow-2xl border border-white/10 p-4 text-sm"
+            className="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md z-[2147483647] bg-zinc-900 text-white rounded-2xl shadow-2xl border border-white/10 p-4 text-sm"
         >
             <p className="leading-relaxed">
                 ConvoForge stores one anonymous ID in your browser and uses your
