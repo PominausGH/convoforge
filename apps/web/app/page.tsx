@@ -100,7 +100,7 @@ const jsonLd = [jsonLdWebApp, jsonLdCourse, jsonLdFAQ]
 
 export default async function Landing() {
     const stats = await fetchPublicStats()
-    const showLiveStats = stats != null && stats.total_sessions >= 5
+    const showLiveStats = stats != null && stats.sessions_last_30d > 0
     const latestPosts = (await getAllPosts()).slice(0, 4)
 
     return (
