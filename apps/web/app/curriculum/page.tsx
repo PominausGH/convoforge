@@ -3,10 +3,13 @@ import Link from 'next/link'
 import { curriculum } from '@/lib/curriculum'
 import UpgradeButton from '@/components/UpgradeButton'
 
+const TOTAL_LESSONS = curriculum.length
+const FREE_LESSONS = curriculum.filter((l) => l.tier_required === 'free').length
+const PRO_LESSONS = TOTAL_LESSONS - FREE_LESSONS
+
 export const metadata: Metadata = {
-    title: 'Full Curriculum — 173 Communication Lessons | ConvoForge',
-    description:
-        'Browse all 173 ConvoForge lessons across Carnegie, Chris Voss, Cialdini, NVC, Crucial Conversations, and more. 16 free lessons. 157 Pro lessons with AI coaching.',
+    title: `Full Curriculum — ${TOTAL_LESSONS} Communication Lessons | ConvoForge`,
+    description: `Browse all ${TOTAL_LESSONS} ConvoForge lessons across Carnegie, Chris Voss, Cialdini, NVC, Crucial Conversations, and more. ${FREE_LESSONS} free lessons. ${PRO_LESSONS} Pro lessons with AI coaching.`,
     alternates: { canonical: '/curriculum' },
 }
 
@@ -101,9 +104,6 @@ export default function CurriculumPage() {
         lessons: curriculum.filter((l) => (l.track ?? 'carnegie') === trackKey),
     })).filter((t) => t.lessons.length > 0)
 
-    const freeCount = curriculum.filter((l) => l.tier_required === 'free').length
-    const proCount = curriculum.filter((l) => l.tier_required === 'pro').length
-
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
             {/* NAV */}
@@ -123,24 +123,24 @@ export default function CurriculumPage() {
                         Full curriculum
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-6">
-                        173 lessons.<br />15 frameworks.<br />One daily habit.
+                        {TOTAL_LESSONS} lessons.<br />{TRACK_ORDER.length} frameworks.<br />One daily habit.
                     </h1>
                     <p className="text-zinc-300 text-lg max-w-2xl leading-relaxed mb-8">
                         Carnegie, Voss, Cialdini, NVC, Crucial Conversations, Kahneman, Cuddy — every major framework in communication and persuasion, broken into five-minute practice sessions with live AI feedback.
                     </p>
                     <div className="flex flex-wrap gap-4 mb-8">
                         <span className="bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm font-semibold">
-                            {freeCount} free lessons
+                            {FREE_LESSONS} free lessons
                         </span>
                         <span className="bg-violet-500/20 border border-violet-500/30 rounded-full px-4 py-1.5 text-sm font-semibold text-violet-300">
-                            {proCount} Pro lessons
+                            {PRO_LESSONS} Pro lessons
                         </span>
                         <span className="bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-sm font-semibold">
-                            15 frameworks
+                            {TRACK_ORDER.length} frameworks
                         </span>
                     </div>
                     <UpgradeButton className="inline-block bg-violet-600 hover:bg-violet-500 text-white font-bold px-6 py-3 rounded-full transition-colors">
-                        Unlock all 157 Pro lessons — $9/month
+                        Unlock all {PRO_LESSONS} Pro lessons — $9/month
                     </UpgradeButton>
                 </div>
             </section>
@@ -218,7 +218,7 @@ export default function CurriculumPage() {
             <section className="bg-gradient-to-br from-black via-zinc-900 to-zinc-950 text-white">
                 <div className="max-w-3xl mx-auto px-6 py-16 text-center">
                     <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4">
-                        Ready to work through all 173?
+                        Ready to work through all {TOTAL_LESSONS}?
                     </h2>
                     <p className="text-zinc-300 mb-8">
                         Five minutes a day. One lesson at a time. Your Forge Score tracks the progress.

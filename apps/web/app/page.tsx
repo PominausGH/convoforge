@@ -5,12 +5,17 @@ import ThemeToggle from '@/components/ThemeToggle'
 import UpgradeButton from '@/components/UpgradeButton'
 import { fetchPublicStats } from '@/lib/stats'
 import { getAllPosts, formatDate } from '@/lib/blog'
+import { curriculum, totalLessonsFor } from '@/lib/curriculum'
 
 export const revalidate = 300
 
 export const metadata: Metadata = {
     alternates: { canonical: '/' },
 }
+
+const TOTAL_LESSONS = totalLessonsFor('pro')
+const FREE_LESSONS = totalLessonsFor('free')
+const FRAMEWORK_COUNT = new Set(curriculum.map((l) => l.track ?? 'carnegie')).size
 
 const FAQS: Array<[string, string]> = [
     [
@@ -69,7 +74,7 @@ const jsonLdCourse = {
     '@type': 'Course',
     name: 'ConvoForge — Carnegie + Modern Communication Curriculum',
     description:
-        '173 daily micro-lessons translating Carnegie principles, Nonviolent Communication, Radical Candor, and tactical empathy into modern remote-work scenarios with live AI coaching.',
+        `${TOTAL_LESSONS} daily micro-lessons translating Carnegie principles, Nonviolent Communication, Radical Candor, and tactical empathy into modern remote-work scenarios with live AI coaching.`,
     provider: {
         '@type': 'Organization',
         name: 'ConvoForge',
@@ -298,7 +303,7 @@ export default async function Landing() {
                         The curriculum
                     </div>
                     <h2 id="curriculum-heading" className="text-3xl md:text-4xl font-black tracking-tight">
-                        173 lessons. 3 tracks. Built to last.
+                        {TOTAL_LESSONS} lessons. 3 tracks. Built to last.
                     </h2>
                 </div>
 
@@ -343,7 +348,7 @@ export default async function Landing() {
                         href="/curriculum"
                         className="inline-block text-sm font-semibold text-zinc-600 dark:text-zinc-300 border border-zinc-300 dark:border-zinc-700 rounded-full px-5 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
                     >
-                        Browse all 173 lessons across 15 frameworks →
+                        Browse all {TOTAL_LESSONS} lessons across {FRAMEWORK_COUNT} frameworks →
                     </Link>
                 </div>
             </section>
@@ -382,7 +387,7 @@ export default async function Landing() {
                                 />
                                 <CompareRow
                                     feature="Curriculum"
-                                    cf="173 lessons across 3 tracks"
+                                    cf={`${TOTAL_LESSONS} lessons across 3 tracks`}
                                     yoodli="Open-ended"
                                     poised="None — reactive only"
                                 />
@@ -468,7 +473,7 @@ export default async function Landing() {
                             pitch="Build the daily habit. Five-minute sessions, three per week."
                             features={[
                                 '3 sessions per week',
-                                '16 lessons — Carnegie, Remote & Small Talk',
+                                `${FREE_LESSONS} lessons — Carnegie, Remote & Small Talk`,
                                 'Verbal + visual scoring',
                                 'Forge Score + one insight',
                                 'On-device privacy',
@@ -483,7 +488,7 @@ export default async function Landing() {
                             pitch="The full curriculum. Unlimited practice. Sincerity scoring."
                             features={[
                                 'Unlimited sessions',
-                                'All 173 lessons including Psychology & High-Stakes',
+                                `All ${TOTAL_LESSONS} lessons including Psychology & High-Stakes`,
                                 'Sincerity detector (Claude-scored)',
                                 'Carnegie alignment + manipulation flags',
                                 'Priority on new lessons',
