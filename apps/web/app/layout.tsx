@@ -107,6 +107,7 @@ export default function RootLayout({
         <Script
           src="https://everyring.ai/api/chat/widget.js"
           data-tenant="bright-path-education-mnn43eml"
+          data-business="aa5973bc-926c-48d2-a7eb-9631b24d011b"
           strategy="afterInteractive"
         />
       </body>
