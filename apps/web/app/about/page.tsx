@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import { curriculum } from '@/lib/curriculum'
+import { curriculum, totalLessonsFor } from '@/lib/curriculum'
+
+const TOTAL_LESSONS = totalLessonsFor('pro')
 
 export const metadata: Metadata = {
     title: 'About — How ConvoForge coaches you every day',
@@ -30,7 +32,7 @@ export default function AboutPage() {
         '@type': 'Course',
         name: 'ConvoForge — Carnegie Communication Curriculum',
         description:
-            '173 daily micro-lessons that translate Dale Carnegie principles into modern digital communication practice, with AI coaching on voice and body language.',
+            `${TOTAL_LESSONS} daily micro-lessons that translate Dale Carnegie principles into modern digital communication practice, with AI coaching on voice and body language.`,
         provider: {
             '@type': 'Organization',
             name: 'ConvoForge',
@@ -52,7 +54,7 @@ export default function AboutPage() {
                 '@type': 'Offer',
                 name: 'Pro',
                 priceCurrency: 'USD',
-                description: 'Unlimited sessions and the full 30-lesson curriculum.',
+                description: `Unlimited sessions and the full ${TOTAL_LESSONS}-lesson curriculum.`,
             },
         ],
     }
@@ -81,7 +83,7 @@ export default function AboutPage() {
             </p>
 
             <section className="grid md:grid-cols-3 gap-4 mb-12">
-                <Stat label="Lessons" value="173" />
+                <Stat label="Lessons" value={String(TOTAL_LESSONS)} />
                 <Stat label="Free tier" value="3 / week" />
                 <Stat label="Per session" value="≤ 5 min" />
             </section>
