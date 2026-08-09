@@ -1,0 +1,430 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]: ConvoForge
+      - generic [ref=e5]:
+        - link "How it works" [ref=e6] [cursor=pointer]:
+          - /url: "#how"
+        - link "Curriculum" [ref=e7] [cursor=pointer]:
+          - /url: /curriculum
+        - link "Pricing" [ref=e8] [cursor=pointer]:
+          - /url: "#pricing"
+        - link "FAQ" [ref=e9] [cursor=pointer]:
+          - /url: "#faq"
+        - link "Blog" [ref=e10] [cursor=pointer]:
+          - /url: /blog
+        - 'button "Theme: Light. Click to change." [ref=e11] [cursor=pointer]':
+          - generic [ref=e12]: ☀
+        - link "Open app" [ref=e13] [cursor=pointer]:
+          - /url: /forge
+    - region [ref=e14]:
+      - generic [ref=e16]:
+        - generic [ref=e17]: Daily AI communication coaching · public speaking practice · filler-word tracker
+        - heading "Stop winging the conversations that actually matter." [level=1] [ref=e18]
+        - paragraph [ref=e19]: The 5-minute daily habit that makes you better in every conversation that counts.
+        - paragraph [ref=e20]: Carnegie-grounded lessons. Real-time feedback on your verbal patterns, body language, and message clarity. Five minutes a day, private by design, with a Forge Score that proves you're improving.
+        - generic [ref=e22]:
+          - link "Start your first Forge Session" [ref=e23] [cursor=pointer]:
+            - /url: /forge
+          - link "See how it works ↓" [ref=e24] [cursor=pointer]:
+            - /url: "#how"
+          - generic [ref=e25]: No signup. No credit card.
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - generic [ref=e28]: 📷
+            - text: Needs camera + microphone
+          - generic [ref=e29]:
+            - generic [ref=e30]: 🔒
+            - text: Video stays on your device
+          - generic [ref=e31]:
+            - generic [ref=e32]: ⏱
+            - text: 5 minutes per session
+    - region [ref=e33]:
+      - generic [ref=e34]:
+        - generic [ref=e35]: Why ConvoForge
+        - heading "You don't have a knowledge problem. You have a practice problem." [level=2] [ref=e36]
+        - paragraph [ref=e37]: You know eye contact matters. You know not to say “um.” In the moment — when your manager asks the question you weren't expecting, or you're pitching on Zoom to someone who hasn't smiled once — the knowledge doesn't show up. The reps do.
+      - generic [ref=e38]:
+        - generic [ref=e39]:
+          - generic [ref=e40]: ⏱
+          - heading "5 minutes. Every day. That's the whole ask." [level=3] [ref=e41]
+          - paragraph [ref=e42]: No 40-hour courses. No live coaches you need to schedule. One session before your morning coffee, and you're building the muscle memory that shows up in real conversations.
+        - generic [ref=e43]:
+          - generic [ref=e44]: 🔒
+          - heading "Your video never leaves your device." [level=3] [ref=e45]
+          - paragraph [ref=e46]: On-device MediaPipe runs body language analysis in your browser. Zero cloud uploads. Zero data brokers. Practise the salary negotiation, the hard feedback — privately.
+        - generic [ref=e47]:
+          - generic [ref=e48]: 📐
+          - heading "A curriculum that goes somewhere." [level=3] [ref=e49]
+          - paragraph [ref=e50]: Most feedback tools tell you what you did wrong. ConvoForge gives you a structured path — Carnegie, Radical Candor, NVC — with a clear progression, not random topics.
+        - generic [ref=e51]:
+          - generic [ref=e52]: 📊
+          - heading "Progress you can see." [level=3] [ref=e53]
+          - paragraph [ref=e54]: Your Forge Score tracks Verbal, Visual, and Sincerity week over week. Watch it move. Know exactly what's improving and what to practise tomorrow.
+    - region [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]: How it works
+        - heading "Three steps. Five minutes." [level=2] [ref=e58]
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - generic [ref=e61]: Step 1
+          - heading "Pick a lesson" [level=3] [ref=e62]
+          - paragraph [ref=e63]: An AI avatar walks you through a 60-second principle — Carnegie, Radical Candor, Nonviolent Communication — reframed for modern work.
+        - generic [ref=e64]:
+          - generic [ref=e65]: Step 2
+          - heading "Practice out loud" [level=3] [ref=e66]
+          - paragraph [ref=e67]: Record a 90-second response to a real scenario. Your camera reads body language on-device. Your voice streams to live transcription.
+        - generic [ref=e68]:
+          - generic [ref=e69]: Step 3
+          - heading "Get your Forge Score" [level=3] [ref=e70]
+          - paragraph [ref=e71]: One number, three subscores, one specific thing to work on tomorrow.
+    - region [ref=e72]:
+      - generic [ref=e73]:
+        - generic [ref=e74]:
+          - generic [ref=e75]: What gets measured
+          - heading "Three parallel streams of feedback." [level=2] [ref=e76]
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - generic [ref=e79]: Verbal
+            - heading "Filler, hedging, pace, conciseness." [level=3] [ref=e80]
+            - paragraph [ref=e81]: Streaming speech-to-text picks up every 'um', every 'I think maybe', every moment you raced past 180 words per minute.
+            - paragraph [ref=e82]: Powered by Deepgram Nova-3.
+          - generic [ref=e83]:
+            - generic [ref=e84]: Visual
+            - heading "Eye contact, smile, posture." [level=3] [ref=e85]
+            - paragraph [ref=e86]: Google MediaPipe runs a face-landmark model directly in your browser, entirely on-device. Video never leaves your machine.
+            - paragraph [ref=e87]: 100% private. No frames uploaded.
+          - generic [ref=e88]:
+            - generic [ref=e89]: Contextual
+            - heading "Sincerity, Carnegie alignment, manipulation flags." [level=3] [ref=e90]
+            - paragraph [ref=e91]: Anthropic Claude reviews your transcript for authentic vs. performative communication, and whether you wielded principles or weaponized them.
+            - paragraph [ref=e92]: Pro tier only.
+    - region [ref=e93]:
+      - generic [ref=e94]:
+        - generic [ref=e95]: The curriculum
+        - heading "173 lessons. 3 tracks. Built to last." [level=2] [ref=e96]
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - generic [ref=e99]: Free + Pro
+          - heading "Carnegie Foundations" [level=3] [ref=e100]
+          - paragraph [ref=e101]: 16 lessons
+          - list [ref=e102]:
+            - listitem [ref=e103]:
+              - generic [ref=e104]: ·
+              - generic [ref=e105]: Remember names
+            - listitem [ref=e106]:
+              - generic [ref=e107]: ·
+              - generic [ref=e108]: Kill the filler
+            - listitem [ref=e109]:
+              - generic [ref=e110]: ·
+              - generic [ref=e111]: Admit mistakes quickly
+            - listitem [ref=e112]:
+              - generic [ref=e113]: ·
+              - generic [ref=e114]: The 2-minute pitch
+        - generic [ref=e115]:
+          - generic [ref=e116]: Free + Pro
+          - heading "Remote & Async" [level=3] [ref=e117]
+          - paragraph [ref=e118]: 35 lessons
+          - list [ref=e119]:
+            - listitem [ref=e120]:
+              - generic [ref=e121]: ·
+              - generic [ref=e122]: The 3-sentence Slack
+            - listitem [ref=e123]:
+              - generic [ref=e124]: ·
+              - generic [ref=e125]: The email that skips the meeting
+            - listitem [ref=e126]:
+              - generic [ref=e127]: ·
+              - generic [ref=e128]: Loom in 90 seconds
+            - listitem [ref=e129]:
+              - generic [ref=e130]: ·
+              - generic [ref=e131]: Status updates that travel
+        - generic [ref=e132]:
+          - generic [ref=e133]: Pro
+          - heading "Psychology & High-Stakes" [level=3] [ref=e134]
+          - paragraph [ref=e135]: 122 lessons
+          - list [ref=e136]:
+            - listitem [ref=e137]:
+              - generic [ref=e138]: ·
+              - generic [ref=e139]: Radical Candor
+            - listitem [ref=e140]:
+              - generic [ref=e141]: ·
+              - generic [ref=e142]: "NVC: observation vs. judgement"
+            - listitem [ref=e143]:
+              - generic [ref=e144]: ·
+              - generic [ref=e145]: Saying no with grace
+            - listitem [ref=e146]:
+              - generic [ref=e147]: ·
+              - generic [ref=e148]: Receiving criticism without defending
+            - listitem [ref=e149]:
+              - generic [ref=e150]: ·
+              - generic [ref=e151]: Negotiating a raise in one minute
+      - link "Browse all 173 lessons across 15 frameworks →" [ref=e153] [cursor=pointer]:
+        - /url: /curriculum
+    - region [ref=e154]:
+      - generic [ref=e155]:
+        - generic [ref=e156]:
+          - generic [ref=e157]: How we're different
+          - heading "ConvoForge vs. Yoodli vs. Poised" [level=2] [ref=e158]
+          - paragraph [ref=e159]: Three tools in the AI communication space, three completely different jobs.
+        - table [ref=e161]:
+          - rowgroup [ref=e162]:
+            - row [ref=e163]:
+              - columnheader "Feature" [ref=e164]
+              - columnheader "ConvoForge" [ref=e165]
+              - columnheader "Yoodli" [ref=e166]
+              - columnheader "Poised" [ref=e167]
+          - rowgroup [ref=e168]:
+            - row [ref=e169]:
+              - cell "Primary job" [ref=e170]
+              - cell "Daily 5-min practice habit" [ref=e171]
+              - cell "After-the-fact meeting analysis" [ref=e172]
+              - cell "Live meeting overlay coaching" [ref=e173]
+            - row [ref=e174]:
+              - cell "Curriculum" [ref=e175]
+              - cell "173 lessons across 3 tracks" [ref=e176]
+              - cell "Open-ended" [ref=e177]
+              - cell "None — reactive only" [ref=e178]
+            - row [ref=e179]:
+              - cell "Visual / body-language scoring" [ref=e180]
+              - cell "✓ On-device (MediaPipe)" [ref=e181]
+              - cell "✓" [ref=e182]
+              - cell "—" [ref=e183]
+            - row [ref=e184]:
+              - cell "Sincerity + Carnegie alignment" [ref=e185]
+              - cell "✓ (Claude-scored)" [ref=e186]
+              - cell "—" [ref=e187]
+              - cell "—" [ref=e188]
+            - row [ref=e189]:
+              - cell "Async comms practice (Slack, email, Loom)" [ref=e190]
+              - cell "✓" [ref=e191]
+              - cell "—" [ref=e192]
+              - cell "—" [ref=e193]
+            - row [ref=e194]:
+              - cell "Works before the meeting" [ref=e195]
+              - cell "✓ That's the whole point" [ref=e196]
+              - cell "Post-meeting review only" [ref=e197]
+              - cell "In-meeting only" [ref=e198]
+            - row [ref=e199]:
+              - cell "Video stays on your device" [ref=e200]
+              - cell "✓ On-device only" [ref=e201]
+              - cell "Uploads to cloud" [ref=e202]
+              - cell "Cloud-processed" [ref=e203]
+            - row [ref=e204]:
+              - cell "Progress tracking over time" [ref=e205]
+              - cell "✓ Forge Score (3 dimensions)" [ref=e206]
+              - cell "Limited" [ref=e207]
+              - cell "Limited" [ref=e208]
+            - row [ref=e209]:
+              - cell "Starting price" [ref=e210]
+              - cell "Free · $9/mo Pro" [ref=e211]
+              - cell "Free · $20+/mo Pro" [ref=e212]
+              - cell "$8 / hour of coaching" [ref=e213]
+            - row [ref=e214]:
+              - cell "Signup required to try" [ref=e215]
+              - cell "No — anonymous session" [ref=e216]
+              - cell "Yes (email)" [ref=e217]
+              - cell "Yes (email + install)" [ref=e218]
+        - paragraph [ref=e219]: Comparisons based on public feature pages as of 2026. They're great tools — we're just a different shape.
+    - region [ref=e220]:
+      - generic [ref=e221]:
+        - generic [ref=e222]:
+          - generic [ref=e223]: Pricing
+          - heading "Start free. Upgrade when you want the whole curriculum." [level=2] [ref=e224]
+        - generic [ref=e225]:
+          - generic [ref=e226]:
+            - generic [ref=e227]: Free
+            - generic [ref=e228]:
+              - generic [ref=e229]: $0
+              - generic [ref=e230]: forever
+            - paragraph [ref=e231]: Build the daily habit. Five-minute sessions, three per week.
+            - list [ref=e232]:
+              - listitem [ref=e233]:
+                - generic [ref=e234]: ✓
+                - generic [ref=e235]: 3 sessions per week
+              - listitem [ref=e236]:
+                - generic [ref=e237]: ✓
+                - generic [ref=e238]: 16 lessons — Carnegie, Remote & Small Talk
+              - listitem [ref=e239]:
+                - generic [ref=e240]: ✓
+                - generic [ref=e241]: Verbal + visual scoring
+              - listitem [ref=e242]:
+                - generic [ref=e243]: ✓
+                - generic [ref=e244]: Forge Score + one insight
+              - listitem [ref=e245]:
+                - generic [ref=e246]: ✓
+                - generic [ref=e247]: On-device privacy
+            - link "Start free" [ref=e248] [cursor=pointer]:
+              - /url: /forge
+          - generic [ref=e249]:
+            - generic [ref=e250]: Pro
+            - generic [ref=e251]:
+              - generic [ref=e252]: $9
+              - generic [ref=e253]: / month · regional pricing via Stripe
+            - paragraph [ref=e254]: The full curriculum. Unlimited practice. Sincerity scoring.
+            - list [ref=e255]:
+              - listitem [ref=e256]:
+                - generic [ref=e257]: ✓
+                - generic [ref=e258]: Unlimited sessions
+              - listitem [ref=e259]:
+                - generic [ref=e260]: ✓
+                - generic [ref=e261]: All 173 lessons including Psychology & High-Stakes
+              - listitem [ref=e262]:
+                - generic [ref=e263]: ✓
+                - generic [ref=e264]: Sincerity detector (Claude-scored)
+              - listitem [ref=e265]:
+                - generic [ref=e266]: ✓
+                - generic [ref=e267]: Carnegie alignment + manipulation flags
+              - listitem [ref=e268]:
+                - generic [ref=e269]: ✓
+                - generic [ref=e270]: Priority on new lessons
+            - button "Upgrade to Pro" [ref=e271] [cursor=pointer]
+        - paragraph [ref=e272]: Regional pricing via Stripe. Cancel anytime. Seven-day refund, no questions.
+        - generic [ref=e273]:
+          - paragraph [ref=e274]: The $9 question.
+          - paragraph [ref=e275]: Is there a single conversation coming up in the next 90 days where being more prepared would be worth $27? If yes — that's your answer.
+          - generic [ref=e276]:
+            - generic [ref=e277]: vs. 2 artisan coffees ☕☕
+            - generic [ref=e278]: vs. 1/3 of a Netflix subscription 📺
+            - generic [ref=e279]: vs. zero improvements to how you communicate 🙃
+        - paragraph [ref=e281]: 🔒 Early adopter pricing — $9/month is locked in for life for anyone who upgrades now. Price increases as the scenario library expands.
+    - region [ref=e282]:
+      - generic [ref=e283]:
+        - generic [ref=e284]: Early forgers
+        - heading "Five minutes changed how they show up." [level=2] [ref=e285]
+      - generic [ref=e286]:
+        - generic [ref=e287]:
+          - blockquote [ref=e288]: “I had a board presentation coming up and three days to prepare. I ran the scenario six times in ConvoForge over three mornings. My Forge Score went from 54 to 81. The board asked me to stay on the call for an extra 20 minutes.”
+          - generic [ref=e289]:
+            - paragraph [ref=e290]: Marcus T.
+            - paragraph [ref=e291]: Head of Product, Series B startup
+        - generic [ref=e292]:
+          - blockquote [ref=e293]: “I'm an introvert who works fully remote. ConvoForge helped me practise my skip-level review — including when my manager interrupted me — until I stopped freezing. The session report told me I said 'um' 14 times in the first take and twice in the fifth.”
+          - generic [ref=e294]:
+            - paragraph [ref=e295]: Priya S.
+            - paragraph [ref=e296]: Senior Engineer
+        - generic [ref=e297]:
+          - blockquote [ref=e298]: “I've tried Poised and Yoodli. Both are fine if you want to review a meeting you already bombed. ConvoForge is the only tool I've found that actually trains you before the moment.”
+          - generic [ref=e299]:
+            - paragraph [ref=e300]: Dan K.
+            - paragraph [ref=e301]: Account Executive
+      - generic [ref=e302]:
+        - generic [ref=e303]:
+          - blockquote [ref=e304]: “As a manager who gives a lot of feedback, I didn't realise how often I was being indirect. The Sincerity score kept calling it out. Uncomfortable — in the best way.”
+          - generic [ref=e305]:
+            - paragraph [ref=e306]: Rachel M.
+            - paragraph [ref=e307]: Engineering Manager
+        - generic [ref=e308]:
+          - blockquote [ref=e309]: “Five minutes a day sounds like nothing. My Forge Score went from 47 to 79 in six weeks. My team started asking if something had changed. Nothing had, except the practice.”
+          - generic [ref=e310]:
+            - paragraph [ref=e311]: Jordan L.
+            - paragraph [ref=e312]: Remote Founder
+    - region [ref=e313]:
+      - generic [ref=e314]:
+        - generic [ref=e315]: Live from the forge
+        - heading "Real practice happening right now." [level=2] [ref=e316]
+      - generic [ref=e317]:
+        - generic [ref=e318]:
+          - generic [ref=e319]: Forge sessions
+          - generic [ref=e320]: "28"
+          - generic [ref=e321]: Across all users
+        - generic [ref=e322]:
+          - generic [ref=e323]: Average Forge score
+          - generic [ref=e324]: "51"
+          - generic [ref=e325]: Across all sessions with a transcript
+        - generic [ref=e326]:
+          - generic [ref=e327]: People practicing
+          - generic [ref=e328]: "38"
+          - generic [ref=e329]: Anonymous UUID each — no email required
+      - paragraph [ref=e330]:
+        - text: "Numbers update hourly. Methodology:"
+        - link "aggregate only, no PII" [ref=e331] [cursor=pointer]:
+          - /url: /privacy
+        - text: .
+    - region [ref=e332]:
+      - generic [ref=e333]:
+        - generic [ref=e334]:
+          - generic [ref=e335]: Frequently asked
+          - heading "The short version." [level=2] [ref=e336]
+        - generic [ref=e337]:
+          - group [ref=e338]:
+            - generic "Do you save my voice or camera feed?" [ref=e339] [cursor=pointer]: +
+          - group [ref=e342]:
+            - generic "What if I miss a day?" [ref=e343] [cursor=pointer]: +
+          - group [ref=e346]:
+            - generic "Does this work on mobile?" [ref=e347] [cursor=pointer]: +
+          - group [ref=e350]:
+            - generic "Do I need an account?" [ref=e351] [cursor=pointer]: +
+          - group [ref=e354]:
+            - generic "Why Carnegie? That book is from 1936." [ref=e355] [cursor=pointer]: +
+          - group [ref=e358]:
+            - generic "How is this different from Yoodli or Poised?" [ref=e359] [cursor=pointer]: +
+          - group [ref=e362]:
+            - generic "Can I cancel Pro?" [ref=e363] [cursor=pointer]: +
+    - region [ref=e366]:
+      - generic [ref=e367]:
+        - generic [ref=e368]:
+          - generic [ref=e369]: From the blog
+          - heading "Practical essays on saying what you mean." [level=2] [ref=e370]
+        - link "All articles →" [ref=e371] [cursor=pointer]:
+          - /url: /blog
+      - list [ref=e372]:
+        - listitem [ref=e373]:
+          - 'link "Introverts · July 30, 2026 Introverts: You''re Better at Conversations Than You Think" [ref=e374] [cursor=pointer]':
+            - /url: /blog/introverts-better-at-conversations
+            - generic [ref=e375]:
+              - generic [ref=e376]: Introverts
+              - generic [ref=e377]: ·
+              - generic [ref=e378]: July 30, 2026
+            - generic [ref=e379]: "Introverts: You're Better at Conversations Than You Think"
+        - listitem [ref=e380]:
+          - 'link "Confidence · July 27, 2026 Stop Freezing: How to Handle Being Put on the Spot in Meetings" [ref=e381] [cursor=pointer]':
+            - /url: /blog/handle-being-put-on-the-spot-meetings
+            - generic [ref=e382]:
+              - generic [ref=e383]: Confidence
+              - generic [ref=e384]: ·
+              - generic [ref=e385]: July 27, 2026
+            - generic [ref=e386]: "Stop Freezing: How to Handle Being Put on the Spot in Meetings"
+        - listitem [ref=e387]:
+          - link "Introverts · July 27, 2026 How to Join a Group Conversation Without It Being Awkward" [ref=e388] [cursor=pointer]:
+            - /url: /blog/how-to-join-a-group-conversation-without-awkward
+            - generic [ref=e389]:
+              - generic [ref=e390]: Introverts
+              - generic [ref=e391]: ·
+              - generic [ref=e392]: July 27, 2026
+            - generic [ref=e393]: How to Join a Group Conversation Without It Being Awkward
+        - listitem [ref=e394]:
+          - link "Introverts · July 27, 2026 Is It Okay to Let a Conversation Go Quiet?" [ref=e395] [cursor=pointer]:
+            - /url: /blog/is-it-okay-to-let-a-conversation-go-quiet
+            - generic [ref=e396]:
+              - generic [ref=e397]: Introverts
+              - generic [ref=e398]: ·
+              - generic [ref=e399]: July 27, 2026
+            - generic [ref=e400]: Is It Okay to Let a Conversation Go Quiet?
+    - region [ref=e401]:
+      - generic [ref=e402]:
+        - heading "Ready to forge?" [level=2] [ref=e403]
+        - paragraph [ref=e404]: Your first session is 5 minutes and completely free. No signup. No credit card.
+        - link "Start Forging →" [ref=e406] [cursor=pointer]:
+          - /url: /forge
+    - contentinfo [ref=e407]:
+      - generic [ref=e408]:
+        - generic [ref=e409]: ConvoForge
+        - generic [ref=e410]:
+          - link "About" [ref=e411] [cursor=pointer]:
+            - /url: /about
+          - link "Curriculum" [ref=e412] [cursor=pointer]:
+            - /url: /curriculum
+          - link "Blog" [ref=e413] [cursor=pointer]:
+            - /url: /blog
+          - link "Privacy" [ref=e414] [cursor=pointer]:
+            - /url: /privacy
+          - link "Terms" [ref=e415] [cursor=pointer]:
+            - /url: /terms
+          - link "Open app" [ref=e416] [cursor=pointer]:
+            - /url: /forge
+      - generic [ref=e417]:
+        - generic [ref=e418]: © 2026 ConvoForge. Built in Australia.
+        - generic [ref=e419]: ABN 65 366 917 788
+        - link "Built by Dainty Trading" [ref=e421] [cursor=pointer]:
+          - /url: https://daintytrading.com
+  - alert [ref=e422]

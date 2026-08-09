@@ -64,7 +64,7 @@ const jsonLdWebApp = {
             name: 'Pro',
             price: '9',
             priceCurrency: 'USD',
-            priceValidUntil: '2027-01-01',
+            priceValidUntil: '2028-01-01',
         },
     ],
 }
@@ -518,7 +518,7 @@ export default async function Landing() {
 
                     <div className="mt-6 max-w-2xl mx-auto bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 rounded-3xl p-6 text-center">
                         <p className="text-sm font-bold text-rose-700 dark:text-rose-300">
-                            🔒 Early adopter pricing — $9/month is locked in for life for anyone who upgrades now. Price increases as the scenario library expands.
+                            🔒 Early adopter pricing — $9/month, guaranteed through 2028 for anyone who upgrades now. Price increases as the scenario library expands.
                         </p>
                     </div>
                 </div>
