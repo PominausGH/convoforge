@@ -104,12 +104,9 @@ export default function RootLayout({
         <Script id="sw-register" strategy="afterInteractive">
           {`if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(()=>{})}`}
         </Script>
-        <Script
-          src="https://everyring.ai/api/chat/widget.js"
-          data-tenant="bright-path-education-mnn43eml"
-          data-business="aa5973bc-926c-48d2-a7eb-9631b24d011b"
-          strategy="afterInteractive"
-        />
+        {/* Chat widget removed: it was pointing at BrightPath Education's EveryRing
+            tenant (a sibling product), copy-pasted with no config of this site's own —
+            this site has no EveryRing account, so there was no correct tenant ID to swap in. */}
       </body>
     </html>
   )
