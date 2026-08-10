@@ -147,8 +147,17 @@ export default async function Landing() {
             </nav>
 
             {/* ── HERO ──────────────────────────────────────────── */}
-            <section aria-labelledby="hero-heading" className="relative overflow-hidden bg-gradient-to-br from-black via-zinc-900 to-zinc-950 text-white">
-                <div className="max-w-6xl mx-auto px-6 py-20 md:py-32">
+            <section aria-labelledby="hero-heading" className="relative overflow-hidden bg-black text-white">
+                <div
+                    aria-hidden
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: 'url(/hero-bg.webp)' }}
+                />
+                <div
+                    aria-hidden
+                    className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/40"
+                />
+                <div className="relative max-w-6xl mx-auto px-6 py-20 md:py-32">
                     <div className="max-w-3xl">
                         <div className="text-[11px] uppercase tracking-[0.3em] text-zinc-400 font-bold mb-6">
                             Daily AI communication coaching · public speaking practice · filler-word tracker
