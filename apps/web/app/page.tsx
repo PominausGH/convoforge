@@ -155,14 +155,18 @@ export default async function Landing() {
                 />
                 <div
                     aria-hidden
-                    className="absolute inset-0 bg-gradient-to-r from-black via-black/85 to-black/40"
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage:
+                            'linear-gradient(to right, black 0%, black 26%, rgba(0,0,0,0.5) 36%, rgba(0,0,0,0.1) 48%, transparent 58%)',
+                    }}
                 />
                 <div className="relative max-w-6xl mx-auto px-6 py-20 md:py-32">
-                    <div className="max-w-3xl">
+                    <div className="max-w-md">
                         <div className="text-[11px] uppercase tracking-[0.3em] text-zinc-400 font-bold mb-6">
                             Daily AI communication coaching · public speaking practice · filler-word tracker
                         </div>
-                        <h1 id="hero-heading" className="text-5xl md:text-7xl font-black tracking-tight leading-[1.05]">
+                        <h1 id="hero-heading" className="text-4xl md:text-5xl font-black tracking-tight leading-[1.1]">
                             Stop winging the conversations{' '}
                             <span className="text-rose-400">that actually matter.</span>
                         </h1>
