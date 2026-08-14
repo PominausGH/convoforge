@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import SupportEmail from '@/components/SupportEmail'
 import { initiateProPayment } from '@/lib/stripe'
 import { ensureUser, type UserProfile } from '@/lib/api'
 import { curriculum, nextLessonFor, totalLessonsFor, type Lesson } from '@/lib/curriculum'
@@ -231,6 +232,7 @@ export default function AppDashboard() {
           <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
             Terms
           </Link>
+          <SupportEmail className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline" />
         </div>
         <div className="text-zinc-400 dark:text-zinc-500">
           ABN <span className="font-mono">65 366 917 788</span>

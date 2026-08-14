@@ -3,6 +3,7 @@ import Link from 'next/link'
 import LandingCTA from '@/components/LandingCTA'
 import ThemeToggle from '@/components/ThemeToggle'
 import UpgradeButton from '@/components/UpgradeButton'
+import SupportEmail from '@/components/SupportEmail'
 import { fetchPublicStats } from '@/lib/stats'
 import { getAllPosts, formatDate } from '@/lib/blog'
 import { curriculum, totalLessonsFor } from '@/lib/curriculum'
@@ -756,6 +757,7 @@ export default async function Landing() {
                         <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
                             Terms
                         </Link>
+                        <SupportEmail className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline" />
                         <Link href="/forge" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
                             Open app
                         </Link>

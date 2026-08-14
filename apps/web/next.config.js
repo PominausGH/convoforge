@@ -34,8 +34,6 @@ const scriptSrc = [
     // Self-hosted analytics relay
     'https://analytics.daintytrading.com',
     UMAMI_ORIGIN,
-    // EveryRing embeddable chat widget script
-    'https://everyring.ai',
 ].filter(Boolean).join(' ');
 
 const connectSrc = [
@@ -54,8 +52,6 @@ const connectSrc = [
     'https://analytics.daintytrading.com',
     UMAMI_ORIGIN,
     SENTRY_ORIGIN,
-    // EveryRing embeddable chat widget's API calls
-    'https://everyring.ai',
 ].filter(Boolean).join(' ');
 
 const workerSrc = ["'self'", 'blob:', 'https://cdn.jsdelivr.net'].join(' ');

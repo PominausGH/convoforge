@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { curriculum } from '@/lib/curriculum'
 import UpgradeButton from '@/components/UpgradeButton'
+import SupportEmail from '@/components/SupportEmail'
 
 const TOTAL_LESSONS = curriculum.length
 const FREE_LESSONS = curriculum.filter((l) => l.tier_required === 'free').length
@@ -243,6 +244,7 @@ export default function CurriculumPage() {
                 <div className="flex gap-5">
                     <Link href="/privacy" className="hover:underline">Privacy</Link>
                     <Link href="/terms" className="hover:underline">Terms</Link>
+                    <SupportEmail className="hover:underline" />
                     <Link href="/forge" className="hover:underline">Open app</Link>
                 </div>
             </footer>

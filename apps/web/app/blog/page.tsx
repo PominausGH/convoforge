@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getAllPosts, formatDate } from '@/lib/blog'
 import ThemeToggle from '@/components/ThemeToggle'
+import SupportEmail from '@/components/SupportEmail'
 
 // Re-render the index every hour so scheduled posts appear automatically.
 export const revalidate = 3600
@@ -110,6 +111,7 @@ export default async function BlogIndex() {
                     <Link href="/about" className="hover:text-zinc-900 dark:hover:text-zinc-100">About</Link>
                     <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-zinc-100">Privacy</Link>
                     <Link href="/terms" className="hover:text-zinc-900 dark:hover:text-zinc-100">Terms</Link>
+                    <SupportEmail className="hover:text-zinc-900 dark:hover:text-zinc-100" />
                     <a href="/blog/rss.xml" className="hover:text-zinc-900 dark:hover:text-zinc-100">RSS</a>
                 </div>
                 <div className="pt-6 text-xs">
