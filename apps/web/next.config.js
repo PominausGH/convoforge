@@ -93,6 +93,22 @@ const securityHeaders = [
 const nextConfig = {
     poweredByHeader: false,
     reactStrictMode: true,
+    async redirects() {
+        return [
+            // Merged duplicate-topic blog posts (keyword cannibalization) into
+            // the stronger post of each pair — 2026-08-25.
+            {
+                source: '/blog/stop-saying-um',
+                destination: '/blog/how-to-stop-saying-um-and-uh',
+                permanent: true,
+            },
+            {
+                source: '/blog/saying-no-without-burning-bridges',
+                destination: '/blog/how-to-say-no-without-damaging-relationships',
+                permanent: true,
+            },
+        ];
+    },
     async headers() {
         return [
             {
