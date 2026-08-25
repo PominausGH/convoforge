@@ -18,8 +18,16 @@ export default function SupportEmail({ className }: { className?: string }) {
         )
     }
 
+    // First click both opens the mail client immediately and swaps in the
+    // real link as a fallback, so it's a single click for the visitor but
+    // the address is still never present in the static HTML/JSON-LD.
+    function handleClick() {
+        window.location.href = `mailto:${USER}@${DOMAIN}`
+        setRevealed(true)
+    }
+
     return (
-        <button type="button" onClick={() => setRevealed(true)} className={className}>
+        <button type="button" onClick={handleClick} className={className}>
             Support
         </button>
     )
