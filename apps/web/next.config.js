@@ -31,8 +31,8 @@ const scriptSrc = [
     'https://static.cloudflareinsights.com',
     // MediaPipe ships its WASM loader from jsDelivr.
     'https://cdn.jsdelivr.net',
-    // Self-hosted analytics relay
-    'https://analytics.daintytrading.com',
+    // Umami now proxied same-origin via /stats/sc.js (rewrites() below);
+    // 'self' covers it. UMAMI_ORIGIN kept as a fallback for any non-proxied use.
     UMAMI_ORIGIN,
 ].filter(Boolean).join(' ');
 
@@ -48,8 +48,8 @@ const connectSrc = [
     // FastAPI WebSocket relay (Deepgram proxy).
     WS_ORIGIN,
     WS_WSS,
-    // Self-hosted analytics relay
-    'https://analytics.daintytrading.com',
+    // Umami now proxied same-origin via /stats/api/send (rewrites() below);
+    // 'self' covers it. UMAMI_ORIGIN kept as a fallback for any non-proxied use.
     UMAMI_ORIGIN,
     SENTRY_ORIGIN,
 ].filter(Boolean).join(' ');
@@ -93,6 +93,14 @@ const securityHeaders = [
 const nextConfig = {
     poweredByHeader: false,
     reactStrictMode: true,
+    // First-party proxy for Umami analytics (bypasses ad blockers + CSP).
+    // Routed to the umami container directly so we don't loop through Cloudflare.
+    async rewrites() {
+        return [
+            { source: '/stats/sc.js', destination: 'http://umami:3000/script.js' },
+            { source: '/stats/api/send', destination: 'http://umami:3000/api/send' },
+        ];
+    },
     async redirects() {
         return [
             // Merged duplicate-topic blog posts (keyword cannibalization) into
