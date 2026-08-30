@@ -81,7 +81,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <link rel="preconnect" href="https://analytics.daintytrading.com" />
         <link rel="alternate" type="application/rss+xml" title="ConvoForge Blog" href="/blog/rss.xml" />
       </head>
       <body className={`${inter.className} bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100`}>
@@ -95,12 +94,6 @@ export default function RootLayout({
             defer
           />
         )}
-        <Script
-          src="https://analytics.daintytrading.com/script.js"
-          data-website-id="115adfa9-2bac-4742-ba57-6e930b1b2752"
-          strategy="afterInteractive"
-          defer
-        />
         <Script id="sw-register" strategy="afterInteractive">
           {`if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(()=>{})}`}
         </Script>
