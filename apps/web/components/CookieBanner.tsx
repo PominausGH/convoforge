@@ -32,7 +32,7 @@ export default function CookieBanner() {
             role="dialog"
             aria-live="polite"
             aria-label="Privacy notice"
-            className="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-md z-[2147483647] bg-zinc-900 text-white rounded-2xl shadow-2xl border border-white/10 p-4 text-sm"
+            className="fixed bottom-3 left-3 right-3 md:left-auto md:right-6 md:bottom-4 md:max-w-md z-[2147483647] max-h-[50vh] overflow-y-auto bg-zinc-900 text-white rounded-2xl shadow-2xl border border-white/10 p-3 text-xs sm:p-4 sm:text-sm"
         >
             <p className="leading-relaxed">
                 ConvoForge stores one anonymous ID in your browser and uses your
@@ -43,10 +43,10 @@ export default function CookieBanner() {
                 </Link>
                 .
             </p>
-            <div className="mt-3 flex justify-end">
+            <div className="mt-2 flex justify-end sm:mt-3">
                 <button
                     onClick={acknowledge}
-                    className="bg-white text-black font-semibold px-4 py-1.5 rounded-full text-sm active:scale-95 transition-transform"
+                    className="bg-white text-black font-semibold px-3 py-1 rounded-full text-xs active:scale-95 transition-transform sm:px-4 sm:py-1.5 sm:text-sm"
                 >
                     Got it
                 </button>
