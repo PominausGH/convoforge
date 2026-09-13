@@ -91,6 +91,7 @@ export default function RootLayout({
             src={UMAMI_SRC}
             data-website-id={UMAMI_ID}
             strategy="afterInteractive"
+            data-performance="true"
             defer
           />
         )}
