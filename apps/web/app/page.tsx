@@ -769,8 +769,8 @@ export default async function Landing() {
                         ABN <span className="font-mono">65 366 917 788</span>
                     </div>
                     <div>
-                        <a href="https://daintytrading.com" target="_blank" rel="noopener" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
-                            Built by Dainty Trading
+                        <a href="https://telaloom.com" target="_blank" rel="noopener" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
+                            Built by TelaLoom
                         </a>
                     </div>
                 </div>
