@@ -63,6 +63,34 @@ Return JSON only, no preamble. Schema:
     speaker's weakest beat, in their own scenario, <30 words, or null if nothing weak stands out)
 }"""
 
+LISTENING_SYSTEM_PROMPT = """You are an active-listening coach. The speaker just heard a short story or
+complaint read aloud (given to you as `stimulus`), and then spoke a reflection of it back — their job was
+to paraphrase what they heard, not deliver an unrelated monologue.
+
+Judge the reflection (`transcript`) against the original `stimulus` on two distinct axes:
+1. Accuracy: did they capture the key facts/events and the speaker's actual point, in their own words
+   (not verbatim repetition, but not missing or inventing key details either)?
+2. Validation: did they name or acknowledge the underlying feeling/perspective (e.g. frustration, pride,
+   dread) explicitly, rather than only reciting facts back? A factually accurate but emotionally flat
+   recap should score low on validation even if accuracy is high.
+
+Return JSON only, no preamble. Schema:
+{
+  "carnegie": {
+    "accuracy_score": int 0-100,          // how well the key facts/point were captured, in the user's own words
+    "key_points_captured": [string],       // which specific facts/points from the stimulus were reflected back
+    "key_points_missed": [string],         // notable facts/points from the stimulus that were left out
+    "validation_score": int 0-100,         // how clearly the emotional/perspective layer was acknowledged, not just facts
+    "paraphrase_quality": int 0-100,       // own-words paraphrase vs verbatim repetition of the stimulus
+    "principle_alignment": [string]
+  },
+  "overall_forge_score": int 0-100,        // weight: accuracy 40%, validation 35%, paraphrase quality 25%
+  "top_insight": string (one actionable sentence naming the weakest axis, judgment-free, <30 words),
+  "next_session_focus": string (one of: accuracy, validation, paraphrasing, conciseness),
+  "rewrite_example": string (a single rewritten line demonstrating a stronger reflection combining an
+    unmet fact and the named feeling, <30 words, or null if nothing weak stands out)
+}"""
+
 
 class MultimodalData(BaseModel):
     user_id: str
@@ -72,6 +100,7 @@ class MultimodalData(BaseModel):
     duration_seconds: float = 90.0
     tier: str = "free"
     track: Optional[str] = None
+    stimulus: Optional[str] = None  # original text the user was reflecting on (active_listening only)
 
 
 class FeedbackResponse(BaseModel):
@@ -100,6 +129,23 @@ def _mock_feedback(verbal: dict, visual: dict, tier: str, track: Optional[str] =
             top_insight="[DEV MOCK] You skipped the takeaway — end with the one line that says why this mattered.",
             next_session_focus="takeaway",
             rewrite_example="[DEV MOCK] \"...and that's why I still double-check every number before it leaves my desk.\"",
+        )
+    if track == "active_listening":
+        return FeedbackResponse(
+            verbal=verbal,
+            visual=visual,
+            carnegie={
+                "accuracy_score": 68,
+                "key_points_captured": ["reorg happening", "effective immediately"],
+                "key_points_missed": ["manager also wasn't told why"],
+                "validation_score": 55,
+                "paraphrase_quality": 72,
+                "principle_alignment": ["active_listening"],
+            },
+            overall_forge_score=64,
+            top_insight="[DEV MOCK] You got the facts — now name how they felt about it, not just what happened.",
+            next_session_focus="validation",
+            rewrite_example="[DEV MOCK] \"It sounds like this whole thing left you feeling blindsided and a little powerless.\"",
         )
     return FeedbackResponse(
         verbal=verbal,
@@ -143,6 +189,7 @@ async def _call_claude(client: AsyncAnthropic, system: str, user_payload: dict) 
 async def analyze_session(data: MultimodalData):
     verbal = analyze_transcript(data.transcript, data.duration_seconds)
     is_story = data.track == "storytelling"
+    is_listening = data.track == "active_listening"
 
     api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
     if not api_key or api_key.endswith("..."):
@@ -157,17 +204,25 @@ async def analyze_session(data: MultimodalData):
             "verbal_metrics": verbal,
             "visual_metrics": data.visual,
         }
-        system_prompt = STORY_SYSTEM_PROMPT if is_story else CARNEGIE_SYSTEM_PROMPT
+        if is_listening:
+            result_payload["stimulus"] = data.stimulus or ""
+        if is_story:
+            system_prompt = STORY_SYSTEM_PROMPT
+        elif is_listening:
+            system_prompt = LISTENING_SYSTEM_PROMPT
+        else:
+            system_prompt = CARNEGIE_SYSTEM_PROMPT
         result = await _call_claude(client, system_prompt, result_payload)
     except Exception as exc:
         # Don't 502 the whole session over an LLM blip — fall back to mock so the
         # user still gets a forge score and the front-end flow completes.
-        print(f"[analyze] {'Story' if is_story else 'Carnegie'} call failed, using mock: {exc}")
+        kind = "Story" if is_story else "Listening" if is_listening else "Carnegie"
+        print(f"[analyze] {kind} call failed, using mock: {exc}")
         return _mock_feedback(verbal, data.visual, data.tier, data.track)
 
     carnegie_block = result.get("carnegie", {})
 
-    if data.tier == "pro" and not is_story:
+    if data.tier == "pro" and not is_story and not is_listening:
         try:
             sincerity = await _call_claude(
                 client,
@@ -192,5 +247,5 @@ async def analyze_session(data: MultimodalData):
         overall_forge_score=int(result.get("overall_forge_score", 70)),
         top_insight=result.get("top_insight", "Keep practicing daily."),
         next_session_focus=result.get("next_session_focus", "filler_words"),
-        rewrite_example=result.get("rewrite_example") if is_story else None,
+        rewrite_example=result.get("rewrite_example") if (is_story or is_listening) else None,
     )

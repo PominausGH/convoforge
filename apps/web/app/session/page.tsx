@@ -7,6 +7,7 @@ import LiveNudge from '@/components/LiveNudge';
 import MediaPipeCamera from '@/components/MediaPipeCamera';
 import ScoreCard from '@/components/ScoreCard';
 import { StoryStructureStrip } from '@/components/StoryStructureGuide';
+import { ListeningReflectionStrip } from '@/components/ListeningStimulusGuide';
 import { analyzeSession, createSession, fetchUserProfile, type FeedbackResponse } from '@/lib/api';
 import { startDeepgramStream, type DeepgramSession } from '@/lib/deepgram';
 import { FillerMonitor } from '@/lib/filler';
@@ -14,6 +15,7 @@ import {
     findLesson,
     buildLessonScript,
     totalLessonsFor,
+    CUSTOM_STORY_LESSON_ID,
     type Lesson,
 } from '@/lib/curriculum';
 import type { VisualMetrics } from '@/lib/mediapipe';
@@ -70,9 +72,39 @@ function SessionPage() {
         const id = localStorage.getItem('cf_user_id');
         setUserId(id);
         if (id) fetchUserProfile(id).then((p) => setTier(p.tier)).catch(() => undefined);
-        setLesson(findLesson(lessonId));
+
+        if (lessonId === CUSTOM_STORY_LESSON_ID) {
+            let parsed: { title?: string; prompt?: string } | null = null;
+            try {
+                const raw = sessionStorage.getItem('cf_custom_story_prompt');
+                sessionStorage.removeItem('cf_custom_story_prompt'); // one-shot
+                parsed = raw ? JSON.parse(raw) : null;
+            } catch {
+                parsed = null;
+            }
+            if (!parsed?.prompt) {
+                router.replace('/story-lab');
+                return;
+            }
+            setLesson({
+                lesson_id: CUSTOM_STORY_LESSON_ID,
+                title: parsed.title || 'Your story',
+                carnegie_principle: 'Every story needs a hook, a turn, and a takeaway — even one you just thought of.',
+                modern_context: 'You picked your own topic instead of a scripted prompt. The five-beat structure still applies.',
+                practice_prompt: parsed.prompt,
+                success_criteria: [
+                    'Hits at least 3 of the 5 story beats',
+                    'Names one specific feeling',
+                    'Ends on a takeaway, not just an event',
+                ],
+                tier_required: 'pro',
+                track: 'storytelling',
+            });
+        } else {
+            setLesson(findLesson(lessonId));
+        }
         setGroupMode(localStorage.getItem('cf_group_mode') === '1');
-    }, [lessonId]);
+    }, [lessonId, router]);
 
     const toggleGroupMode = useCallback(() => {
         setGroupMode((prev) => {
@@ -111,6 +143,7 @@ function SessionPage() {
                 duration_seconds: elapsedSeconds,
                 tier,
                 track: lesson?.track,
+                stimulus: lesson?.track === 'active_listening' ? lesson?.listening_stimulus : undefined,
             });
         } catch (err) {
             analyzeError = err instanceof Error ? err.message : 'Analysis failed';
@@ -164,9 +197,18 @@ function SessionPage() {
     // LESSON: speak the script, then advance to PRACTICE on speech-end (or 120s cap)
     useEffect(() => {
         if (status !== 'lesson' || !lesson) return;
-        const handle = speakText(buildLessonScript(lesson), {
-            audioUrl: `/audio/lesson-${lesson.lesson_id}.mp3`,
-        });
+        const lessonScript =
+            lesson.track === 'active_listening' && lesson.listening_stimulus
+                ? lesson.listening_stimulus
+                : buildLessonScript(lesson);
+        // Ids never batch pre-rendered (custom sentinel + new active_listening
+        // entries) skip audioUrl — speakText falls through to dynamic TTS.
+        const usesDynamicAudio =
+            lesson.lesson_id === CUSTOM_STORY_LESSON_ID || lesson.track === 'active_listening';
+        const handle = speakText(
+            lessonScript,
+            usesDynamicAudio ? {} : { audioUrl: `/audio/lesson-${lesson.lesson_id}.mp3` },
+        );
         let cancelled = false;
 
         const cap = setTimeout(() => {
@@ -246,7 +288,11 @@ function SessionPage() {
     }, [status, completeSession]);
 
     const totalLessons = totalLessonsFor(tier);
-    const progressPct = Math.min(100, Math.round((lessonId / totalLessons) * 100));
+    const isCustomStory = lessonId === CUSTOM_STORY_LESSON_ID;
+    const progressPct = isCustomStory
+        ? 100
+        : Math.min(100, Math.round((lessonId / totalLessons) * 100));
+    const usesDynamicAudio = isCustomStory || lesson?.track === 'active_listening';
 
     const statusLabel: Record<SessionStatus, string> = {
         idle: '',
@@ -258,8 +304,9 @@ function SessionPage() {
 
     return (
         <main className="min-h-screen bg-black text-white p-4 md:p-8 flex flex-col gap-6">
-            {/* Preload the lesson's pre-rendered MP3 so the first audio.play() is instant. */}
-            {lesson && (
+            {/* Preload the lesson's pre-rendered MP3 so the first audio.play() is instant.
+                Skipped for custom/active-listening lessons — no MP3 exists, they use dynamic TTS. */}
+            {lesson && !usesDynamicAudio && (
                 <link
                     rel="preload"
                     as="audio"
@@ -281,7 +328,7 @@ function SessionPage() {
             <div className="flex justify-between items-center px-4 gap-6">
                 <div className="flex flex-col min-w-0">
                     <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">
-                        Carnegie Module {lessonId} of {totalLessons}
+                        {isCustomStory ? 'Story Lab' : `Carnegie Module ${lessonId} of ${totalLessons}`}
                     </span>
                     <h1 className="text-xl font-black truncate">
                         {lesson?.title ?? 'Loading...'}
@@ -313,12 +360,23 @@ function SessionPage() {
             {lesson && (status === 'lesson' || status === 'practice') && (
                 <div className="bg-zinc-900/60 border border-white/10 rounded-2xl p-4 text-sm text-zinc-300 leading-relaxed">
                     <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-widest mr-2">
-                        {status === 'lesson' ? 'Principle' : 'Your prompt'}
+                        {status === 'lesson'
+                            ? lesson.track === 'active_listening' ? 'Listen' : 'Principle'
+                            : 'Your prompt'}
                     </span>
-                    {status === 'lesson' ? lesson.carnegie_principle : lesson.practice_prompt}
+                    {status === 'lesson'
+                        ? lesson.track === 'active_listening'
+                            ? "Listen closely — you'll reflect this back afterward, not recite it."
+                            : lesson.carnegie_principle
+                        : lesson.practice_prompt}
                     {lesson.track === 'storytelling' && (
                         <div className="mt-3 pt-3 border-t border-white/10">
                             <StoryStructureStrip />
+                        </div>
+                    )}
+                    {lesson.track === 'active_listening' && (
+                        <div className="mt-3 pt-3 border-t border-white/10">
+                            <ListeningReflectionStrip />
                         </div>
                     )}
                 </div>
@@ -418,6 +476,18 @@ function SessionPage() {
                                   hook_quality: sessionResult.feedback.carnegie.hook_quality,
                                   energy_score: sessionResult.feedback.carnegie.energy_score,
                                   beats_present: sessionResult.feedback.carnegie.beats_present,
+                                  rewrite_example: sessionResult.feedback.rewrite_example ?? undefined,
+                              }
+                            : undefined
+                    }
+                    listening={
+                        lesson?.track === 'active_listening'
+                            ? {
+                                  accuracy_score: sessionResult.feedback.carnegie.accuracy_score,
+                                  validation_score: sessionResult.feedback.carnegie.validation_score,
+                                  paraphrase_quality: sessionResult.feedback.carnegie.paraphrase_quality,
+                                  key_points_captured: sessionResult.feedback.carnegie.key_points_captured,
+                                  key_points_missed: sessionResult.feedback.carnegie.key_points_missed,
                                   rewrite_example: sessionResult.feedback.rewrite_example ?? undefined,
                               }
                             : undefined

@@ -36,4 +36,6 @@ export const ANALYTICS_EVENTS = {
     upgradeClick: 'upgrade_click',
     practiceSkip: 'practice_skip',
     storyLabView: 'story_lab_view',
+    customStoryStart: 'custom_story_start',
+    listeningLabView: 'listening_lab_view',
 } as const;

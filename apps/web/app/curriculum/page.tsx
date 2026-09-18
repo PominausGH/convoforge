@@ -35,6 +35,11 @@ const TRACK_META: Record<string, { label: string; author: string; description: s
         author: 'Marshall Rosenberg',
         description: 'Observations vs. evaluations, feelings vs. judgements, needs vs. strategies. The framework for feedback that lands without defensiveness.',
     },
+    active_listening: {
+        label: 'Active Listening',
+        author: 'Applied practice',
+        description: 'Hear a story or complaint, then reflect it back — scored on accuracy and whether you validated the feeling behind it, not just the facts.',
+    },
     storytelling: {
         label: 'Storytelling',
         author: 'Multiple frameworks',
@@ -93,7 +98,7 @@ const TRACK_META: Record<string, { label: string; author: string; description: s
 }
 
 const TRACK_ORDER = [
-    'carnegie', 'voss', 'cialdini', 'nvc', 'storytelling', 'rhetoric',
+    'carnegie', 'voss', 'cialdini', 'nvc', 'active_listening', 'storytelling', 'rhetoric',
     'fisher_ury', 'crucial_conversations', 'duarte', 'lencioni',
     'kahneman', 'cuddy', 'peterson', 'real_world', 'small_talk',
 ]
@@ -113,6 +118,9 @@ export default function CurriculumPage() {
                 <div className="flex items-center gap-4 text-sm font-semibold text-zinc-600 dark:text-zinc-300">
                     <Link href="/story-lab" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
                         Story Lab
+                    </Link>
+                    <Link href="/listening-lab" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
+                        Listening Lab
                     </Link>
                     <Link href="/forge" className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors">
                         Open app

@@ -70,6 +70,11 @@ export type FeedbackResponse = {
     beats_present?: string[]
     hook_quality?: number
     energy_score?: number
+    accuracy_score?: number
+    validation_score?: number
+    paraphrase_quality?: number
+    key_points_captured?: string[]
+    key_points_missed?: string[]
   }
   overall_forge_score: number
   top_insight: string
@@ -85,6 +90,7 @@ export async function analyzeSession(payload: {
   duration_seconds: number
   tier: 'free' | 'pro'
   track?: string
+  stimulus?: string
 }): Promise<FeedbackResponse> {
   const res = await fetch('/api/analyze-session', {
     method: 'POST',
