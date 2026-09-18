@@ -7,6 +7,14 @@ import { initiateProPayment } from '@/lib/stripe';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://convoforge.app';
 const SHARE_URL = `${SITE_URL}/?utm_source=share&utm_medium=social&utm_campaign=score_share`;
 
+interface StoryFeedback {
+    structure_score?: number;
+    hook_quality?: number;
+    energy_score?: number;
+    beats_present?: string[];
+    rewrite_example?: string;
+}
+
 interface ScoreCardProps {
     score: number;
     streak?: number | null;
@@ -14,6 +22,7 @@ interface ScoreCardProps {
     verbal: { filler_rate: number; wpm: number; hedging_count: number };
     visual: { eye_contact_pct: number; smile_frequency: number };
     insight: string;
+    story?: StoryFeedback;
     saveError?: string;
     onClose: () => void;
     onRetry?: () => void;
@@ -26,6 +35,7 @@ export default function ScoreCard({
     verbal,
     visual,
     insight,
+    story,
     saveError,
     onClose,
     onRetry,
@@ -102,6 +112,35 @@ export default function ScoreCard({
                     <Metric label="WPM" value={`${verbal.wpm}`} />
                     <Metric label="Smile Rate" value={visual.smile_frequency.toFixed(2)} />
                 </div>
+
+                {story && (
+                    <div className="mb-8">
+                        <div className="grid grid-cols-3 gap-3 mb-3">
+                            {story.hook_quality != null && (
+                                <Metric label="Hook" value={`${story.hook_quality}`} />
+                            )}
+                            {story.structure_score != null && (
+                                <Metric label="Structure" value={`${story.structure_score}`} />
+                            )}
+                            {story.energy_score != null && (
+                                <Metric label="Energy" value={`${story.energy_score}`} />
+                            )}
+                        </div>
+                        {story.beats_present && story.beats_present.length < 5 && (
+                            <p className="text-xs text-zinc-500 mb-3">
+                                Beats landed: {story.beats_present.join(', ') || 'none clearly'}
+                            </p>
+                        )}
+                        {story.rewrite_example && (
+                            <div className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-2xl">
+                                <div className="text-emerald-400 text-xs font-bold uppercase mb-1">Try it this way</div>
+                                <p className="text-emerald-100 text-sm leading-relaxed italic">
+                                    &ldquo;{story.rewrite_example}&rdquo;
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 {tier === 'free' && (
                     <div className="bg-gradient-to-br from-violet-500/10 to-blue-500/10 border border-violet-500/20 p-4 rounded-2xl mb-4">
