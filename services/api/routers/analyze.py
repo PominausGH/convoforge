@@ -36,6 +36,33 @@ Return JSON only, no preamble. Schema:
   "coaching_note": string|null  // populate only when sincerity_score < 60, judgment-free, <20 words
 }"""
 
+STORY_SYSTEM_PROMPT = """You are a storytelling coach. The speaker is practicing telling a short,
+personal or professional story out loud, judged against a five-beat structure:
+Hook (grabs attention in the first ~8s, no procedural opener) -> Context (one sentence of
+who/where/when) -> Turn (the complication or tension - the "but") -> Resolution (the specific
+action taken - the "therefore") -> Takeaway (the one-line "so what").
+
+Also judge delivery energy from the transcript itself: concrete/sensory language vs abstract
+corporate-speak, varied sentence rhythm vs monotone strings of short flat clauses, and specific
+emotion named plainly vs hedged or absent. This is a proxy for vocal passion since only the
+transcript is available, not audio.
+
+Return JSON only, no preamble. Schema:
+{
+  "carnegie": {
+    "structure_score": int 0-100,       // how completely & cleanly the 5 beats are present
+    "beats_present": [string],           // subset of ["hook","context","turn","resolution","takeaway"] clearly present
+    "hook_quality": int 0-100,           // does the opening create curiosity/tension fast, with no throat-clearing
+    "energy_score": int 0-100,           // vividness/specificity/rhythm variety as a passion proxy
+    "principle_alignment": [string]
+  },
+  "overall_forge_score": int 0-100,      // weight: structure 40%, hook 20%, energy 25%, conciseness (from verbal_metrics) 15%
+  "top_insight": string (one actionable sentence naming the weakest beat, judgment-free, <30 words),
+  "next_session_focus": string (one of: hook, structure, energy, conciseness, takeaway),
+  "rewrite_example": string (a single rewritten line demonstrating a stronger version of the
+    speaker's weakest beat, in their own scenario, <30 words, or null if nothing weak stands out)
+}"""
+
 
 class MultimodalData(BaseModel):
     user_id: str
@@ -44,6 +71,7 @@ class MultimodalData(BaseModel):
     visual: dict  # { eye_contact_pct, smile_frequency, posture }
     duration_seconds: float = 90.0
     tier: str = "free"
+    track: Optional[str] = None
 
 
 class FeedbackResponse(BaseModel):
@@ -53,9 +81,26 @@ class FeedbackResponse(BaseModel):
     overall_forge_score: int
     top_insight: str
     next_session_focus: str
+    rewrite_example: Optional[str] = None
 
 
-def _mock_feedback(verbal: dict, visual: dict, tier: str) -> FeedbackResponse:
+def _mock_feedback(verbal: dict, visual: dict, tier: str, track: Optional[str] = None) -> FeedbackResponse:
+    if track == "storytelling":
+        return FeedbackResponse(
+            verbal=verbal,
+            visual=visual,
+            carnegie={
+                "structure_score": 70,
+                "beats_present": ["hook", "turn", "resolution"],
+                "hook_quality": 65,
+                "energy_score": 72,
+                "principle_alignment": ["tension_structure"],
+            },
+            overall_forge_score=72,
+            top_insight="[DEV MOCK] You skipped the takeaway — end with the one line that says why this mattered.",
+            next_session_focus="takeaway",
+            rewrite_example="[DEV MOCK] \"...and that's why I still double-check every number before it leaves my desk.\"",
+        )
     return FeedbackResponse(
         verbal=verbal,
         visual=visual,
@@ -97,30 +142,32 @@ async def _call_claude(client: AsyncAnthropic, system: str, user_payload: dict) 
 @router.post("/analyze-session", response_model=FeedbackResponse)
 async def analyze_session(data: MultimodalData):
     verbal = analyze_transcript(data.transcript, data.duration_seconds)
+    is_story = data.track == "storytelling"
 
     api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
     if not api_key or api_key.endswith("..."):
-        return _mock_feedback(verbal, data.visual, data.tier)
+        return _mock_feedback(verbal, data.visual, data.tier, data.track)
 
     client = AsyncAnthropic(api_key=api_key)
 
     try:
-        carnegie_payload = {
+        result_payload = {
             "module_id": data.module_id,
             "transcript": data.transcript,
             "verbal_metrics": verbal,
             "visual_metrics": data.visual,
         }
-        carnegie_result = await _call_claude(client, CARNEGIE_SYSTEM_PROMPT, carnegie_payload)
+        system_prompt = STORY_SYSTEM_PROMPT if is_story else CARNEGIE_SYSTEM_PROMPT
+        result = await _call_claude(client, system_prompt, result_payload)
     except Exception as exc:
         # Don't 502 the whole session over an LLM blip — fall back to mock so the
         # user still gets a forge score and the front-end flow completes.
-        print(f"[analyze] Carnegie call failed, using mock: {exc}")
-        return _mock_feedback(verbal, data.visual, data.tier)
+        print(f"[analyze] {'Story' if is_story else 'Carnegie'} call failed, using mock: {exc}")
+        return _mock_feedback(verbal, data.visual, data.tier, data.track)
 
-    carnegie_block = carnegie_result.get("carnegie", {})
+    carnegie_block = result.get("carnegie", {})
 
-    if data.tier == "pro":
+    if data.tier == "pro" and not is_story:
         try:
             sincerity = await _call_claude(
                 client,
@@ -142,7 +189,8 @@ async def analyze_session(data: MultimodalData):
         verbal=verbal,
         visual=data.visual,
         carnegie=carnegie_block,
-        overall_forge_score=int(carnegie_result.get("overall_forge_score", 70)),
-        top_insight=carnegie_result.get("top_insight", "Keep practicing daily."),
-        next_session_focus=carnegie_result.get("next_session_focus", "filler_words"),
+        overall_forge_score=int(result.get("overall_forge_score", 70)),
+        top_insight=result.get("top_insight", "Keep practicing daily."),
+        next_session_focus=result.get("next_session_focus", "filler_words"),
+        rewrite_example=result.get("rewrite_example") if is_story else None,
     )

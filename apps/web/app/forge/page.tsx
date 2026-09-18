@@ -181,6 +181,13 @@ export default function AppDashboard() {
                 {`Start lesson ${nextLesson?.lesson_id ?? ''}`}
               </button>
 
+              <Link
+                href="/story-lab"
+                className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:underline"
+              >
+                🎤 Practice a story in Story Lab
+              </Link>
+
               {profile?.tier !== 'pro' && (
                 <>
                   <button

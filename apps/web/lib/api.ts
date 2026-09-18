@@ -65,10 +65,16 @@ export type FeedbackResponse = {
     smile_frequency?: number
     posture?: string
   }
-  carnegie: Record<string, unknown>
+  carnegie: Record<string, unknown> & {
+    structure_score?: number
+    beats_present?: string[]
+    hook_quality?: number
+    energy_score?: number
+  }
   overall_forge_score: number
   top_insight: string
   next_session_focus: string
+  rewrite_example?: string | null
 }
 
 export async function analyzeSession(payload: {
@@ -78,6 +84,7 @@ export async function analyzeSession(payload: {
   visual: Record<string, unknown>
   duration_seconds: number
   tier: 'free' | 'pro'
+  track?: string
 }): Promise<FeedbackResponse> {
   const res = await fetch('/api/analyze-session', {
     method: 'POST',

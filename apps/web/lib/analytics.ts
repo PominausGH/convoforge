@@ -35,4 +35,5 @@ export const ANALYTICS_EVENTS = {
     lessonSpeakFailed: 'lesson_speak_failed',
     upgradeClick: 'upgrade_click',
     practiceSkip: 'practice_skip',
+    storyLabView: 'story_lab_view',
 } as const;

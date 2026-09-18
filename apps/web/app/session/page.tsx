@@ -6,6 +6,7 @@ import Avatar from '@/components/Avatar';
 import LiveNudge from '@/components/LiveNudge';
 import MediaPipeCamera from '@/components/MediaPipeCamera';
 import ScoreCard from '@/components/ScoreCard';
+import { StoryStructureStrip } from '@/components/StoryStructureGuide';
 import { analyzeSession, createSession, fetchUserProfile, type FeedbackResponse } from '@/lib/api';
 import { startDeepgramStream, type DeepgramSession } from '@/lib/deepgram';
 import { FillerMonitor } from '@/lib/filler';
@@ -109,6 +110,7 @@ function SessionPage() {
                 visual,
                 duration_seconds: elapsedSeconds,
                 tier,
+                track: lesson?.track,
             });
         } catch (err) {
             analyzeError = err instanceof Error ? err.message : 'Analysis failed';
@@ -157,7 +159,7 @@ function SessionPage() {
             transcript_length: transcript.length,
         });
         setStatus('feedback');
-    }, [userId, lessonId, tier]);
+    }, [userId, lessonId, tier, lesson]);
 
     // LESSON: speak the script, then advance to PRACTICE on speech-end (or 120s cap)
     useEffect(() => {
@@ -314,6 +316,11 @@ function SessionPage() {
                         {status === 'lesson' ? 'Principle' : 'Your prompt'}
                     </span>
                     {status === 'lesson' ? lesson.carnegie_principle : lesson.practice_prompt}
+                    {lesson.track === 'storytelling' && (
+                        <div className="mt-3 pt-3 border-t border-white/10">
+                            <StoryStructureStrip />
+                        </div>
+                    )}
                 </div>
             )}
 
@@ -404,6 +411,17 @@ function SessionPage() {
                         smile_frequency: sessionResult.feedback.visual.smile_frequency ?? 0,
                     }}
                     insight={sessionResult.feedback.top_insight}
+                    story={
+                        lesson?.track === 'storytelling'
+                            ? {
+                                  structure_score: sessionResult.feedback.carnegie.structure_score,
+                                  hook_quality: sessionResult.feedback.carnegie.hook_quality,
+                                  energy_score: sessionResult.feedback.carnegie.energy_score,
+                                  beats_present: sessionResult.feedback.carnegie.beats_present,
+                                  rewrite_example: sessionResult.feedback.rewrite_example ?? undefined,
+                              }
+                            : undefined
+                    }
                     saveError={sessionResult.save_error}
                     onClose={() => router.push('/')}
                     onRetry={() => {
