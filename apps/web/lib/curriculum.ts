@@ -13,9 +13,22 @@ export type Lesson = {
      * in a user's queue without renumbering existing lessons (lesson_id is
      * persisted as cf_sessions.module_id, so it must never be reassigned). */
     sort_order?: number;
+    /** track === 'active_listening' only: the avatar narrates this aloud during
+     * the 'lesson' phase instead of the usual carnegie_principle/modern_context
+     * script, and the user then has to reflect it back during 'practice'. */
+    listening_stimulus?: string;
 };
 
 export const curriculum = sessions as Lesson[];
+
+/**
+ * Sentinel lesson_id for a client-constructed, free-text story prompt that
+ * isn't in curriculum.json (see /story-lab). Negative, so it can never
+ * collide with a real curriculum entry and is structurally invisible to
+ * findLesson/nextLessonFor/completed_module_ids, which only ever scan the
+ * curriculum array.
+ */
+export const CUSTOM_STORY_LESSON_ID = -1;
 
 export function findLesson(lessonId: number): Lesson | null {
     return curriculum.find((l) => l.lesson_id === lessonId) ?? null;

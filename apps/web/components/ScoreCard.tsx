@@ -15,6 +15,15 @@ interface StoryFeedback {
     rewrite_example?: string;
 }
 
+interface ListeningFeedback {
+    accuracy_score?: number;
+    validation_score?: number;
+    paraphrase_quality?: number;
+    key_points_captured?: string[];
+    key_points_missed?: string[];
+    rewrite_example?: string;
+}
+
 interface ScoreCardProps {
     score: number;
     streak?: number | null;
@@ -23,6 +32,7 @@ interface ScoreCardProps {
     visual: { eye_contact_pct: number; smile_frequency: number };
     insight: string;
     story?: StoryFeedback;
+    listening?: ListeningFeedback;
     saveError?: string;
     onClose: () => void;
     onRetry?: () => void;
@@ -36,6 +46,7 @@ export default function ScoreCard({
     visual,
     insight,
     story,
+    listening,
     saveError,
     onClose,
     onRetry,
@@ -136,6 +147,35 @@ export default function ScoreCard({
                                 <div className="text-emerald-400 text-xs font-bold uppercase mb-1">Try it this way</div>
                                 <p className="text-emerald-100 text-sm leading-relaxed italic">
                                     &ldquo;{story.rewrite_example}&rdquo;
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {listening && (
+                    <div className="mb-8">
+                        <div className="grid grid-cols-3 gap-3 mb-3">
+                            {listening.accuracy_score != null && (
+                                <Metric label="Accuracy" value={`${listening.accuracy_score}`} />
+                            )}
+                            {listening.validation_score != null && (
+                                <Metric label="Validation" value={`${listening.validation_score}`} />
+                            )}
+                            {listening.paraphrase_quality != null && (
+                                <Metric label="Paraphrase" value={`${listening.paraphrase_quality}`} />
+                            )}
+                        </div>
+                        {listening.key_points_missed && listening.key_points_missed.length > 0 && (
+                            <p className="text-xs text-zinc-500 mb-3">
+                                You missed: {listening.key_points_missed.join(', ')}
+                            </p>
+                        )}
+                        {listening.rewrite_example && (
+                            <div className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-2xl">
+                                <div className="text-emerald-400 text-xs font-bold uppercase mb-1">Try it this way</div>
+                                <p className="text-emerald-100 text-sm leading-relaxed italic">
+                                    &ldquo;{listening.rewrite_example}&rdquo;
                                 </p>
                             </div>
                         )}

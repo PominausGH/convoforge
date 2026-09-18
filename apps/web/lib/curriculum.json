@@ -2384,5 +2384,101 @@
       "Framed around consistency, not needing a perfect showing each time"
     ],
     "tier_required": "pro"
+  },
+  {
+    "lesson_id": 174,
+    "title": "The Reorg Rant",
+    "track": "active_listening",
+    "carnegie_principle": "Listen closely — you'll reflect this back afterward, not recite it.",
+    "modern_context": "A short workplace complaint the avatar narrates aloud. Your job is to reflect it back, not respond to it.",
+    "listening_stimulus": "My manager just told me our whole team is getting reorged under a director I've never even met, effective next Monday. Nobody asked us anything — no survey, no heads-up, nothing. I've been on this team three years, I finally know everyone's quirks, we've got a rhythm. Now I'm supposed to just... start over with a new boss who doesn't know I hate being cc'd on everything, doesn't know Priya needs written instructions not verbal ones, doesn't know any of it. And the worst part is when I asked why, my manager just said 'it's above my pay grade too.' So even she doesn't know. I've spent the whole afternoon just staring at my inbox instead of working.",
+    "practice_prompt": "In your own words, reflect back what happened and how this person feels about it — don't just repeat facts, name the frustration.",
+    "success_criteria": [
+      "Team is being reorged under a new, unfamiliar director",
+      "Change is effective Monday, with no warning or input sought",
+      "Speaker values their built-up team rhythm and manager relationship",
+      "Speaker feels frustrated and blindsided, and that even their manager doesn't have answers"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 175,
+    "title": "The Missed Flight",
+    "track": "active_listening",
+    "carnegie_principle": "Listen closely — you'll reflect this back afterward, not recite it.",
+    "modern_context": "A short personal anecdote the avatar narrates aloud. Your job is to reflect it back, not respond to it.",
+    "listening_stimulus": "So I get to the airport with plenty of time, I think — and the gate's already closed. Twenty minutes before departure, gone. I'd been checking the app the whole morning and it never sent me a gate-change alert, and by the time I looked up at the board it had moved terminals. I sprinted, I mean really sprinted, dodging strollers, and the gate agent just shook her head. I ended up standing there in the middle of the terminal, sweating, missing my best friend's wedding rehearsal dinner that I'd flown three hours for. I had to call her from the rebooking line and just say 'I'm not going to make it tonight.' That was one of the worst phone calls I've ever made.",
+    "practice_prompt": "Reflect back what happened and how this person felt in that moment — capture both the event and the emotion.",
+    "success_criteria": [
+      "Missed a flight because of an unannounced gate change",
+      "Speaker sprinted but was still turned away by the gate agent",
+      "Was traveling for a friend's wedding rehearsal dinner",
+      "Speaker felt devastated having to call and cancel"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 176,
+    "title": "The Layoff Headline",
+    "track": "active_listening",
+    "carnegie_principle": "Listen closely — you'll reflect this back afterward, not recite it.",
+    "modern_context": "A short reaction to frustrating news the avatar narrates aloud. Your job is to reflect it back, not respond to it.",
+    "listening_stimulus": "Did you see the news this morning? Another five thousand layoffs at that company, and the stock actually went up afterward. Up. Like the market is cheering because fewer people have jobs. I read through some of the comments online and half of them are people who got laid off saying they found out through a company-wide email at 6am with no manager conversation at all — just locked out of their laptop mid-task. Meanwhile the CEO's compensation package for this year is public and it's obscene. It just makes me so cynical about the whole system, like none of the loyalty or hard work anyone puts in actually protects them when the numbers need to look better for one quarter.",
+    "practice_prompt": "Reflect back the key facts and the feeling behind this reaction — what's actually bothering this person?",
+    "success_criteria": [
+      "Company laid off roughly five thousand people and its stock rose on the news",
+      "Affected employees found out via early-morning email with no manager conversation",
+      "CEO compensation was seen as excessive by contrast",
+      "Speaker feels cynical and disillusioned about job security and corporate loyalty"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 177,
+    "title": "The Roommate Dishes",
+    "track": "active_listening",
+    "carnegie_principle": "Listen closely — you'll reflect this back afterward, not recite it.",
+    "modern_context": "A short everyday-friction story the avatar narrates aloud. Your job is to reflect it back, not respond to it.",
+    "listening_stimulus": "I really don't want this to turn into a whole thing, but I've asked my roommate three times now about the dishes piling up in the sink, and it just keeps happening. It's not even that I mind doing dishes — I do them all the time — it's that I feel like I'm the only one who notices or cares. Last night I came home from a long shift and there were dishes from two days ago still sitting there, and I just stood in the kitchen for a second feeling this wave of 'I can't even relax in my own home.' I don't want to be the naggy roommate, but I also don't want to keep swallowing it every single week.",
+    "practice_prompt": "Reflect back what's going on and how this person feels — acknowledge the frustration, not just the dishes.",
+    "success_criteria": [
+      "Roommate has been asked multiple times about dishes piling up",
+      "It's not about doing the dishes — it's feeling like the only one who cares",
+      "Speaker felt they couldn't relax in their own home",
+      "Speaker is worried about seeming naggy but doesn't want to keep suppressing it"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 178,
+    "title": "The Client Escalation",
+    "track": "active_listening",
+    "carnegie_principle": "Listen closely — you'll reflect this back afterward, not recite it.",
+    "modern_context": "A short, higher-stakes workplace story the avatar narrates aloud. Your job is to reflect it back, not respond to it.",
+    "listening_stimulus": "The client called me directly this morning — skipped my manager entirely — and just tore into me about the delivery delay. Which, to be fair, is real, we are two weeks behind. But I don't control the vendor timeline, and I said that, and he basically said 'I don't care whose fault it is, fix it.' I get that he's under pressure from his own boss, I really do, but it's hard not to take it personally when someone's yelling at you for something you flagged as a risk three weeks ago and nobody acted on. Now I've got to write up an incident report by end of day and I still don't actually have a fix to offer him.",
+    "practice_prompt": "Reflect back the situation and the emotional undercurrent — both the client's pressure and this person's frustration.",
+    "success_criteria": [
+      "Client escalated directly, bypassing the speaker's manager, over a two-week delivery delay",
+      "Speaker doesn't control the vendor timeline and had flagged the risk three weeks earlier",
+      "Speaker recognizes the client is under his own pressure but still feels unfairly blamed",
+      "Speaker now owes an incident report without yet having a fix"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 179,
+    "title": "The Proud/Anxious Promotion",
+    "track": "active_listening",
+    "carnegie_principle": "Listen closely — you'll reflect this back afterward, not recite it.",
+    "modern_context": "A short mixed-emotion personal story the avatar narrates aloud. Your job is to reflect it back, not respond to it.",
+    "listening_stimulus": "I got the promotion — finally, after two years of asking for it — and I should be thrilled, and part of me is. But honestly the bigger feeling right now is just... dread. Because now I'm managing three people who used to be my peers, including one guy who applied for this exact role and didn't get it. I don't know how to have that conversation with him. I keep running it in my head at 2am. Everyone keeps congratulating me and I just smile and say thanks, but inside I'm thinking 'I have no idea if I'm actually ready for this.'",
+    "practice_prompt": "Reflect back what happened and the mixed feelings underneath — this isn't simple good news, capture the ambivalence.",
+    "success_criteria": [
+      "Speaker got a promotion they'd been seeking for two years",
+      "Now manages former peers, including someone who wanted the same role",
+      "Dominant feeling is dread and anxiety, not just pride",
+      "Speaker is putting on a happy face publicly while privately unsure they're ready"
+    ],
+    "tier_required": "pro"
   }
 ]

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { curriculum } from '@/lib/curriculum';
+import { curriculum, CUSTOM_STORY_LESSON_ID } from '@/lib/curriculum';
 import { fetchUserProfile, type UserProfile } from '@/lib/api';
 import { StoryStructureGuide } from '@/components/StoryStructureGuide';
 import UpgradeButton from '@/components/UpgradeButton';
@@ -14,8 +14,20 @@ const STORY_LESSONS = curriculum
     .slice()
     .sort((a, b) => (a.sort_order ?? a.lesson_id) - (b.sort_order ?? b.lesson_id));
 
+const QUICK_PROMPTS: { label: string; text: string }[] = [
+    { label: 'A favorite memory', text: 'Tell a short story about a favorite memory — a specific moment, not a general description.' },
+    { label: 'A time you failed', text: 'Tell a short story about a time you failed at something — what happened, and what it cost you.' },
+    { label: 'Someone who shaped you', text: 'Tell a short story about someone who shaped who you are — one specific moment with them, not a general tribute.' },
+    { label: 'A proud moment', text: 'Tell a short story about a moment you were genuinely proud of — what led up to it, and why it mattered.' },
+    { label: 'A turning point', text: 'Tell a short story about a turning point — the moment before, and how things were different after.' },
+];
+
+const CUSTOM_STORY_STORAGE_KEY = 'cf_custom_story_prompt';
+
 export default function StoryLabPage() {
     const [profile, setProfile] = useState<UserProfile | null>(null);
+    const [customText, setCustomText] = useState('');
+    const [customTitle, setCustomTitle] = useState('Your story');
 
     useEffect(() => {
         trackEvent(ANALYTICS_EVENTS.storyLabView);
@@ -24,6 +36,32 @@ export default function StoryLabPage() {
     }, []);
 
     const isPro = profile?.tier === 'pro';
+
+    const pickPrompt = (prompt: { label: string; text: string }) => {
+        setCustomTitle(prompt.label);
+        setCustomText(prompt.text);
+    };
+
+    const startCustomStory = () => {
+        const trimmed = customText.trim();
+        if (!trimmed) return;
+        trackEvent(ANALYTICS_EVENTS.customStoryStart, {
+            source: QUICK_PROMPTS.some((p) => p.text === trimmed) ? customTitle : 'freetext',
+        });
+        try {
+            sessionStorage.setItem(
+                CUSTOM_STORY_STORAGE_KEY,
+                JSON.stringify({ title: customTitle, prompt: trimmed }),
+            );
+        } catch {
+            // sessionStorage unavailable (private mode etc.) — session page will
+            // fall back to redirecting the user back here.
+        }
+        // Full navigation, not router.push: the sentinel lesson id is always -1,
+        // so a client-side nav between two custom stories wouldn't re-trigger
+        // session/page.tsx's lesson-loading effect (same id both times).
+        window.location.assign(`/session?lesson=${CUSTOM_STORY_LESSON_ID}&custom=story`);
+    };
 
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
@@ -61,25 +99,67 @@ export default function StoryLabPage() {
                 <StoryStructureGuide />
             </section>
 
-            <section className="max-w-3xl mx-auto px-6 pb-20">
-                <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">
-                    Practice a story now
-                </h2>
-
-                {!isPro && (
-                    <div className="bg-gradient-to-br from-violet-500/10 to-blue-500/10 border border-violet-500/20 rounded-2xl p-5 mb-5">
+            {!isPro && (
+                <section className="max-w-3xl mx-auto px-6 pb-6">
+                    <div className="bg-gradient-to-br from-violet-500/10 to-blue-500/10 border border-violet-500/20 rounded-2xl p-5">
                         <div className="text-violet-600 dark:text-violet-400 text-xs font-bold uppercase mb-1">
                             Story Lab is a Pro feature
                         </div>
                         <p className="text-zinc-700 dark:text-zinc-300 text-sm mb-3">
-                            Structure, hook, conciseness, and energy scoring on every recorded story — plus
-                            all 157 Pro lessons and unlimited sessions.
+                            Structure, hook, conciseness, and energy scoring on every recorded story —
+                            whether it's your own topic or a curated prompt — plus all 157+ Pro lessons and
+                            unlimited sessions.
                         </p>
                         <UpgradeButton className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-2.5 rounded-xl text-sm transition-colors">
                             Upgrade to Pro — $9/month
                         </UpgradeButton>
                     </div>
-                )}
+                </section>
+            )}
+
+            {isPro && (
+                <section className="max-w-3xl mx-auto px-6 pb-14">
+                    <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">
+                        Tell your own story
+                    </h2>
+                    <div className="border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5">
+                        <div className="flex flex-wrap gap-2 mb-4">
+                            {QUICK_PROMPTS.map((prompt) => (
+                                <button
+                                    key={prompt.label}
+                                    onClick={() => pickPrompt(prompt)}
+                                    className={`text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors ${
+                                        customTitle === prompt.label
+                                            ? 'bg-zinc-900 dark:bg-white text-white dark:text-black border-zinc-900 dark:border-white'
+                                            : 'border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                                    }`}
+                                >
+                                    {prompt.label}
+                                </button>
+                            ))}
+                        </div>
+                        <textarea
+                            value={customText}
+                            onChange={(e) => setCustomText(e.target.value)}
+                            placeholder="Or just type your own topic — anything you want to practice telling..."
+                            rows={3}
+                            className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-900 dark:text-zinc-100 placeholder-zinc-400 focus:outline-none focus:border-zinc-400 dark:focus:border-zinc-600 resize-none"
+                        />
+                        <button
+                            onClick={startCustomStory}
+                            disabled={!customText.trim()}
+                            className="mt-3 w-full bg-black dark:bg-white text-white dark:text-black font-bold py-2.5 rounded-xl text-sm disabled:opacity-40 disabled:cursor-not-allowed hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
+                        >
+                            Start this story
+                        </button>
+                    </div>
+                </section>
+            )}
+
+            <section className="max-w-3xl mx-auto px-6 pb-20">
+                <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">
+                    Or pick a curated prompt
+                </h2>
 
                 <div className="divide-y divide-zinc-100 dark:divide-zinc-800 border border-zinc-100 dark:border-zinc-800 rounded-2xl overflow-hidden">
                     {STORY_LESSONS.map((lesson) => (

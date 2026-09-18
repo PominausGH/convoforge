@@ -187,6 +187,12 @@ export default function AppDashboard() {
               >
                 🎤 Practice a story in Story Lab
               </Link>
+              <Link
+                href="/listening-lab"
+                className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:underline"
+              >
+                👂 Practice active listening
+              </Link>
 
               {profile?.tier !== 'pro' && (
                 <>
