@@ -26,3 +26,8 @@ convoforge-recordings/
 design-assets/
 .playwright-mcp/
 *.tsbuildinfo
+
+# Claude Code session state / agent worktrees — untracked here would leave
+# git status permanently dirty, which silently breaks any deploy-pull cron
+# that gates on a clean working tree
+.claude/
