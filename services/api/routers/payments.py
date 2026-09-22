@@ -6,6 +6,7 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from db import get_db
+from mailer import send_email, pro_upgrade_email
 from models.user import User
 from models.payment import Payment
 
@@ -109,6 +110,10 @@ async def stripe_webhook(request: Request, db: AsyncSession = Depends(get_db)):
                 )
                 db.add(payment)
                 await db.commit()
+
+                if user.email:
+                    subject, html = pro_upgrade_email()
+                    await send_email(user.email, subject, html)
 
     elif event["type"] == "customer.subscription.deleted":
         subscription = event["data"]["object"].to_dict()

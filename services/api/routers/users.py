@@ -8,6 +8,7 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db import get_db
+from mailer import send_email, welcome_email
 from models.session import Session
 from models.user import User
 
@@ -128,6 +129,10 @@ async def capture_email(
     user.newsletter_opt_in = data.opt_in
     user.email_captured_at = datetime.now(timezone.utc).replace(tzinfo=None)
     await db.commit()
+
+    subject, html = welcome_email(data.opt_in)
+    await send_email(user.email, subject, html)
+
     return None
 
 
