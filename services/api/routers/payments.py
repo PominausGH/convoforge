@@ -6,7 +6,7 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from db import get_db
-from mailer import send_email, pro_upgrade_email
+from mailer import send_email, pro_upgrade_email, cancellation_email
 from models.user import User
 from models.payment import Payment
 
@@ -132,5 +132,9 @@ async def stripe_webhook(request: Request, db: AsyncSession = Depends(get_db)):
                 if user:
                     user.tier = "free"
                     await db.commit()
+
+                    if user.email:
+                        subject, html = cancellation_email()
+                        await send_email(user.email, subject, html)
 
     return {"status": "success"}
