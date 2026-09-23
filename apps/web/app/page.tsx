@@ -18,6 +18,15 @@ const TOTAL_LESSONS = totalLessonsFor('pro')
 const FREE_LESSONS = totalLessonsFor('free')
 const FRAMEWORK_COUNT = new Set(curriculum.map((l) => l.track ?? 'carnegie')).size
 
+// Homepage track tiles group curriculum.json's `track` values. Counts are
+// derived (never hardcoded) and the last tile is the remainder, so the three
+// tiles always sum to TOTAL_LESSONS as the curriculum grows.
+const countTracks = (tracks: string[]) =>
+    curriculum.filter((l) => tracks.includes(l.track ?? 'carnegie')).length
+const CARNEGIE_LESSONS = countTracks(['carnegie'])
+const CONNECTION_LESSONS = countTracks(['small_talk', 'active_listening', 'storytelling'])
+const HIGH_STAKES_LESSONS = TOTAL_LESSONS - CARNEGIE_LESSONS - CONNECTION_LESSONS
+
 const FAQS: Array<[string, string]> = [
     [
         'Do you save my voice or camera feed?',
@@ -323,30 +332,30 @@ export default async function Landing() {
 
                 <div className="grid md:grid-cols-3 gap-5">
                     <Track
-                        title="Carnegie Foundations"
-                        count="16 lessons"
+                        title="Carnegie & Remote Work"
+                        count={`${CARNEGIE_LESSONS} lessons`}
                         tier="Free + Pro"
                         samples={[
                             'Remember names',
                             'Kill the filler',
-                            'Admit mistakes quickly',
-                            'The 2-minute pitch',
+                            'The 3-sentence Slack',
+                            'Loom in 90 seconds',
                         ]}
                     />
                     <Track
-                        title="Remote & Async"
-                        count="35 lessons"
+                        title="Small Talk, Listening & Story"
+                        count={`${CONNECTION_LESSONS} lessons`}
                         tier="Free + Pro"
                         samples={[
-                            'The 3-sentence Slack',
-                            'The email that skips the meeting',
-                            'Loom in 90 seconds',
-                            'Status updates that travel',
+                            "The opener that isn't a line",
+                            'Joining a group already talking',
+                            'The comfortable silence',
+                            'The hook — first 8 seconds',
                         ]}
                     />
                     <Track
                         title="Psychology & High-Stakes"
-                        count="122 lessons"
+                        count={`${HIGH_STAKES_LESSONS} lessons`}
                         tier="Pro"
                         samples={[
                             'Radical Candor',
@@ -535,47 +544,6 @@ export default async function Landing() {
                             🔒 Early adopter pricing — $9/month, guaranteed through 2028 for anyone who upgrades now. Price increases as the scenario library expands.
                         </p>
                     </div>
-                </div>
-            </section>
-
-            {/* ── TESTIMONIALS ──────────────────────────────────── */}
-            <section aria-labelledby="testimonials-heading" className="max-w-6xl mx-auto px-6 py-20 md:py-28">
-                <div className="text-center mb-14">
-                    <div className="text-[11px] uppercase tracking-[0.3em] text-zinc-500 dark:text-zinc-400 font-bold mb-3">
-                        Early forgers
-                    </div>
-                    <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-black tracking-tight">
-                        Five minutes changed how they show up.
-                    </h2>
-                </div>
-                <div className="grid md:grid-cols-3 gap-5">
-                    <Testimonial
-                        quote="I had a board presentation coming up and three days to prepare. I ran the scenario six times in ConvoForge over three mornings. My Forge Score went from 54 to 81. The board asked me to stay on the call for an extra 20 minutes."
-                        name="Marcus T."
-                        role="Head of Product, Series B startup"
-                    />
-                    <Testimonial
-                        quote="I'm an introvert who works fully remote. ConvoForge helped me practise my skip-level review — including when my manager interrupted me — until I stopped freezing. The session report told me I said 'um' 14 times in the first take and twice in the fifth."
-                        name="Priya S."
-                        role="Senior Engineer"
-                    />
-                    <Testimonial
-                        quote="I've tried Poised and Yoodli. Both are fine if you want to review a meeting you already bombed. ConvoForge is the only tool I've found that actually trains you before the moment."
-                        name="Dan K."
-                        role="Account Executive"
-                    />
-                </div>
-                <div className="grid md:grid-cols-2 gap-5 mt-5 max-w-3xl mx-auto">
-                    <Testimonial
-                        quote="As a manager who gives a lot of feedback, I didn't realise how often I was being indirect. The Sincerity score kept calling it out. Uncomfortable — in the best way."
-                        name="Rachel M."
-                        role="Engineering Manager"
-                    />
-                    <Testimonial
-                        quote="Five minutes a day sounds like nothing. My Forge Score went from 47 to 79 in six weeks. My team started asking if something had changed. Nothing had, except the practice."
-                        name="Jordan L."
-                        role="Remote Founder"
-                    />
                 </div>
             </section>
 
@@ -996,28 +964,6 @@ function WhyPillar({
             <div className="text-2xl mb-4" aria-hidden>{icon}</div>
             <h3 className="text-base font-black mb-2 leading-snug">{title}</h3>
             <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">{body}</p>
-        </div>
-    )
-}
-
-function Testimonial({
-    quote,
-    name,
-    role,
-}: {
-    quote: string
-    name: string
-    role: string
-}) {
-    return (
-        <div className="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 flex flex-col">
-            <blockquote className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed flex-1 mb-4">
-                &ldquo;{quote}&rdquo;
-            </blockquote>
-            <div>
-                <p className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{name}</p>
-                <p className="text-xs text-zinc-500 dark:text-zinc-400">{role}</p>
-            </div>
         </div>
     )
 }
