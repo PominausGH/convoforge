@@ -69,3 +69,14 @@ def pro_upgrade_email() -> tuple[str, str]:
         <hr><p style="color:#888;font-size:12px">ConvoForge</p>
     """
     return subject, html
+
+
+def cancellation_email() -> tuple[str, str]:
+    subject = "You're back on ConvoForge Free"
+    html = """
+        <p>Your Pro subscription has ended and your account is back on the free tier.</p>
+        <p>Mind telling us why you left — too expensive, didn't use it enough, missing a feature, found something else? Just reply, even one line helps.</p>
+        <p>Changed your mind? You can upgrade again any time: <a href="https://convoforge.app/pricing">convoforge.app/pricing</a></p>
+        <hr><p style="color:#888;font-size:12px">ConvoForge</p>
+    """
+    return subject, html
