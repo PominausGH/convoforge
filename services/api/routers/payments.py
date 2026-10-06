@@ -1,4 +1,5 @@
 import os
+import logging
 import stripe
 from datetime import datetime
 from fastapi import APIRouter, HTTPException, Depends, Request
@@ -11,6 +12,7 @@ from models.user import User
 from models.payment import Payment
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 stripe.api_key = os.getenv("STRIPE_API_KEY", "sk_test_123")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "whsec_123")
@@ -33,7 +35,9 @@ async def create_checkout_session(data: CheckoutSessionCreate, db: AsyncSession 
             await db.commit()
 
         # 2. Create a checkout session with PPP support
-        session = stripe.checkout.Session.create(
+        # Subscription mode: payment_intent_data (and thus statement_descriptor_suffix)
+        # is not allowed, so the card descriptor comes from the account prefix only.
+        params = dict(
             payment_method_types=['card'],
             line_items=[{
                 'price': os.getenv("STRIPE_PRO_PRICE_ID", "price_123"),
@@ -44,9 +48,26 @@ async def create_checkout_session(data: CheckoutSessionCreate, db: AsyncSession 
             cancel_url=f"{APP_URL}/pricing?payment=cancelled",
             metadata={
                 "app": "convoforge",
+                "product": "convoforge",
                 "user_id": data.user_id
-            }
+            },
+            subscription_data={
+                "metadata": {
+                    "app": "convoforge",
+                    "product": "convoforge",
+                    "user_id": data.user_id
+                }
+            },
         )
+        try:
+            session = stripe.checkout.Session.create(
+                **params, branding_settings={"display_name": "ConvoForge"}
+            )
+        except stripe.InvalidRequestError as e:
+            if "branding_settings" not in str(e):
+                raise
+            logger.warning("Stripe rejected branding_settings, retrying without it: %s", e)
+            session = stripe.checkout.Session.create(**params)
         return {"url": session.url}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
