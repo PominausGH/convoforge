@@ -1,4 +1,5 @@
 import os
+import re
 import logging
 import stripe
 from datetime import datetime
@@ -18,8 +19,12 @@ stripe.api_key = os.getenv("STRIPE_API_KEY", "sk_test_123")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "whsec_123")
 APP_URL = os.getenv("APP_URL", "http://localhost:3000")
 
+_EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+
 class CheckoutSessionCreate(BaseModel):
     user_id: str
+    email: str | None = None
 
 @router.post("/create-checkout-session")
 async def create_checkout_session(data: CheckoutSessionCreate, db: AsyncSession = Depends(get_db)):
@@ -32,6 +37,16 @@ async def create_checkout_session(data: CheckoutSessionCreate, db: AsyncSession 
         if not user:
             user = User(user_id=data.user_id, tier="free")
             db.add(user)
+            await db.commit()
+
+        # Email asked for just before checkout, so an abandoned checkout can
+        # still be followed up. Saved without newsletter opt-in or welcome mail.
+        email = (data.email or "").strip().lower() or None
+        if email:
+            if not _EMAIL_RE.match(email):
+                raise HTTPException(status_code=400, detail="Invalid email")
+            user.email = email
+            user.email_captured_at = datetime.utcnow()
             await db.commit()
 
         # 2. Create a checkout session with PPP support
@@ -52,6 +67,7 @@ async def create_checkout_session(data: CheckoutSessionCreate, db: AsyncSession 
                 "product": "convoforge",
                 "user_id": data.user_id
             },
+            **({"customer_email": email} if email else {}),
             subscription_data={
                 "metadata": {
                     "app": "convoforge",
@@ -70,6 +86,8 @@ async def create_checkout_session(data: CheckoutSessionCreate, db: AsyncSession 
             logger.warning("Stripe rejected branding_settings, retrying without it: %s", e)
             session = stripe.checkout.Session.create(**params)
         return {"url": session.url}
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import SupportEmail from '@/components/SupportEmail'
-import { initiateProPayment } from '@/lib/stripe'
+import UpgradeButton from '@/components/UpgradeButton'
 import { ensureUser, type UserProfile } from '@/lib/api'
 import { curriculum, nextLessonFor, totalLessonsFor, type Lesson } from '@/lib/curriculum'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
@@ -46,18 +46,7 @@ export default function AppDashboard() {
 
   const LOCKED_PREVIEW = curriculum.filter((l) => l.tier_required === 'pro').slice(4, 8)
 
-  const handleUpgrade = async () => {
-    if (!userId) return
-    trackEvent(ANALYTICS_EVENTS.upgradeClick, {
-      limit_reached: limitReached ?? false,
-    })
-    try {
-      await initiateProPayment(userId)
-    } catch (err) {
-      console.error('[upgrade] failed:', err)
-      alert('We couldn’t open the checkout just now. Please try again in a moment.')
-    }
-  }
+  const upgradeTrack = { limit_reached: limitReached ?? false }
 
   const nextLesson: Lesson | null = profile
     ? nextLessonFor(profile.completed_module_ids, profile.tier)
@@ -159,12 +148,12 @@ export default function AppDashboard() {
                 <li>✓ All 30 Carnegie modules</li>
                 <li>✓ Visual + sincerity scoring</li>
               </ul>
-              <button
-                onClick={handleUpgrade}
+              <UpgradeButton
+                trackProps={upgradeTrack}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full font-semibold shadow active:scale-95 transition-transform"
               >
                 Upgrade to Pro
-              </button>
+              </UpgradeButton>
               <p className="text-[10px] text-blue-600 dark:text-blue-400 text-center">
                 Or come back next week for 3 more free sessions
               </p>
@@ -201,12 +190,12 @@ export default function AppDashboard() {
 
               {profile?.tier !== 'pro' && (
                 <>
-                  <button
-                    onClick={handleUpgrade}
+                  <UpgradeButton
+                    trackProps={upgradeTrack}
                     className="text-blue-600 dark:text-blue-400 font-medium hover:underline mt-2"
                   >
                     Upgrade to ConvoForge Pro
-                  </button>
+                  </UpgradeButton>
                   <div className="w-full mt-4">
                     <div className="text-[10px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-semibold mb-2">
                       Locked — Pro only
@@ -222,12 +211,12 @@ export default function AppDashboard() {
                         </div>
                       ))}
                     </div>
-                    <button
-                      onClick={handleUpgrade}
+                    <UpgradeButton
+                      trackProps={upgradeTrack}
                       className="mt-2 text-xs text-blue-600 dark:text-blue-400 hover:underline w-full text-center"
                     >
                       See all 157 Pro lessons →
-                    </button>
+                    </UpgradeButton>
                   </div>
                 </>
               )}

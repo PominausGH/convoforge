@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { captureEmail } from '@/lib/api';
-import { initiateProPayment } from '@/lib/stripe';
+import UpgradeButton from '@/components/UpgradeButton';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://convoforge.app';
 const SHARE_URL = `${SITE_URL}/?utm_source=share&utm_medium=social&utm_campaign=score_share`;
@@ -54,21 +54,6 @@ export default function ScoreCard({
     const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared' | 'error'>('idle');
     const [email, setEmail] = useState('');
     const [emailState, setEmailState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
-    const [upgradeLoading, setUpgradeLoading] = useState(false);
-
-    const handleUpgrade = async () => {
-        const uid = typeof window !== 'undefined' ? window.localStorage.getItem('cf_user_id') : null;
-        if (!uid) return;
-        setUpgradeLoading(true);
-        try {
-            await initiateProPayment(uid);
-        } catch (err) {
-            console.error('[upgrade] failed:', err);
-            setUpgradeLoading(false);
-            alert('We couldn’t open the checkout just now. Please try again in a moment.');
-        }
-    };
-
     const shareText = `I scored ${score} on my Daily Forge 🔥 #ConvoForge`;
 
     const saveEmail = async (e: React.FormEvent) => {
@@ -86,6 +71,11 @@ export default function ScoreCard({
                     : null;
             if (!uid) throw new Error('no user id');
             await captureEmail(uid, trimmed, true);
+            try {
+                window.localStorage.setItem('cf_email', trimmed);
+            } catch {
+                /* prefill only */
+            }
             setEmailState('saved');
         } catch {
             setEmailState('error');
@@ -192,13 +182,13 @@ export default function ScoreCard({
                     <div className="bg-gradient-to-br from-violet-500/10 to-blue-500/10 border border-violet-500/20 p-4 rounded-2xl mb-4">
                         <div className="text-violet-400 text-xs font-bold uppercase mb-1">Unlock Pro</div>
                         <p className="text-zinc-300 text-sm mb-3">Sincerity scoring, Carnegie alignment flags, and 157 Pro lessons — unlimited sessions.</p>
-                        <button
-                            onClick={handleUpgrade}
-                            disabled={upgradeLoading}
-                            className="w-full bg-violet-600 hover:bg-violet-500 disabled:opacity-60 text-white font-bold py-2 rounded-xl text-sm transition-colors"
+                        <UpgradeButton
+                            trackProps={{ source: 'scorecard' }}
+                            busyLabel="Redirecting…"
+                            className="w-full bg-violet-600 hover:bg-violet-500 text-white font-bold py-2 rounded-xl text-sm transition-colors"
                         >
-                            {upgradeLoading ? 'Redirecting…' : 'Upgrade to Pro — $9/month'}
-                        </button>
+                            Upgrade to Pro — $9/month
+                        </UpgradeButton>
                     </div>
                 )}
 

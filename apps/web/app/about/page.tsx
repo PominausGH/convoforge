@@ -127,8 +127,10 @@ export default function AboutPage() {
 
             <h2 className="text-2xl font-bold mt-12 mb-4">Privacy by design</h2>
             <p className="text-zinc-800 dark:text-zinc-200 max-w-2xl">
-                No account, no email, no PII. A random UUID in your browser is
-                the only identifier we keep. Video stays on your device. Audio is
+                No account and no email needed to practise. A random UUID in your
+                browser is the only identifier we keep, unless you choose to give
+                us your email for lesson emails or a Pro upgrade. Video stays on
+                your device. Audio is
                 transcribed in real time and not retained.
                 {' '}
                 <Link href="/privacy" className="underline">
