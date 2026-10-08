@@ -130,9 +130,15 @@ export default function PrivacyPage() {
             <p>
                 If you have not given us an email, your UUID is not linked to any
                 personal identifier, so there is nothing to search or delete by
-                name. To erase your data, clear your browser storage — your UUID
-                will no longer resolve, and the associated rows will be purged on
-                our regular retention cycle (90 days of inactivity).
+                name. Clearing your browser storage disconnects you from your
+                data, but the rows themselves (scores and transcripts) are kept
+                until you ask us to delete them. To request deletion, email{' '}
+                <a href="mailto:support@convoforge.app" className="underline">
+                    support@convoforge.app
+                </a>{' '}
+                with your ConvoForge ID (stored in your browser as{' '}
+                <code>cf_user_id</code>) — without it we have no way to find
+                your data.
             </p>
             <p className="mt-3">
                 If you have given us your email, you can ask us to access, correct
