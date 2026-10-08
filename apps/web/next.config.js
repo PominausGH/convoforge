@@ -129,6 +129,20 @@ const nextConfig = {
                     { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
                 ],
             },
+            // Keep OG images and the RSS feed out of the index — GSC was
+            // reporting them as "Crawled - currently not indexed" pages.
+            {
+                source: '/opengraph-image',
+                headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+            },
+            {
+                source: '/blog/:slug/opengraph-image',
+                headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+            },
+            {
+                source: '/blog/rss.xml',
+                headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
+            },
             {
                 source: '/sw.js',
                 headers: [
