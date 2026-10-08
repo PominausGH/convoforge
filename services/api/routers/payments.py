@@ -37,8 +37,9 @@ async def create_checkout_session(data: CheckoutSessionCreate, db: AsyncSession 
         # 2. Create a checkout session with PPP support
         # Subscription mode: payment_intent_data (and thus statement_descriptor_suffix)
         # is not allowed, so the card descriptor comes from the account prefix only.
+        # payment_method_types omitted: Stripe now rejects it; methods come from
+        # Dashboard settings (dynamic payment methods).
         params = dict(
-            payment_method_types=['card'],
             line_items=[{
                 'price': os.getenv("STRIPE_PRO_PRICE_ID", "price_123"),
                 'quantity': 1,

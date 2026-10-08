@@ -51,7 +51,12 @@ export default function AppDashboard() {
     trackEvent(ANALYTICS_EVENTS.upgradeClick, {
       limit_reached: limitReached ?? false,
     })
-    await initiateProPayment(userId)
+    try {
+      await initiateProPayment(userId)
+    } catch (err) {
+      console.error('[upgrade] failed:', err)
+      alert('We couldn’t open the checkout just now. Please try again in a moment.')
+    }
   }
 
   const nextLesson: Lesson | null = profile
