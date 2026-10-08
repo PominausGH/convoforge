@@ -128,11 +128,20 @@ export default function PrivacyPage() {
 
             <h2 className="text-xl font-bold mt-8 mb-3">Your rights (GDPR / CCPA)</h2>
             <p>
-                Because we do not link your UUID to any personal identifier, there
-                is nothing to search or delete by name. To erase your data, clear
-                your browser storage — your UUID will no longer resolve, and the
-                associated rows will be purged on our regular retention cycle
-                (90 days of inactivity).
+                If you have not given us an email, your UUID is not linked to any
+                personal identifier, so there is nothing to search or delete by
+                name. To erase your data, clear your browser storage — your UUID
+                will no longer resolve, and the associated rows will be purged on
+                our regular retention cycle (90 days of inactivity).
+            </p>
+            <p className="mt-3">
+                If you have given us your email, you can ask us to access, correct
+                or delete it (and the data linked to it) by emailing{' '}
+                <a href="mailto:support@convoforge.app" className="underline">
+                    support@convoforge.app
+                </a>
+                . Payment records held by Stripe are covered by Stripe&apos;s own
+                policy.
             </p>
 
             <h2 className="text-xl font-bold mt-8 mb-3">Contact</h2>
