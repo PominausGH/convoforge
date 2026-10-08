@@ -34,6 +34,7 @@ export const ANALYTICS_EVENTS = {
     lessonComplete: 'lesson_complete',
     lessonSpeakFailed: 'lesson_speak_failed',
     upgradeClick: 'upgrade_click',
+    checkoutEmail: 'checkout_email',
     practiceSkip: 'practice_skip',
     storyLabView: 'story_lab_view',
     customStoryStart: 'custom_story_start',

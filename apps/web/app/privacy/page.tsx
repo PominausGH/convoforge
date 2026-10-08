@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     alternates: { canonical: '/privacy' },
 }
 
-const EFFECTIVE_DATE = 'April 2026'
+const EFFECTIVE_DATE = 'October 2026'
 
 export default function PrivacyPage() {
     return (
@@ -41,9 +41,11 @@ export default function PrivacyPage() {
                 When you first visit ConvoForge, a random UUID is generated locally
                 in your browser and stored in <code>localStorage</code> under the
                 key <code>cf_user_id</code>. We use that UUID to remember your
-                streak, weekly session count, and tier. We do not know your name,
-                email, IP, or any other identifier. Clearing your browser storage
-                signs you out permanently.
+                streak, weekly session count, and tier. Practising needs no account
+                and we do not know your name or IP. We only hold your email if you
+                choose to give it: on your score card (for lesson emails) or just
+                before upgrading to Pro (for your receipt and payment support).
+                Clearing your browser storage signs you out permanently.
             </p>
 
             <h2 className="text-xl font-bold mt-8 mb-3">Camera</h2>
@@ -94,8 +96,11 @@ export default function PrivacyPage() {
             <p>
                 Pro upgrades are processed by Stripe Checkout. Stripe handles all
                 card data; ConvoForge never sees your card number, CVV, or billing
-                address. We receive only Stripe&apos;s customer and session IDs so
-                we can unlock Pro features. See{' '}
+                address. We receive Stripe&apos;s customer and session IDs so we
+                can unlock Pro features. The email you enter before checkout is
+                passed to Stripe and kept by us so we can send your receipt and
+                follow up if a payment doesn&apos;t go through. It is not added to
+                any newsletter. See{' '}
                 <a
                     href="https://stripe.com/privacy"
                     className="underline"
