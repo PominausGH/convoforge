@@ -60,7 +60,13 @@ export default function ScoreCard({
         const uid = typeof window !== 'undefined' ? window.localStorage.getItem('cf_user_id') : null;
         if (!uid) return;
         setUpgradeLoading(true);
-        await initiateProPayment(uid);
+        try {
+            await initiateProPayment(uid);
+        } catch (err) {
+            console.error('[upgrade] failed:', err);
+            setUpgradeLoading(false);
+            alert('We couldn’t open the checkout just now. Please try again in a moment.');
+        }
     };
 
     const shareText = `I scored ${score} on my Daily Forge 🔥 #ConvoForge`;
