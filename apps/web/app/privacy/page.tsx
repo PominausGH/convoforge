@@ -24,7 +24,7 @@ export default function PrivacyPage() {
                 Effective {EFFECTIVE_DATE}
             </p>
             <p className="text-zinc-500 text-xs mb-10">
-                ConvoForge · ABN 65 366 917 788 · Australia
+                ConvoForge is operated by TelaLoom (ABN 65 366 917 788), Australia.
             </p>
 
             <section className="space-y-4 text-zinc-800 dark:text-zinc-200">
