@@ -738,7 +738,7 @@ export default async function Landing() {
                     </div>
                     <div>
                         <a href="https://telaloom.com" target="_blank" rel="noopener" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
-                            Built by TelaLoom
+                            A TelaLoom product
                         </a>
                     </div>
                 </div>

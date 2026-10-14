@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     alternates: { canonical: '/terms' },
 }
 
-const EFFECTIVE_DATE = 'April 2026'
+const EFFECTIVE_DATE = 'October 2026'
 
 export default function TermsPage() {
     return (
@@ -23,7 +23,7 @@ export default function TermsPage() {
                 Effective {EFFECTIVE_DATE}
             </p>
             <p className="text-zinc-500 text-xs mb-10">
-                ConvoForge · ABN 65 366 917 788 · Australia. These terms are governed by
+                ConvoForge is operated by TelaLoom (ABN 65 366 917 788), Australia. These terms are governed by
                 the laws of Australia.
             </p>
 
