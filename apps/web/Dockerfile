@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM node:22-slim AS builder
+FROM node:22.23.4-slim AS builder
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ ENV NEXT_PUBLIC_SENTRY_DSN=$NEXT_PUBLIC_SENTRY_DSN
 RUN npm run build
 
 # Stage 2: Runtime
-FROM node:22-slim AS runner
+FROM node:22.23.4-slim AS runner
 
 WORKDIR /app
 
