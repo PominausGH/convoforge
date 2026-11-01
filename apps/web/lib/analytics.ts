@@ -40,4 +40,5 @@ export const ANALYTICS_EVENTS = {
     customStoryStart: 'custom_story_start',
     listeningLabView: 'listening_lab_view',
     friendsLabView: 'friends_lab_view',
+    friendChallengeComplete: 'friend_challenge_complete',
 } as const;

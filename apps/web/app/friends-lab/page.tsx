@@ -7,6 +7,7 @@ import { fetchUserProfile, type UserProfile } from '@/lib/api';
 import UpgradeButton from '@/components/UpgradeButton';
 import ThemeToggle from '@/components/ThemeToggle';
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics';
+import FriendChallenges from '@/components/FriendChallenges';
 
 type Stage = 'later_life' | 'starting_out';
 
@@ -91,8 +92,8 @@ export default function FriendsLabPage() {
                 </h1>
                 <p className="text-zinc-600 dark:text-zinc-300 text-lg leading-relaxed max-w-xl">
                     Making friends gets harder at both ends of life, when school or work no longer puts people
-                    in front of you. Find a group, practice what to say out loud, and get gentle feedback on how
-                    warm and curious you sound, and whether you suggested a next step.
+                    in front of you. Take on one small real-world challenge at a time, practice what to say out
+                    loud first, and get gentle feedback on how warm and curious you sound.
                 </p>
             </header>
 
@@ -116,6 +117,11 @@ export default function FriendsLabPage() {
                 </div>
                 <p className="mt-4 text-base text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-xl">{current.blurb}</p>
             </div>
+
+            <section className="max-w-3xl mx-auto px-6 pb-14">
+                <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Real-world challenges</h2>
+                <FriendChallenges stage={stage} isPro={isPro} />
+            </section>
 
             <section className="max-w-3xl mx-auto px-6 pb-14">
                 <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Where to find your people</h2>
