@@ -4,7 +4,7 @@ from typing import Optional
 
 from anthropic import AsyncAnthropic
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from utils.transcript import analyze_transcript
 
@@ -47,6 +47,15 @@ corporate-speak, varied sentence rhythm vs monotone strings of short flat clause
 emotion named plainly vs hedged or absent. This is a proxy for vocal passion since only the
 transcript is available, not audio.
 
+Judge pacing from `verbal_metrics.pauses`, measured from real word timings:
+- pause_count / pauses_per_min: clean silences of 0.5-3s (not next to "um"/"uh"). A story that
+  holds friends' attention breathes: roughly 4-10 clean pauses per minute, ideally one right
+  before the turn and one before the takeaway/punchline.
+- longest_run_s: longest stretch of speech without a clean pause. Over ~20s reads as rushed.
+- long_gap_count: silences over 3s - usually a lost thread, not a dramatic beat.
+If `pauses` is null, timings weren't available: estimate pacing loosely from sentence rhythm and
+set pacing_score to null.
+
 Return JSON only, no preamble. Schema:
 {
   "carnegie": {
@@ -54,11 +63,12 @@ Return JSON only, no preamble. Schema:
     "beats_present": [string],           // subset of ["hook","context","turn","resolution","takeaway"] clearly present
     "hook_quality": int 0-100,           // does the opening create curiosity/tension fast, with no throat-clearing
     "energy_score": int 0-100,           // vividness/specificity/rhythm variety as a passion proxy
+    "pacing_score": int 0-100 | null,    // use of deliberate pauses, per the pacing guidance above
     "principle_alignment": [string]
   },
-  "overall_forge_score": int 0-100,      // weight: structure 40%, hook 20%, energy 25%, conciseness (from verbal_metrics) 15%
-  "top_insight": string (one actionable sentence naming the weakest beat, judgment-free, <30 words),
-  "next_session_focus": string (one of: hook, structure, energy, conciseness, takeaway),
+  "overall_forge_score": int 0-100,      // weight: structure 35%, hook 15%, energy 20%, pacing 15%, conciseness (from verbal_metrics) 15%; if pacing is null, fold its weight into structure
+  "top_insight": string (one actionable sentence naming the weakest beat or pacing issue, judgment-free, <30 words),
+  "next_session_focus": string (one of: hook, structure, energy, pauses, conciseness, takeaway),
   "rewrite_example": string (a single rewritten line demonstrating a stronger version of the
     speaker's weakest beat, in their own scenario, <30 words, or null if nothing weak stands out)
 }"""
@@ -92,6 +102,14 @@ Return JSON only, no preamble. Schema:
 }"""
 
 
+class PauseStats(BaseModel):
+    pause_count: int = Field(ge=0, le=10_000)
+    long_gap_count: int = Field(ge=0, le=10_000)
+    pauses_per_min: float = Field(ge=0, le=1_000)
+    avg_pause_s: float = Field(ge=0, le=60)
+    longest_run_s: float = Field(ge=0, le=3_600)
+
+
 class MultimodalData(BaseModel):
     user_id: str
     module_id: int
@@ -101,6 +119,7 @@ class MultimodalData(BaseModel):
     tier: str = "free"
     track: Optional[str] = None
     stimulus: Optional[str] = None  # original text the user was reflecting on (active_listening only)
+    pauses: Optional[PauseStats] = None  # from Deepgram word timings; None if unavailable
 
 
 class FeedbackResponse(BaseModel):
@@ -123,6 +142,7 @@ def _mock_feedback(verbal: dict, visual: dict, tier: str, track: Optional[str] =
                 "beats_present": ["hook", "turn", "resolution"],
                 "hook_quality": 65,
                 "energy_score": 72,
+                "pacing_score": 60 if verbal.get("pauses") else None,
                 "principle_alignment": ["tension_structure"],
             },
             overall_forge_score=72,
@@ -188,6 +208,7 @@ async def _call_claude(client: AsyncAnthropic, system: str, user_payload: dict) 
 @router.post("/analyze-session", response_model=FeedbackResponse)
 async def analyze_session(data: MultimodalData):
     verbal = analyze_transcript(data.transcript, data.duration_seconds)
+    verbal["pauses"] = data.pauses.model_dump() if data.pauses else None
     is_story = data.track == "storytelling"
     is_listening = data.track == "active_listening"
 

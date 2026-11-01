@@ -15,6 +15,10 @@ const STORY_LESSONS = curriculum
     .sort((a, b) => (a.sort_order ?? a.lesson_id) - (b.sort_order ?? b.lesson_id));
 
 const QUICK_PROMPTS: { label: string; text: string }[] = [
+    { label: 'Something funny', text: 'Tell your friends about something funny that happened to you recently. Pause right before the funny part and let it land.' },
+    { label: 'A trip gone wrong', text: 'Tell your friends about a trip or night out that went sideways — set the scene fast, then slow down for the moment it went wrong.' },
+    { label: 'The weirdest thing this week', text: 'Tell your friends the weirdest thing that happened to you this week, like you would over dinner. Start right in the moment.' },
+    { label: 'A close call', text: 'Tell your friends about a close call — a near miss, a deadline, a moment it almost went badly. Pause before the outcome.' },
     { label: 'A favorite memory', text: 'Tell a short story about a favorite memory — a specific moment, not a general description.' },
     { label: 'A time you failed', text: 'Tell a short story about a time you failed at something — what happened, and what it cost you.' },
     { label: 'Someone who shaped you', text: 'Tell a short story about someone who shaped who you are — one specific moment with them, not a general tribute.' },
@@ -88,7 +92,8 @@ export default function StoryLabPage() {
                 <p className="text-zinc-600 dark:text-zinc-300 text-base leading-relaxed max-w-xl">
                     Most stories fail for the same two reasons: too much setup, and too little at stake.
                     This is a five-beat structure that fixes both — then you record yourself telling one,
-                    and an AI coach scores your hook, structure, conciseness, and energy.
+                    and an AI coach scores your hook, structure, energy, and your pauses. Practice here,
+                    then tell it to your friends.
                 </p>
             </header>
 
@@ -106,7 +111,7 @@ export default function StoryLabPage() {
                             Story Lab is a Pro feature
                         </div>
                         <p className="text-zinc-700 dark:text-zinc-300 text-sm mb-3">
-                            Structure, hook, conciseness, and energy scoring on every recorded story —
+                            Structure, hook, energy, and pause scoring on every recorded story —
                             whether it's your own topic or a curated prompt — plus all 157+ Pro lessons and
                             unlimited sessions.
                         </p>

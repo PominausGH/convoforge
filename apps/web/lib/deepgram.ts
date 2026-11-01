@@ -2,7 +2,9 @@
  * Streams browser mic audio to FastAPI's /api/deepgram/stream WebSocket.
  * The Deepgram API key stays server-side; the browser only sees this proxy.
  */
-export type TranscriptCallback = (segment: string, isFinal: boolean) => void;
+import type { WordTiming } from './pauses';
+
+export type TranscriptCallback = (segment: string, isFinal: boolean, words: WordTiming[]) => void;
 export type StatusCallback = (status: string) => void;
 
 export type DeepgramSession = {
@@ -60,7 +62,14 @@ export async function startDeepgramStream(
             const alt = msg.channel?.alternatives?.[0];
             const text = alt?.transcript;
             if (text) {
-                onTranscript(text, !!msg.is_final);
+                const words: WordTiming[] = Array.isArray(alt.words)
+                    ? alt.words.map((w: { word?: string; start?: number; end?: number }) => ({
+                          word: String(w.word ?? ''),
+                          start: Number(w.start),
+                          end: Number(w.end),
+                      }))
+                    : [];
+                onTranscript(text, !!msg.is_final, words);
             } else if (msg.type === 'Metadata') {
                 console.debug('Deepgram metadata:', msg);
             }

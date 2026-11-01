@@ -1,3 +1,5 @@
+import type { PauseStats } from './pauses'
+
 export type UserProfile = {
   user_id: string
   tier: 'free' | 'pro'
@@ -59,6 +61,7 @@ export type FeedbackResponse = {
     hedging_count?: number
     conciseness_score?: number
     word_count?: number
+    pauses?: PauseStats | null
   }
   visual: {
     eye_contact_pct?: number
@@ -70,6 +73,7 @@ export type FeedbackResponse = {
     beats_present?: string[]
     hook_quality?: number
     energy_score?: number
+    pacing_score?: number
     accuracy_score?: number
     validation_score?: number
     paraphrase_quality?: number
@@ -91,6 +95,7 @@ export async function analyzeSession(payload: {
   tier: 'free' | 'pro'
   track?: string
   stimulus?: string
+  pauses?: PauseStats | null
 }): Promise<FeedbackResponse> {
   const res = await fetch('/api/analyze-session', {
     method: 'POST',

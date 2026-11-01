@@ -40,6 +40,8 @@ export const STORY_BEATS = [
 
 export const DELIVERY_TIPS = [
     'Pause half a second before the turn — silence sells tension.',
+    'Pause again right before the punchline or takeaway. Give your friends a beat to lean in.',
+    'Breathe at least every 15–20 seconds. A pause sounds confident; rushing sounds nervous.',
     'Use concrete, sensory words over abstractions ("the email landed at 11pm," not "I received unexpected communication").',
     'Let your pace change: slow down for the turn, speed up for the action.',
     'One real emotion beats ten adjectives. Say what you felt, once, plainly.',

@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { captureEmail } from '@/lib/api';
 import UpgradeButton from '@/components/UpgradeButton';
+import type { PauseStats } from '@/lib/pauses';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://convoforge.app';
 const SHARE_URL = `${SITE_URL}/?utm_source=share&utm_medium=social&utm_campaign=score_share`;
@@ -11,6 +12,8 @@ interface StoryFeedback {
     structure_score?: number;
     hook_quality?: number;
     energy_score?: number;
+    pacing_score?: number;
+    pauses?: PauseStats;
     beats_present?: string[];
     rewrite_example?: string;
 }
@@ -122,7 +125,7 @@ export default function ScoreCard({
 
                 {story && (
                     <div className="mb-8">
-                        <div className="grid grid-cols-3 gap-3 mb-3">
+                        <div className="grid grid-cols-2 gap-3 mb-3">
                             {story.hook_quality != null && (
                                 <Metric label="Hook" value={`${story.hook_quality}`} />
                             )}
@@ -132,7 +135,19 @@ export default function ScoreCard({
                             {story.energy_score != null && (
                                 <Metric label="Energy" value={`${story.energy_score}`} />
                             )}
+                            {story.pacing_score != null && (
+                                <Metric label="Pauses" value={`${story.pacing_score}`} />
+                            )}
                         </div>
+                        {story.pauses && (
+                            <p className="text-xs text-zinc-500 mb-3">
+                                {story.pauses.pause_count} clean{' '}
+                                {story.pauses.pause_count === 1 ? 'pause' : 'pauses'} · longest stretch without a
+                                breath: {story.pauses.longest_run_s}s
+                                {story.pauses.long_gap_count > 0 &&
+                                    ` · ${story.pauses.long_gap_count} long ${story.pauses.long_gap_count === 1 ? 'gap' : 'gaps'}`}
+                            </p>
+                        )}
                         {story.beats_present && story.beats_present.length < 5 && (
                             <p className="text-xs text-zinc-500 mb-3">
                                 Beats landed: {story.beats_present.join(', ') || 'none clearly'}

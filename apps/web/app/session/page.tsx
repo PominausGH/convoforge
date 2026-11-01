@@ -11,6 +11,7 @@ import { ListeningReflectionStrip } from '@/components/ListeningStimulusGuide';
 import { analyzeSession, createSession, fetchUserProfile, type FeedbackResponse } from '@/lib/api';
 import { startDeepgramStream, type DeepgramSession } from '@/lib/deepgram';
 import { FillerMonitor } from '@/lib/filler';
+import { PauseTracker } from '@/lib/pauses';
 import {
     findLesson,
     buildLessonScript,
@@ -64,6 +65,7 @@ function SessionPage() {
         frame_count: 0,
     });
     const fillerRef = useRef(new FillerMonitor());
+    const pauseRef = useRef(new PauseTracker());
     const interimRef = useRef('');
     const dgRef = useRef<DeepgramSession | null>(null);
     const practiceStartRef = useRef<number>(0);
@@ -96,6 +98,7 @@ function SessionPage() {
                     'Hits at least 3 of the 5 story beats',
                     'Names one specific feeling',
                     'Ends on a takeaway, not just an event',
+                    'Pauses before the turn instead of rushing through it',
                 ],
                 tier_required: 'pro',
                 track: 'storytelling',
@@ -144,6 +147,7 @@ function SessionPage() {
                 tier,
                 track: lesson?.track,
                 stimulus: lesson?.track === 'active_listening' ? lesson?.listening_stimulus : undefined,
+                pauses: pauseRef.current.snapshot(),
             });
         } catch (err) {
             analyzeError = err instanceof Error ? err.message : 'Analysis failed';
@@ -235,15 +239,20 @@ function SessionPage() {
         if (status !== 'practice') return;
         practiceStartRef.current = Date.now();
         fillerRef.current.reset();
+        pauseRef.current.reset();
         interimRef.current = '';
+        const isStory = lesson?.track === 'storytelling';
 
         let cancelled = false;
         startDeepgramStream(
-            (segment, isFinal) => {
+            (segment, isFinal, words) => {
                 if (isFinal) {
                     interimRef.current = '';
                     const state = fillerRef.current.ingest(segment);
-                    if (state.nudge) setNudgeMessage(state.nudge);
+                    const pauseNudge = pauseRef.current.ingest(words);
+                    // Pause nudges only for stories, where pacing is what we're coaching.
+                    const nudge = state.nudge ?? (isStory ? pauseNudge : null);
+                    if (nudge) setNudgeMessage(nudge);
                     setTranscriptPreview(state.transcript.slice(-200));
                 } else {
                     interimRef.current = segment;
@@ -271,7 +280,7 @@ function SessionPage() {
             dgRef.current?.stop();
             dgRef.current = null;
         };
-    }, [status]);
+    }, [status, lesson?.track]);
 
     // State machine timing — idle requires an explicit click to enter 'lesson'
     // so the browser's autoplay policy sees a fresh user gesture before we
@@ -475,6 +484,8 @@ function SessionPage() {
                                   structure_score: sessionResult.feedback.carnegie.structure_score,
                                   hook_quality: sessionResult.feedback.carnegie.hook_quality,
                                   energy_score: sessionResult.feedback.carnegie.energy_score,
+                                  pacing_score: sessionResult.feedback.carnegie.pacing_score,
+                                  pauses: sessionResult.feedback.verbal.pauses ?? undefined,
                                   beats_present: sessionResult.feedback.carnegie.beats_present,
                                   rewrite_example: sessionResult.feedback.rewrite_example ?? undefined,
                               }
@@ -501,6 +512,7 @@ function SessionPage() {
                         setStreamStatus(null);
                         setTranscriptPreview('');
                         fillerRef.current.reset();
+                        pauseRef.current.reset();
                         interimRef.current = '';
                         visualRef.current = {
                             eye_contact_pct: 0,
