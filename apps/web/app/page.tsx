@@ -24,7 +24,7 @@ const FRAMEWORK_COUNT = new Set(curriculum.map((l) => l.track ?? 'carnegie')).si
 const countTracks = (tracks: string[]) =>
     curriculum.filter((l) => tracks.includes(l.track ?? 'carnegie')).length
 const CARNEGIE_LESSONS = countTracks(['carnegie'])
-const CONNECTION_LESSONS = countTracks(['small_talk', 'active_listening', 'storytelling'])
+const CONNECTION_LESSONS = countTracks(['small_talk', 'active_listening', 'storytelling', 'new_friends'])
 const HIGH_STAKES_LESSONS = TOTAL_LESSONS - CARNEGIE_LESSONS - CONNECTION_LESSONS
 
 const FAQS: Array<[string, string]> = [

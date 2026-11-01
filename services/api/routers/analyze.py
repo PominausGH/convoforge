@@ -102,6 +102,35 @@ Return JSON only, no preamble. Schema:
 }"""
 
 
+FRIENDS_SYSTEM_PROMPT = """You are a warm, judgment-free social-connection coach. The speaker is practicing
+how to meet people and make friends through groups: clubs, classes, volunteering, meetups. They may be
+older (retired, recently moved, newly on their own) or young (new to a city, after school). The
+scenario they responded to is given in `practice_prompt`, along with its `success_criteria`.
+
+Judge the spoken response (`transcript`) on three axes:
+1. Warmth: friendly, relaxed, and genuine, not apologetic, stiff, or salesy.
+2. Curiosity: asks at least one genuine, specific question about the other person or group and
+   gives them something easy to respond to, instead of only talking about themselves.
+3. Next step: where the scenario calls for it, moves the connection forward with something concrete
+   (a name, a specific plan/time/place, a reason to meet again) while leaving an easy out.
+
+Return JSON only, no preamble. Schema:
+{
+  "carnegie": {
+    "warmth_score": int 0-100,
+    "curiosity_score": int 0-100,
+    "next_step_score": int 0-100,
+    "criteria_met": [string],            // which success_criteria were clearly met
+    "principle_alignment": [string]
+  },
+  "overall_forge_score": int 0-100,      // weight: warmth 35%, curiosity 35%, next step 30%
+  "top_insight": string (one encouraging, actionable sentence naming the weakest axis, <30 words),
+  "next_session_focus": string (one of: warmth, curiosity, next_step, conciseness),
+  "rewrite_example": string (one line they could actually say in this scenario that fixes the weakest
+    axis, <30 words, or null if nothing weak stands out)
+}"""
+
+
 class PauseStats(BaseModel):
     pause_count: int = Field(ge=0, le=10_000)
     long_gap_count: int = Field(ge=0, le=10_000)
@@ -120,6 +149,8 @@ class MultimodalData(BaseModel):
     track: Optional[str] = None
     stimulus: Optional[str] = None  # original text the user was reflecting on (active_listening only)
     pauses: Optional[PauseStats] = None  # from Deepgram word timings; None if unavailable
+    practice_prompt: Optional[str] = Field(default=None, max_length=2000)  # new_friends only
+    success_criteria: Optional[list[str]] = Field(default=None, max_length=10)  # new_friends only
 
 
 class FeedbackResponse(BaseModel):
@@ -149,6 +180,22 @@ def _mock_feedback(verbal: dict, visual: dict, tier: str, track: Optional[str] =
             top_insight="[DEV MOCK] You skipped the takeaway — end with the one line that says why this mattered.",
             next_session_focus="takeaway",
             rewrite_example="[DEV MOCK] \"...and that's why I still double-check every number before it leaves my desk.\"",
+        )
+    if track == "new_friends":
+        return FeedbackResponse(
+            verbal=verbal,
+            visual=visual,
+            carnegie={
+                "warmth_score": 78,
+                "curiosity_score": 62,
+                "next_step_score": 55,
+                "criteria_met": [],
+                "principle_alignment": ["genuine_interest"],
+            },
+            overall_forge_score=66,
+            top_insight="[DEV MOCK] Warm start. Next time, end with a specific plan so the connection has somewhere to go.",
+            next_session_focus="next_step",
+            rewrite_example="[DEV MOCK] \"I'm grabbing a coffee after next week's walk. Want to join me? No worries if not.\"",
         )
     if track == "active_listening":
         return FeedbackResponse(
@@ -211,6 +258,7 @@ async def analyze_session(data: MultimodalData):
     verbal["pauses"] = data.pauses.model_dump() if data.pauses else None
     is_story = data.track == "storytelling"
     is_listening = data.track == "active_listening"
+    is_friends = data.track == "new_friends"
 
     api_key = os.getenv("ANTHROPIC_API_KEY", "").strip()
     if not api_key or api_key.endswith("..."):
@@ -227,23 +275,28 @@ async def analyze_session(data: MultimodalData):
         }
         if is_listening:
             result_payload["stimulus"] = data.stimulus or ""
+        if is_friends:
+            result_payload["practice_prompt"] = data.practice_prompt or ""
+            result_payload["success_criteria"] = data.success_criteria or []
         if is_story:
             system_prompt = STORY_SYSTEM_PROMPT
         elif is_listening:
             system_prompt = LISTENING_SYSTEM_PROMPT
+        elif is_friends:
+            system_prompt = FRIENDS_SYSTEM_PROMPT
         else:
             system_prompt = CARNEGIE_SYSTEM_PROMPT
         result = await _call_claude(client, system_prompt, result_payload)
     except Exception as exc:
         # Don't 502 the whole session over an LLM blip — fall back to mock so the
         # user still gets a forge score and the front-end flow completes.
-        kind = "Story" if is_story else "Listening" if is_listening else "Carnegie"
+        kind = "Story" if is_story else "Listening" if is_listening else "Friends" if is_friends else "Carnegie"
         print(f"[analyze] {kind} call failed, using mock: {exc}")
         return _mock_feedback(verbal, data.visual, data.tier, data.track)
 
     carnegie_block = result.get("carnegie", {})
 
-    if data.tier == "pro" and not is_story and not is_listening:
+    if data.tier == "pro" and not is_story and not is_listening and not is_friends:
         try:
             sincerity = await _call_claude(
                 client,
@@ -268,5 +321,5 @@ async def analyze_session(data: MultimodalData):
         overall_forge_score=int(result.get("overall_forge_score", 70)),
         top_insight=result.get("top_insight", "Keep practicing daily."),
         next_session_focus=result.get("next_session_focus", "filler_words"),
-        rewrite_example=result.get("rewrite_example") if (is_story or is_listening) else None,
+        rewrite_example=result.get("rewrite_example") if (is_story or is_listening or is_friends) else None,
     )

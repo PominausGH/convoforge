@@ -187,6 +187,12 @@ export default function AppDashboard() {
               >
                 👂 Practice active listening
               </Link>
+              <Link
+                href="/friends-lab"
+                className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 hover:underline"
+              >
+                🤝 Join groups &amp; make friends
+              </Link>
 
               {profile?.tier !== 'pro' && (
                 <>

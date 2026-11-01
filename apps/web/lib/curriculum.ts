@@ -17,6 +17,8 @@ export type Lesson = {
      * the 'lesson' phase instead of the usual carnegie_principle/modern_context
      * script, and the user then has to reflect it back during 'practice'. */
     listening_stimulus?: string;
+    /** track === 'new_friends' only: which Friends Lab path the lesson belongs to. */
+    life_stage?: 'later_life' | 'starting_out';
 };
 
 export const curriculum = sessions as Lesson[];

@@ -27,6 +27,13 @@ interface ListeningFeedback {
     rewrite_example?: string;
 }
 
+interface ConnectionFeedback {
+    warmth_score?: number;
+    curiosity_score?: number;
+    next_step_score?: number;
+    rewrite_example?: string;
+}
+
 interface ScoreCardProps {
     score: number;
     streak?: number | null;
@@ -36,6 +43,7 @@ interface ScoreCardProps {
     insight: string;
     story?: StoryFeedback;
     listening?: ListeningFeedback;
+    connection?: ConnectionFeedback;
     saveError?: string;
     onClose: () => void;
     onRetry?: () => void;
@@ -50,6 +58,7 @@ export default function ScoreCard({
     insight,
     story,
     listening,
+    connection,
     saveError,
     onClose,
     onRetry,
@@ -158,6 +167,30 @@ export default function ScoreCard({
                                 <div className="text-emerald-400 text-xs font-bold uppercase mb-1">Try it this way</div>
                                 <p className="text-emerald-100 text-sm leading-relaxed italic">
                                     &ldquo;{story.rewrite_example}&rdquo;
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {connection && (
+                    <div className="mb-8">
+                        <div className="grid grid-cols-3 gap-3 mb-3">
+                            {connection.warmth_score != null && (
+                                <Metric label="Warmth" value={`${connection.warmth_score}`} />
+                            )}
+                            {connection.curiosity_score != null && (
+                                <Metric label="Curiosity" value={`${connection.curiosity_score}`} />
+                            )}
+                            {connection.next_step_score != null && (
+                                <Metric label="Next step" value={`${connection.next_step_score}`} />
+                            )}
+                        </div>
+                        {connection.rewrite_example && (
+                            <div className="bg-emerald-500/10 border border-emerald-500/20 p-4 rounded-2xl">
+                                <div className="text-emerald-400 text-xs font-bold uppercase mb-1">Try saying</div>
+                                <p className="text-emerald-100 text-sm leading-relaxed italic">
+                                    &ldquo;{connection.rewrite_example}&rdquo;
                                 </p>
                             </div>
                         )}

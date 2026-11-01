@@ -39,4 +39,5 @@ export const ANALYTICS_EVENTS = {
     storyLabView: 'story_lab_view',
     customStoryStart: 'custom_story_start',
     listeningLabView: 'listening_lab_view',
+    friendsLabView: 'friends_lab_view',
 } as const;

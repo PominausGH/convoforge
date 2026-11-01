@@ -148,6 +148,9 @@ function SessionPage() {
                 track: lesson?.track,
                 stimulus: lesson?.track === 'active_listening' ? lesson?.listening_stimulus : undefined,
                 pauses: pauseRef.current.snapshot(),
+                ...(lesson?.track === 'new_friends'
+                    ? { practice_prompt: lesson.practice_prompt, success_criteria: lesson.success_criteria }
+                    : {}),
             });
         } catch (err) {
             analyzeError = err instanceof Error ? err.message : 'Analysis failed';
@@ -487,6 +490,16 @@ function SessionPage() {
                                   pacing_score: sessionResult.feedback.carnegie.pacing_score,
                                   pauses: sessionResult.feedback.verbal.pauses ?? undefined,
                                   beats_present: sessionResult.feedback.carnegie.beats_present,
+                                  rewrite_example: sessionResult.feedback.rewrite_example ?? undefined,
+                              }
+                            : undefined
+                    }
+                    connection={
+                        lesson?.track === 'new_friends'
+                            ? {
+                                  warmth_score: sessionResult.feedback.carnegie.warmth_score,
+                                  curiosity_score: sessionResult.feedback.carnegie.curiosity_score,
+                                  next_step_score: sessionResult.feedback.carnegie.next_step_score,
                                   rewrite_example: sessionResult.feedback.rewrite_example ?? undefined,
                               }
                             : undefined

@@ -2480,5 +2480,185 @@
       "Speaker is putting on a happy face publicly while privately unsure they're ready"
     ],
     "tier_required": "pro"
+  },
+  {
+    "lesson_id": 180,
+    "title": "Your First Time at the Club",
+    "track": "new_friends",
+    "life_stage": "later_life",
+    "carnegie_principle": "Most groups are friendlier to newcomers than newcomers expect. Organisers usually want new faces, and the hardest part is the first 30 seconds.",
+    "modern_context": "Walking groups, book clubs, community centres, choirs, bowls, and continuing-education classes are full of people who joined for the company as much as the activity.",
+    "practice_prompt": "You've just walked into a community group for the first time — a walking group, book club, or class. Find the organiser and introduce yourself: your name, why you came, and one question about the group.",
+    "success_criteria": [
+      "Says their name clearly",
+      "Gives one honest reason for coming",
+      "Asks the organiser one question"
+    ],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 181,
+    "title": "Who You Are Now, Not What You Did",
+    "track": "new_friends",
+    "life_stage": "later_life",
+    "carnegie_principle": "People connect over what you care about today, not your old job title.",
+    "modern_context": "After retirement or a move, 'So what do you do?' can feel awkward. A good answer points to what you're into now and gives the other person something to ask about.",
+    "practice_prompt": "Someone at a new group asks, 'So what do you do?' Answer in 20 seconds without leading with your former job: say what fills your days now and what you're curious about, then ask them the same.",
+    "success_criteria": [
+      "Leads with a current interest, not a past title",
+      "Gives a specific detail someone could ask about",
+      "Turns the question back to them"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 182,
+    "title": "Offering to Help",
+    "track": "new_friends",
+    "life_stage": "later_life",
+    "carnegie_principle": "Asking to help is one of the easiest ways into a group. People bond fastest when they work on something side by side.",
+    "modern_context": "Volunteering at a library, garden, food bank, museum, or local event gives you a role, a reason to come back, and people to talk to without forced small talk.",
+    "practice_prompt": "Record what you'd say to a volunteer coordinator: who you are, one skill or bit of time you can offer, and a specific question about how to start.",
+    "success_criteria": [
+      "Offers something specific (a skill or a time slot)",
+      "Sounds warm, not apologetic",
+      "Asks a concrete next-step question"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 183,
+    "title": "Starting Over, Lightly",
+    "track": "new_friends",
+    "life_stage": "later_life",
+    "carnegie_principle": "You can be honest about a big change without making a new conversation heavy. One plain sentence, then turn it outward.",
+    "modern_context": "After losing a partner, moving near family, or leaving a long career, people often avoid mentioning it, or say too much. Saying it once, simply, invites support without pressure.",
+    "practice_prompt": "A friendly person at a group asks how you found out about it. In under 30 seconds, mention honestly that you're new to being on your own (or new to the area), then turn the conversation to them with a question.",
+    "success_criteria": [
+      "Names the change in one plain sentence",
+      "Keeps the tone light rather than heavy",
+      "Moves the focus to the other person with a question"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 184,
+    "title": "Talking Across Generations",
+    "track": "new_friends",
+    "life_stage": "later_life",
+    "carnegie_principle": "Friendships across ages are easier than most people think when you lead with curiosity, not comparison.",
+    "modern_context": "Classes, volunteering, and hobby groups often mix ages. A younger person is likely to warm up when you ask about what they know, without 'in my day' comparisons.",
+    "practice_prompt": "At a class, you're paired with someone 40 years younger. Record a 30-second chat opener: something about the activity, a genuine question about their take on it, and one thing you'd like to learn from them.",
+    "success_criteria": [
+      "Opens with the shared activity",
+      "Asks a genuine question about their view",
+      "Avoids 'kids these days' or 'in my day' comparisons"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 185,
+    "title": "From Class Friend to Coffee Friend",
+    "track": "new_friends",
+    "life_stage": "later_life",
+    "carnegie_principle": "Seeing someone at the same group builds familiarity. A friendship starts when you see each other outside it.",
+    "modern_context": "Most group friendships stay at the 'nice to see you' stage because nobody suggests anything else. A specific, low-pressure invitation is usually welcome.",
+    "practice_prompt": "You've chatted with the same person at your group three weeks in a row. Record yourself inviting them for a coffee or a walk after next week's session: specific time, specific place, an easy way to say no.",
+    "success_criteria": [
+      "Mentions something you have in common",
+      "Proposes a specific time and place",
+      "Leaves an easy, no-pressure out"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 186,
+    "title": "New in Town",
+    "track": "new_friends",
+    "life_stage": "starting_out",
+    "carnegie_principle": "Saying 'I'm new here' is the best opener you have. It invites people to help, and people like helping.",
+    "modern_context": "Run clubs, climbing gyms, rec sports leagues, board-game nights, and hobby meetups are where people in their 20s and 30s make most of their friends after school ends.",
+    "practice_prompt": "You've just arrived at a run club, game night, or meetup in a city you moved to recently. Introduce yourself to someone nearby: your name, that you're new, and ask them for one local recommendation.",
+    "success_criteria": [
+      "Says their name and that they're new",
+      "Asks for a specific recommendation",
+      "Follows up on their answer with genuine interest"
+    ],
+    "tier_required": "free"
+  },
+  {
+    "lesson_id": 187,
+    "title": "Off the Group Chat, Into Real Life",
+    "track": "new_friends",
+    "life_stage": "starting_out",
+    "carnegie_principle": "Online acquaintances rarely become friends until you meet in person. Someone has to suggest it.",
+    "modern_context": "Discord servers, group chats, and online communities are a good start, but trust builds much faster face to face.",
+    "practice_prompt": "Record a voice message to someone you've chatted with online for weeks, suggesting you meet in person: refer to something you've talked about, suggest a specific low-key plan, and make it easy to say no.",
+    "success_criteria": [
+      "References a shared conversation or interest",
+      "Suggests a specific, public, low-key plan",
+      "Makes it easy to say no"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 188,
+    "title": "The Second Time You Show Up",
+    "track": "new_friends",
+    "life_stage": "starting_out",
+    "carnegie_principle": "The second visit matters more than the first. Remembering one detail about someone turns a stranger into an acquaintance.",
+    "modern_context": "Most people go to a group once and never come back. Going back and greeting people by name is how you become a regular.",
+    "practice_prompt": "It's your second week at the group. Record how you'd greet someone you met last time: use their name, mention one thing they told you, and ask a follow-up about it.",
+    "success_criteria": [
+      "Uses their name",
+      "Mentions a specific detail from last time",
+      "Asks a follow-up question about it"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 189,
+    "title": "Hosting the Small Thing",
+    "track": "new_friends",
+    "life_stage": "starting_out",
+    "carnegie_principle": "People who host make friends faster. You don't need a party, just a plan and an invite.",
+    "modern_context": "Inviting a few acquaintances to a pub quiz, picnic, or a film turns separate one-to-one chats into a small friend group.",
+    "practice_prompt": "Record a message inviting three people you've met recently to a simple plan: what it is, when and where, why you thought of them, and a clear way to reply.",
+    "success_criteria": [
+      "Names a concrete plan, time, and place",
+      "Says why you thought of them",
+      "Gives a clear, easy way to reply"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 190,
+    "title": "Learning From Someone Older",
+    "track": "new_friends",
+    "life_stage": "starting_out",
+    "carnegie_principle": "A friend who's further along in life is one of the most useful people you can know. Respect and curiosity open that door.",
+    "modern_context": "Mixed-age groups like volunteering, choirs, community gardens, and classes are full of people who have done what you're about to do.",
+    "practice_prompt": "At a group, you're talking with someone 30+ years older. Record a 30-second opener: something about the activity, then a genuine question about their experience with it or how they got into it.",
+    "success_criteria": [
+      "Opens with the shared activity",
+      "Asks about their experience with genuine curiosity",
+      "Listens rather than talking over them"
+    ],
+    "tier_required": "pro"
+  },
+  {
+    "lesson_id": 191,
+    "title": "Saying Yes, Then Following Up",
+    "track": "new_friends",
+    "life_stage": "starting_out",
+    "carnegie_principle": "Friendship takes repeated time together. Accepting invitations, then suggesting the next plan yourself, is how acquaintances become friends.",
+    "modern_context": "Lots of people accept an invite but never suggest the next one, and the connection fades. Taking a turn at inviting keeps it going.",
+    "practice_prompt": "Someone invited you to something last weekend and you had a good time. Record a message thanking them, mentioning one highlight, and proposing the next plan yourself.",
+    "success_criteria": [
+      "Thanks them specifically",
+      "Names one real highlight",
+      "Proposes a concrete next plan"
+    ],
+    "tier_required": "pro"
   }
 ]
