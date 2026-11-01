@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sentry_sdk.integrations.fastapi import FastApiIntegration
 from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 
-from routers import analyze, deepgram, payments, sessions, stats, tts, users
+from routers import analyze, deepgram, friends, payments, sessions, stats, tts, users
 
 SENTRY_DSN = (os.getenv("SENTRY_DSN_API") or os.getenv("SENTRY_DSN") or "").strip()
 if SENTRY_DSN:
@@ -41,6 +41,7 @@ app.include_router(users.router, prefix="/api/users", tags=["Users"])
 app.include_router(deepgram.router, prefix="/api/deepgram", tags=["Deepgram"])
 app.include_router(tts.router, prefix="/api/tts", tags=["TTS"])
 app.include_router(stats.router, prefix="/api/stats", tags=["Stats"])
+app.include_router(friends.router, prefix="/api/friends", tags=["Friends"])
 
 @app.get("/")
 async def root():

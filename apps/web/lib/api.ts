@@ -132,3 +132,28 @@ export async function createSession(payload: {
   }
   return data
 }
+
+export type GroupSuggestion = {
+  group_type: string
+  why: string
+  first_step: string
+  search_query: string
+}
+
+export async function suggestGroups(payload: {
+  user_id: string
+  area: string
+  interests: string[]
+  life_stage: 'later_life' | 'starting_out'
+}): Promise<{ suggestions: GroupSuggestion[]; encouragement?: string | null }> {
+  const res = await fetch('/api/friends/suggest', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) {
+    throw new Error(typeof data?.detail === 'string' ? data.detail : 'Suggestions failed')
+  }
+  return data
+}

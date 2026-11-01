@@ -8,6 +8,7 @@ import UpgradeButton from '@/components/UpgradeButton';
 import ThemeToggle from '@/components/ThemeToggle';
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics';
 import FriendChallenges from '@/components/FriendChallenges';
+import GroupFinder from '@/components/GroupFinder';
 
 type Stage = 'later_life' | 'starting_out';
 
@@ -124,7 +125,9 @@ export default function FriendsLabPage() {
             </section>
 
             <section className="max-w-3xl mx-auto px-6 pb-14">
-                <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Where to find your people</h2>
+                <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mb-4">Find your people</h2>
+                <GroupFinder stage={stage} />
+                <h3 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mt-10 mb-3">Popular places to start</h3>
                 <div className="grid sm:grid-cols-2 gap-3">
                     {current.places.map((place) => (
                         <div key={place.name} className="border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 flex flex-col">

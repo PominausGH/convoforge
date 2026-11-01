@@ -41,4 +41,5 @@ export const ANALYTICS_EVENTS = {
     listeningLabView: 'listening_lab_view',
     friendsLabView: 'friends_lab_view',
     friendChallengeComplete: 'friend_challenge_complete',
+    groupFinderSearch: 'group_finder_search',
 } as const;

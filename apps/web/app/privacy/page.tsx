@@ -73,6 +73,16 @@ export default function PrivacyPage() {
                 resulting score and insight against your anonymous UUID.
             </p>
 
+            <h2 className="text-xl font-bold mt-8 mb-3">Friends Lab group finder</h2>
+            <p>
+                If you use the group finder, the area and interests you enter are
+                sent to Anthropic (Claude) once to suggest kinds of local groups.
+                We don&apos;t store them on our servers; they&apos;re saved only in
+                your browser so you don&apos;t have to type them again. Search links
+                open Google, Meetup, Eventbrite, or Facebook, whose own privacy
+                policies apply.
+            </p>
+
             <h2 className="text-xl font-bold mt-8 mb-3">Avatar voice (text-to-speech)</h2>
             <p>
                 When a pre-recorded lesson clip isn&apos;t available, the lesson
