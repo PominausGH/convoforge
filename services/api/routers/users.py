@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from db import get_db
 from mailer import send_email, welcome_email
 from models.session import Session
+from models.tester_code import TesterCode
 from models.user import User
 
 router = APIRouter()
@@ -153,4 +154,38 @@ async def update_persona(
     user.persona_id = data.persona_id
     await db.commit()
     await db.refresh(user)
+    return await _build_profile(user, db)
+
+
+class RedeemRequest(BaseModel):
+    code: str
+
+
+@router.post("/{user_id}/redeem", response_model=UserProfile)
+async def redeem_tester_code(
+    user_id: str, data: RedeemRequest, db: AsyncSession = Depends(get_db)
+):
+    """Single-use tester code -> Pro tier. Codes are minted with
+    scripts/mint_tester_code.py. Idempotent for the same user."""
+    _validate_uuid(user_id)
+    code = (data.code or "").strip().upper()
+    user = (
+        await db.execute(select(User).where(User.user_id == user_id))
+    ).scalar_one_or_none()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    row = (
+        await db.execute(
+            select(TesterCode).where(TesterCode.code == code).with_for_update()
+        )
+    ).scalar_one_or_none()
+    if not row:
+        raise HTTPException(status_code=404, detail="Invalid code")
+    if row.redeemed_by and row.redeemed_by != user_id:
+        raise HTTPException(status_code=409, detail="Code already used")
+    if not row.redeemed_by:
+        row.redeemed_by = user_id
+        row.redeemed_at = datetime.now(timezone.utc).replace(tzinfo=None)
+    user.tier = "pro"
+    await db.commit()
     return await _build_profile(user, db)

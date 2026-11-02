@@ -87,13 +87,32 @@ export default function RootLayout({
         {children}
         <CookieBanner />
         {UMAMI_SRC && UMAMI_ID && (
-          <Script
-            src={UMAMI_SRC}
-            data-website-id={UMAMI_ID}
-            strategy="afterInteractive"
-            data-performance="true"
-            defer
-          />
+          <>
+            {/* Pageview fires only after 2s visible OR first scroll/click/key/touch,
+                filtering headless scrapers that load the tracker and never engage.
+                auto-track=false skips Umami's vitals init, so a second tag with
+                auto-pageview=false restores performance collection. */}
+            <Script
+              id="umami-gated"
+              src={UMAMI_SRC}
+              data-website-id={UMAMI_ID}
+              data-auto-track="false"
+              strategy="afterInteractive"
+              defer
+            />
+            <Script
+              id="umami-vitals"
+              src={UMAMI_SRC}
+              data-website-id={UMAMI_ID}
+              data-auto-pageview="false"
+              data-performance="true"
+              strategy="afterInteractive"
+              defer
+            />
+            <Script id="umami-gate" strategy="afterInteractive">
+              {`(function(){var f=false;function fire(){if(f)return;if(document.visibilityState&&document.visibilityState!=='visible')return;if(window.umami&&typeof window.umami.track==='function'){f=true;try{window.umami.track()}catch(e){}}else{setTimeout(fire,250)}}var t=setTimeout(fire,2000);function go(){clearTimeout(t);fire()}['scroll','click','keydown','touchstart','pointermove'].forEach(function(e){window.addEventListener(e,go,{once:true,passive:true})})})();`}
+            </Script>
+          </>
         )}
         <Script id="sw-register" strategy="afterInteractive">
           {`if('serviceWorker'in navigator){navigator.serviceWorker.register('/sw.js',{scope:'/'}).catch(()=>{})}`}
