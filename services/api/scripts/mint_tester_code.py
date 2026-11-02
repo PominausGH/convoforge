@@ -6,8 +6,11 @@ Prints one code per line. List redemptions:
   docker exec cf_api python scripts/mint_tester_code.py --list
 """
 import asyncio
+import os
 import secrets
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from sqlalchemy import select
 
