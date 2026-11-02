@@ -51,6 +51,10 @@ export default function TesterRedeem() {
             <p className="text-sm">
                 You&apos;re in — Pro is unlocked on this browser.{' '}
                 <Link href="/forge" className="underline font-medium">Start a session</Link>
+                <span className="block mt-3 text-slate-600">
+                    Pro is tied to this browser. To use it on another device,{' '}
+                    <Link href="/restore" className="underline">link an email first</Link>.
+                </span>
             </p>
         )
     }

@@ -61,6 +61,17 @@ def welcome_email(newsletter_opt_in: bool) -> tuple[str, str]:
     return subject, html
 
 
+def recovery_email(link: str) -> tuple[str, str]:
+    subject = "Restore your ConvoForge progress"
+    html = f"""
+        <p>Open this link on the device you want to continue on:</p>
+        <p><a href="{link}">Restore my ConvoForge progress</a></p>
+        <p>It works once and expires in 30 minutes. If you didn't ask for this, ignore this email — nothing changes.</p>
+        <hr><p style="color:#888;font-size:12px">ConvoForge</p>
+    """
+    return subject, html
+
+
 def pro_upgrade_email() -> tuple[str, str]:
     subject = "You're on ConvoForge Pro"
     html = """
