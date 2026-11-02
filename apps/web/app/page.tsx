@@ -719,6 +719,9 @@ export default async function Landing() {
                         <Link href="/blog" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
                             Blog
                         </Link>
+                        <Link href="/restore" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
+                            Use on another device
+                        </Link>
                         <Link href="/privacy" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
                             Privacy
                         </Link>
