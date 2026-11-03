@@ -112,8 +112,8 @@ export default function RestoreProgress() {
             </p>
         )
 
-    const input = 'rounded border border-slate-300 px-3 py-2'
-    const button = 'rounded bg-slate-900 text-white px-4 py-2 disabled:opacity-50'
+    const input = 'rounded border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 px-3 py-2'
+    const button = 'rounded bg-black dark:bg-white text-white dark:text-black px-4 py-2 disabled:opacity-50'
 
     if (restored) {
         return (
@@ -129,7 +129,7 @@ export default function RestoreProgress() {
             {token && (
                 <section className="flex flex-col gap-3">
                     <h2 className="font-medium">Restore your progress here</h2>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">
                         This replaces any progress currently in this browser.
                     </p>
                     <button onClick={confirm} disabled={busy === 'confirm'} className={button}>
