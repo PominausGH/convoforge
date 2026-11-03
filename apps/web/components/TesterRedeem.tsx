@@ -51,7 +51,7 @@ export default function TesterRedeem() {
             <p className="text-sm">
                 You&apos;re in — Pro is unlocked on this browser.{' '}
                 <Link href="/forge" className="underline font-medium">Start a session</Link>
-                <span className="block mt-3 text-slate-600">
+                <span className="block mt-3 text-zinc-600 dark:text-zinc-400">
                     Pro is tied to this browser. To use it on another device,{' '}
                     <Link href="/restore" className="underline">link an email first</Link>.
                 </span>
@@ -66,10 +66,10 @@ export default function TesterRedeem() {
                 onChange={(e) => setCode(e.target.value.toUpperCase())}
                 placeholder="CF-XXXXXXXX"
                 aria-label="Tester code"
-                className="rounded border border-slate-300 px-3 py-2 font-mono"
+                className="rounded border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 px-3 py-2 font-mono"
                 required
             />
-            <button disabled={busy || !code} className="rounded bg-slate-900 text-white px-4 py-2 disabled:opacity-50">
+            <button disabled={busy || !code} className="rounded bg-black dark:bg-white text-white dark:text-black px-4 py-2 disabled:opacity-50">
                 {busy ? 'Checking…' : 'Unlock Pro'}
             </button>
             {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
