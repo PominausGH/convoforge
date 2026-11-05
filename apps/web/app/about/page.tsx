@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import SiteHeader from '@/components/SiteHeader'
 import { curriculum, totalLessonsFor } from '@/lib/curriculum'
 
 const TOTAL_LESSONS = totalLessonsFor('pro')
@@ -60,17 +61,13 @@ export default function AboutPage() {
     }
 
     return (
-        <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 max-w-3xl mx-auto p-6 md:p-10 leading-relaxed">
+        <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+        <SiteHeader />
+        <main className="max-w-3xl mx-auto p-6 md:p-10 leading-relaxed">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-
-            <nav className="text-sm mb-8">
-                <Link href="/" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white">
-                    ← ConvoForge
-                </Link>
-            </nav>
 
             <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">
                 Five minutes a day. Measurable communication gains.
@@ -177,6 +174,7 @@ export default function AboutPage() {
                 </div>
             </div>
         </main>
+        </div>
     )
 }
 

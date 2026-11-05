@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllPostsIncludingScheduled, getPost, getRelatedPosts, formatDate } from '@/lib/blog'
 import { findLesson } from '@/lib/curriculum'
-import ThemeToggle from '@/components/ThemeToggle'
+import SiteHeader from '@/components/SiteHeader'
 
 // Re-check file dates every hour. Combined with the `isPublished` filter in
 // lib/blog.ts, this means a post dated for a future Monday 08:00 goes live
@@ -103,22 +103,12 @@ export default async function PostPage({
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
 
-            <nav className="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
-                <Link href="/blog" className="font-semibold text-sm text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white">
-                    ← All posts
-                </Link>
-                <div className="flex items-center gap-3">
-                    <ThemeToggle />
-                    <Link
-                        href="/forge"
-                        className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full text-sm font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-200"
-                    >
-                        Open app
-                    </Link>
-                </div>
-            </nav>
+            <SiteHeader />
 
             <main className="max-w-3xl mx-auto px-6 py-10 md:py-16">
+                <Link href="/blog" className="inline-block text-sm font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white mb-6">
+                    ← All posts
+                </Link>
                 <header className="mb-10">
                     <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400 mb-4">
                         <span className="font-bold uppercase tracking-[0.2em]">

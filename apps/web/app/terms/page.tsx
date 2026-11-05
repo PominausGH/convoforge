@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import SiteHeader from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
     title: 'Terms of Service',
@@ -11,12 +12,9 @@ const EFFECTIVE_DATE = 'October 2026'
 
 export default function TermsPage() {
     return (
-        <main className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 max-w-2xl mx-auto p-6 md:p-10 leading-relaxed">
-            <nav className="text-sm mb-8">
-                <Link href="/" className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white">
-                    ← ConvoForge
-                </Link>
-            </nav>
+        <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+        <SiteHeader />
+        <main className="max-w-2xl mx-auto p-6 md:p-10 leading-relaxed">
 
             <h1 className="text-4xl font-black mb-2">Terms of Service</h1>
             <p className="text-zinc-500 text-sm mb-2">
@@ -110,5 +108,6 @@ export default function TermsPage() {
                 </Link>
             </div>
         </main>
+        </div>
     )
 }

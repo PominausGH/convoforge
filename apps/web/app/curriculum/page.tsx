@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { curriculum } from '@/lib/curriculum'
 import UpgradeButton from '@/components/UpgradeButton'
 import SupportEmail from '@/components/SupportEmail'
+import SiteHeader from '@/components/SiteHeader'
 
 const TOTAL_LESSONS = curriculum.length
 const FREE_LESSONS = curriculum.filter((l) => l.tier_required === 'free').length
@@ -113,20 +114,7 @@ export default function CurriculumPage() {
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
             {/* NAV */}
-            <nav className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-                <Link href="/" className="font-black text-lg tracking-tight">ConvoForge</Link>
-                <div className="flex items-center gap-4 text-sm font-semibold text-zinc-600 dark:text-zinc-300">
-                    <Link href="/story-lab" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
-                        Story Lab
-                    </Link>
-                    <Link href="/listening-lab" className="hover:text-zinc-900 dark:hover:text-zinc-100 hover:underline">
-                        Listening Lab
-                    </Link>
-                    <Link href="/forge" className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors">
-                        Open app
-                    </Link>
-                </div>
-            </nav>
+            <SiteHeader />
 
             {/* HEADER */}
             <section className="bg-gradient-to-br from-black via-zinc-900 to-zinc-950 text-white">

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { getAllPosts, formatDate } from '@/lib/blog'
-import ThemeToggle from '@/components/ThemeToggle'
 import SupportEmail from '@/components/SupportEmail'
+import SiteHeader from '@/components/SiteHeader'
 
 // Re-render the index every hour so scheduled posts appear automatically.
 export const revalidate = 3600
@@ -27,20 +27,7 @@ export default async function BlogIndex() {
 
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
-            <nav className="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
-                <Link href="/" className="font-black tracking-tight">
-                    ← ConvoForge
-                </Link>
-                <div className="flex items-center gap-4">
-                    <ThemeToggle />
-                    <Link
-                        href="/forge"
-                        className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full text-sm font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-200"
-                    >
-                        Open app
-                    </Link>
-                </div>
-            </nav>
+            <SiteHeader />
 
             <main className="max-w-4xl mx-auto px-6 py-12 md:py-20">
                 <div className="mb-16">
