@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import LandingCTA from '@/components/LandingCTA'
-import ThemeToggle from '@/components/ThemeToggle'
 import UpgradeButton from '@/components/UpgradeButton'
 import SupportEmail from '@/components/SupportEmail'
+import SiteHeader from '@/components/SiteHeader'
 import { fetchPublicStats } from '@/lib/stats'
 import { getAllPosts, formatDate } from '@/lib/blog'
 import { curriculum, totalLessonsFor } from '@/lib/curriculum'
@@ -126,35 +126,13 @@ export default async function Landing() {
             />
 
             {/* ── NAV ───────────────────────────────────────────── */}
-            <nav className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
-                <div className="font-black text-lg tracking-tight">
-                    ConvoForge
-                </div>
-                <div className="flex items-center gap-4 text-sm font-semibold text-zinc-600 dark:text-zinc-300">
-                    <a href="#how" className="hidden sm:inline hover:text-zinc-900 dark:hover:text-white">
-                        How it works
-                    </a>
-                    <Link href="/curriculum" className="hidden sm:inline hover:text-zinc-900 dark:hover:text-white">
-                        Curriculum
-                    </Link>
-                    <a href="#pricing" className="hidden sm:inline hover:text-zinc-900 dark:hover:text-white">
-                        Pricing
-                    </a>
-                    <a href="#faq" className="hidden sm:inline hover:text-zinc-900 dark:hover:text-white">
-                        FAQ
-                    </a>
-                    <Link href="/blog" className="hover:text-zinc-900 dark:hover:text-white">
-                        Blog
-                    </Link>
-                    <ThemeToggle />
-                    <Link
-                        href="/forge"
-                        className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
-                    >
-                        Open app
-                    </Link>
-                </div>
-            </nav>
+            <SiteHeader
+                anchors={[
+                    { href: '#how', label: 'How it works' },
+                    { href: '#pricing', label: 'Pricing' },
+                    { href: '#faq', label: 'FAQ' },
+                ]}
+            />
 
             {/* ── HERO ──────────────────────────────────────────── */}
             <section aria-labelledby="hero-heading" className="relative overflow-hidden bg-black text-white">

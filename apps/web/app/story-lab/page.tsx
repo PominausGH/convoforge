@@ -6,8 +6,8 @@ import { curriculum, CUSTOM_STORY_LESSON_ID } from '@/lib/curriculum';
 import { fetchUserProfile, type UserProfile } from '@/lib/api';
 import { StoryStructureGuide } from '@/components/StoryStructureGuide';
 import UpgradeButton from '@/components/UpgradeButton';
-import ThemeToggle from '@/components/ThemeToggle';
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics';
+import SiteHeader from '@/components/SiteHeader'
 
 const STORY_LESSONS = curriculum
     .filter((l) => l.track === 'storytelling')
@@ -65,18 +65,7 @@ export default function StoryLabPage() {
 
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
-            <nav className="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
-                <Link href="/" className="font-black text-lg tracking-tight">ConvoForge</Link>
-                <div className="flex items-center gap-4">
-                    <ThemeToggle />
-                    <Link
-                        href="/forge"
-                        className="bg-black dark:bg-white text-white dark:text-black px-4 py-2 rounded-full text-sm font-semibold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors"
-                    >
-                        Open app
-                    </Link>
-                </div>
-            </nav>
+            <SiteHeader />
 
             <header className="max-w-3xl mx-auto px-6 pt-6 pb-10">
                 <div className="text-[10px] uppercase tracking-[0.3em] text-rose-600 font-bold mb-2">
