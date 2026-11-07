@@ -8,6 +8,7 @@ import { StoryStructureGuide } from '@/components/StoryStructureGuide';
 import UpgradeButton from '@/components/UpgradeButton';
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics';
 import SiteHeader from '@/components/SiteHeader'
+import SiteFooter from '@/components/SiteFooter'
 
 const STORY_LESSONS = curriculum
     .filter((l) => l.track === 'storytelling')
@@ -184,6 +185,7 @@ export default function StoryLabPage() {
                     ))}
                 </div>
             </section>
+            <SiteFooter />
         </div>
     );
 }

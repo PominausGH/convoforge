@@ -8,7 +8,8 @@ from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from db import get_db
-from mailer import send_email, welcome_email
+from mailer import send_email, verify_email
+from routers.recovery import APP_URL, issue_token
 from models.session import Session
 from models.tester_code import TesterCode
 from models.user import User
@@ -117,7 +118,9 @@ async def capture_email(
     user_id: str, data: EmailCapture, db: AsyncSession = Depends(get_db)
 ):
     """Attach an email to an existing anonymous user for newsletter / cross-device
-    recovery. Idempotent — re-posting the same email is a no-op."""
+    recovery. The address stays unverified (and is ignored by account restore)
+    until the owner clicks the confirmation link we send to it. Re-posting an
+    already-verified address is a no-op."""
     _validate_uuid(user_id)
     if not _EMAIL_RE.match(data.email or ""):
         raise HTTPException(status_code=400, detail="Invalid email")
@@ -126,13 +129,19 @@ async def capture_email(
     ).scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    user.email = data.email.strip().lower()
+    email = data.email.strip().lower()
+    if user.email != email:
+        user.email_verified_at = None
+    user.email = email
     user.newsletter_opt_in = data.opt_in
     user.email_captured_at = datetime.now(timezone.utc).replace(tzinfo=None)
     await db.commit()
 
-    subject, html = welcome_email(data.opt_in)
-    await send_email(user.email, subject, html)
+    if user.email_verified_at is None:
+        token = await issue_token(db, user_id, "verify", email)
+        if token:
+            subject, html = verify_email(f"{APP_URL}/restore?verify={token}", data.opt_in)
+            await send_email(email, subject, html)
 
     return None
 
