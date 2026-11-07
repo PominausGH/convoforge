@@ -8,6 +8,7 @@ import { ListeningStimulusGuide } from '@/components/ListeningStimulusGuide';
 import UpgradeButton from '@/components/UpgradeButton';
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics';
 import SiteHeader from '@/components/SiteHeader'
+import SiteFooter from '@/components/SiteFooter'
 
 const LISTENING_LESSONS = curriculum
     .filter((l) => l.track === 'active_listening')
@@ -105,6 +106,7 @@ export default function ListeningLabPage() {
                     ))}
                 </div>
             </section>
+            <SiteFooter />
         </div>
     );
 }

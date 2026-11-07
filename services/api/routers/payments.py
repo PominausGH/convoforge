@@ -125,7 +125,7 @@ async def stripe_webhook(request: Request, db: AsyncSession = Depends(get_db)):
 
                 # Pull email from Stripe and store only if user consented to marketing
                 customer_details = session.get("customer_details") or {}
-                email = customer_details.get("email")
+                email = (customer_details.get("email") or "").strip().lower() or None
                 consented = (
                     (session.get("consent_collection") or {}).get("promotions") == "opt_in"
                     or (session.get("consent") or {}).get("promotions") == "opt_in"
@@ -138,6 +138,11 @@ async def stripe_webhook(request: Request, db: AsyncSession = Depends(get_db)):
                     # Store transactional email (needed for receipts/cancellation) without marketing flag
                     user.email = email
                     user.email_captured_at = datetime.utcnow()
+
+                # They paid through checkout with this address (receipts go to it),
+                # so it counts as verified for account restore.
+                if email and user.email == email:
+                    user.email_verified_at = datetime.utcnow()
 
                 # Record Payment
                 payment = Payment(

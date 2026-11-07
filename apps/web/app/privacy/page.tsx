@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import SiteHeader from '@/components/SiteHeader'
+import SiteFooter from '@/components/SiteFooter'
 
 export const metadata: Metadata = {
     title: 'Privacy Policy',
@@ -164,6 +165,7 @@ export default function PrivacyPage() {
                 </Link>
             </div>
         </main>
+        <SiteFooter />
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import SiteHeader from '@/components/SiteHeader'
+import SiteFooter from '@/components/SiteFooter'
 import { curriculum, totalLessonsFor } from '@/lib/curriculum'
 
 const TOTAL_LESSONS = totalLessonsFor('pro')
@@ -174,6 +175,7 @@ export default function AboutPage() {
                 </div>
             </div>
         </main>
+        <SiteFooter />
         </div>
     )
 }

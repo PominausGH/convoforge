@@ -61,6 +61,23 @@ def welcome_email(newsletter_opt_in: bool) -> tuple[str, str]:
     return subject, html
 
 
+def verify_email(link: str, newsletter_opt_in: bool) -> tuple[str, str]:
+    subject = "Confirm your email for ConvoForge"
+    opt_in_line = (
+        "<p>You're also on the list for practice tips and new persona drops — unsubscribe any time.</p>"
+        if newsletter_opt_in
+        else ""
+    )
+    html = f"""
+        <p>Confirm this email to link it to your ConvoForge progress, so you can pick up your streak from any device:</p>
+        <p><a href="{link}">Confirm my email</a></p>
+        <p>The link works once and expires in 30 minutes. If you didn't ask for this, ignore this email — nothing changes.</p>
+        {opt_in_line}
+        <hr><p style="color:#888;font-size:12px">ConvoForge</p>
+    """
+    return subject, html
+
+
 def recovery_email(link: str) -> tuple[str, str]:
     subject = "Restore your ConvoForge progress"
     html = f"""

@@ -17,3 +17,6 @@ class User(Base):
     email = Column(Text, nullable=True)
     newsletter_opt_in = Column(Boolean, default=False, nullable=False)
     email_captured_at = Column(DateTime, nullable=True)
+    # Set only once the owner clicks a link sent to `email`; account restore
+    # ignores unverified emails.
+    email_verified_at = Column(DateTime, nullable=True)

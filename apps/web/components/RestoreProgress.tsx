@@ -11,7 +11,10 @@ type Status = { kind: 'ok' | 'error'; text: string } | null
 
 export default function RestoreProgress() {
     const [token, setToken] = useState<string | null>(null)
+    const [verifyToken, setVerifyToken] = useState<string | null>(null)
+    const [verified, setVerified] = useState(false)
     const [restored, setRestored] = useState(false)
+    const [mergedSessions, setMergedSessions] = useState(0)
     const [saveEmail, setSaveEmail] = useState('')
     const [sendEmail, setSendEmail] = useState('')
     const [busy, setBusy] = useState<string | null>(null)
@@ -20,7 +23,9 @@ export default function RestoreProgress() {
     const [confirmStatus, setConfirmStatus] = useState<Status>(null)
 
     useEffect(() => {
-        setToken(new URLSearchParams(window.location.search).get('token'))
+        const params = new URLSearchParams(window.location.search)
+        setToken(params.get('token'))
+        setVerifyToken(params.get('verify'))
     }, [])
 
     // Save this browser's account against an email (do this on the old device).
@@ -45,7 +50,10 @@ export default function RestoreProgress() {
                 body: JSON.stringify({ email: saveEmail, opt_in: false }),
             })
             if (!res.ok) throw new Error()
-            setSaveStatus({ kind: 'ok', text: 'Saved. You can now restore this from any device.' })
+            setSaveStatus({
+                kind: 'ok',
+                text: 'Check your inbox and click the confirmation link. Until you do, this email can’t restore your progress.',
+            })
         } catch {
             setSaveStatus({ kind: 'error', text: 'Couldn’t save that — try again.' })
         } finally {
@@ -88,7 +96,7 @@ export default function RestoreProgress() {
             const res = await fetch('/api/users/recover/confirm', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ token }),
+                body: JSON.stringify({ token, current_user_id: localStorage.getItem(USER_KEY) }),
             })
             if (res.status === 400) {
                 setConfirmStatus({ kind: 'error', text: 'This link is invalid or has expired. Request a new one below.' })
@@ -97,7 +105,31 @@ export default function RestoreProgress() {
             if (!res.ok) throw new Error()
             const data = await res.json()
             localStorage.setItem(USER_KEY, data.user_id)
+            setMergedSessions(data.merged_sessions || 0)
             setRestored(true)
+        } catch {
+            setConfirmStatus({ kind: 'error', text: 'Something went wrong — try again.' })
+        } finally {
+            setBusy(null)
+        }
+    }
+
+    // Opening the confirmation link sent when an email was linked. Same click-to-confirm rule.
+    const confirmVerify = async () => {
+        setConfirmStatus(null)
+        setBusy('verify')
+        try {
+            const res = await fetch('/api/users/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ token: verifyToken }),
+            })
+            if (res.status === 400) {
+                setConfirmStatus({ kind: 'error', text: 'This link is invalid or has expired. Link your email again below.' })
+                return
+            }
+            if (!res.ok && res.status !== 204) throw new Error()
+            setVerified(true)
         } catch {
             setConfirmStatus({ kind: 'error', text: 'Something went wrong — try again.' })
         } finally {
@@ -118,19 +150,39 @@ export default function RestoreProgress() {
     if (restored) {
         return (
             <p className="text-sm">
-                Your progress is restored on this device.{' '}
+                Your progress is restored on this device.
+                {mergedSessions > 0 && ` ${mergedSessions} session${mergedSessions === 1 ? '' : 's'} from this browser were added to it.`}{' '}
                 <Link href="/forge" className="underline font-medium">Start a session</Link>
+            </p>
+        )
+    }
+
+    if (verified) {
+        return (
+            <p className="text-sm">
+                Email confirmed. You can now restore your progress on any device by entering this email at the bottom of this page.{' '}
+                <Link href="/forge" className="underline font-medium">Back to practice</Link>
             </p>
         )
     }
 
     return (
         <div className="flex flex-col gap-10">
+            {verifyToken && (
+                <section className="flex flex-col gap-3">
+                    <h2 className="font-medium">Confirm your email</h2>
+                    <button onClick={confirmVerify} disabled={busy === 'verify'} className={button}>
+                        {busy === 'verify' ? 'Confirming…' : 'Confirm my email'}
+                    </button>
+                    {msg(confirmStatus)}
+                </section>
+            )}
+
             {token && (
                 <section className="flex flex-col gap-3">
                     <h2 className="font-medium">Restore your progress here</h2>
                     <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                        This replaces any progress currently in this browser.
+                        This switches this browser to your saved account. Practice you&apos;ve done here so far is added to it.
                     </p>
                     <button onClick={confirm} disabled={busy === 'confirm'} className={button}>
                         {busy === 'confirm' ? 'Restoring…' : 'Restore my progress'}

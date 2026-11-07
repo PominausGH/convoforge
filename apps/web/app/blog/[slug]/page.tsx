@@ -5,6 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { getAllPostsIncludingScheduled, getPost, getRelatedPosts, formatDate } from '@/lib/blog'
 import { findLesson } from '@/lib/curriculum'
 import SiteHeader from '@/components/SiteHeader'
+import SiteFooter from '@/components/SiteFooter'
 
 // Re-check file dates every hour. Combined with the `isPublished` filter in
 // lib/blog.ts, this means a post dated for a future Monday 08:00 goes live
@@ -183,6 +184,7 @@ export default async function PostPage({
                     </Link>
                 </div>
             </main>
+            <SiteFooter />
         </div>
     )
 }
