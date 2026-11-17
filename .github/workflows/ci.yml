@@ -1,0 +1,52 @@
+name: CI
+
+# Validates Dependabot (npm/pip/docker) PRs before merge.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22" # matches apps/web/Dockerfile
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - run: npm ci
+      - run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+
+  api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/api
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13" # matches services/api/Dockerfile
+          cache: pip
+          cache-dependency-path: services/api/requirements.txt
+      - run: pip install -r requirements.txt
+      - run: python -m compileall -q .
+
+  docker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        context: [apps/web, services/api]
+    steps:
+      - uses: actions/checkout@v5
+      - run: docker build ${{ matrix.context }}
