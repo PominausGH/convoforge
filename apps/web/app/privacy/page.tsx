@@ -43,9 +43,23 @@ export default function PrivacyPage() {
                 key <code>cf_user_id</code>. We use that UUID to remember your
                 streak, weekly session count, and tier. Practising needs no account
                 and we do not know your name or IP. We only hold your email if you
-                choose to give it: on your score card (for lesson emails) or just
-                before upgrading to Pro (for your receipt and payment support).
-                Clearing your browser storage signs you out permanently.
+                choose to give it: on your score card (for lesson emails), just
+                before upgrading to Pro (for your receipt and payment support), or
+                to sign in.
+            </p>
+
+            <h2 className="text-xl font-bold mt-8 mb-3">Signing in (optional)</h2>
+            <p>
+                You can sign in with your email to keep your streak, history and Pro
+                on more than one device. We email you a one-time link; there is no
+                password. We store your email, the date you confirmed it, and a
+                scrambled (hashed) copy of each link so it can only be used once.
+                If you practiced on a device before signing in, those sessions are
+                moved to your account. When you are signed in, your Friends Lab
+                challenge progress is also saved to your account so it appears on
+                every device. The area and interests you enter in the group finder
+                still stay on your device only. Without signing in, clearing your
+                browser storage means starting over.
             </p>
 
             <h2 className="text-xl font-bold mt-8 mb-3">Camera</h2>

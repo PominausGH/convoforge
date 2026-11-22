@@ -14,6 +14,7 @@ type Stats = {
     total_users: number;
     users_with_a_session: number;
     pro_users: number;
+    signed_in_users: number;
     active_7d: number;
     active_30d: number;
     eligible_users: number;
@@ -152,6 +153,7 @@ export default function AdminStatsPage() {
                             <Tile label="Active, 30 days" value={stats.active_30d} />
                             <Tile label="Did a session" value={stats.users_with_a_session} note="ever" />
                             <Tile label="All visitors" value={stats.total_users} note="opened the app" />
+                            <Tile label="Signed in" value={stats.signed_in_users} note="confirmed an email" />
                         </div>
 
                         <h2 className="text-xs font-bold uppercase tracking-widest text-zinc-400 mt-8 mb-1">Weekly groups</h2>

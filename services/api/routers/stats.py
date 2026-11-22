@@ -82,6 +82,7 @@ class RetentionStats(BaseModel):
     total_users: int
     users_with_a_session: int
     pro_users: int
+    signed_in_users: int  # confirmed an email
     active_7d: int
     active_30d: int
     eligible_users: int  # had a first session 7+ days ago
@@ -118,6 +119,8 @@ async def retention_stats(
                 SELECT
                   (SELECT COUNT(*) FROM cf_users)                               AS total_users,
                   (SELECT COUNT(*) FROM cf_users WHERE tier = 'pro')            AS pro_users,
+                  (SELECT COUNT(*) FROM cf_users
+                     WHERE email_verified_at IS NOT NULL)                       AS signed_in,
                   (SELECT COUNT(DISTINCT user_id) FROM cf_sessions)             AS with_session,
                   (SELECT COUNT(DISTINCT user_id) FROM cf_sessions
                      WHERE created_at >= (NOW() AT TIME ZONE 'UTC') - INTERVAL '7 days')             AS active_7d,
@@ -208,6 +211,7 @@ async def retention_stats(
         total_users=int(totals["total_users"]),
         users_with_a_session=int(totals["with_session"]),
         pro_users=int(totals["pro_users"]),
+        signed_in_users=int(totals["signed_in"]),
         active_7d=int(totals["active_7d"]),
         active_30d=int(totals["active_30d"]),
         eligible_users=eligible,

@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from db import get_db
 from mailer import send_email, welcome_email
+from routers.auth import confirm_link_for, normalize_email
 from models.session import Session
 from models.user import User
 
@@ -36,6 +37,15 @@ class UserProfile(BaseModel):
     weekly_session_count: int
     weekly_session_limit: Optional[int]
     completed_module_ids: List[int]
+    signed_in: bool = False  # has a confirmed email
+    email_hint: Optional[str] = None  # masked, e.g. "ge•••@gmail.com"
+
+
+def _mask(email: Optional[str]) -> Optional[str]:
+    if not email or "@" not in email:
+        return None
+    name, domain = email.split("@", 1)
+    return f"{name[:2]}•••@{domain}"
 
 
 async def _build_profile(user: User, db: AsyncSession) -> UserProfile:
@@ -70,6 +80,8 @@ async def _build_profile(user: User, db: AsyncSession) -> UserProfile:
         weekly_session_count=weekly_count,
         weekly_session_limit=FREE_TIER_WEEKLY_LIMIT if user.tier == "free" else None,
         completed_module_ids=completed_ids,
+        signed_in=bool(user.email_verified_at),
+        email_hint=_mask(user.email) if user.email_verified_at else None,
     )
 
 
@@ -125,12 +137,19 @@ async def capture_email(
     ).scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    user.email = data.email.strip().lower()
+    new_email = normalize_email(data.email)
+    if user.email_verified_at and user.email != new_email:
+        # Changing a verified email has to go through sign-in, so it can't be
+        # swapped by anyone who learns this ID.
+        raise HTTPException(status_code=409, detail="This account already has a confirmed email.")
+    user.email = new_email
     user.newsletter_opt_in = data.opt_in
     user.email_captured_at = datetime.now(timezone.utc).replace(tzinfo=None)
     await db.commit()
 
-    subject, html = welcome_email(data.opt_in)
+    confirm_link = await confirm_link_for(db, user)
+    await db.commit()
+    subject, html = welcome_email(data.opt_in, confirm_link)
     await send_email(user.email, subject, html)
 
     return None
@@ -154,3 +173,49 @@ async def update_persona(
     await db.commit()
     await db.refresh(user)
     return await _build_profile(user, db)
+
+
+_CHALLENGE_ID_RE = re.compile(r"^[a-z0-9-]{1,40}$")
+_FEELINGS = {"easier", "expected", "harder"}
+
+
+class ChallengeEntry(BaseModel):
+    done_at: str
+    feeling: Optional[str] = None
+
+
+async def _signed_in_user(user_id: str, db: AsyncSession) -> User:
+    _validate_uuid(user_id)
+    user = (await db.execute(select(User).where(User.user_id == user_id))).scalar_one_or_none()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    if not user.email_verified_at:
+        # Progress stays on the device until someone signs in.
+        raise HTTPException(status_code=403, detail="Sign in to sync progress")
+    return user
+
+
+@router.get("/{user_id}/friend-challenges")
+async def get_friend_challenges(user_id: str, db: AsyncSession = Depends(get_db)):
+    user = await _signed_in_user(user_id, db)
+    return user.friend_challenges or {}
+
+
+@router.put("/{user_id}/friend-challenges")
+async def put_friend_challenges(
+    user_id: str, data: dict[str, ChallengeEntry], db: AsyncSession = Depends(get_db)
+):
+    user = await _signed_in_user(user_id, db)
+    if len(data) > 100:
+        raise HTTPException(status_code=422, detail="Too many entries")
+    clean = {}
+    for cid, entry in data.items():
+        if not _CHALLENGE_ID_RE.match(cid):
+            continue
+        clean[cid] = {
+            "done_at": entry.done_at[:40],
+            **({"feeling": entry.feeling} if entry.feeling in _FEELINGS else {}),
+        }
+    user.friend_challenges = clean
+    await db.commit()
+    return clean

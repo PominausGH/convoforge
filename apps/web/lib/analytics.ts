@@ -42,4 +42,8 @@ export const ANALYTICS_EVENTS = {
     friendsLabView: 'friends_lab_view',
     friendChallengeComplete: 'friend_challenge_complete',
     groupFinderSearch: 'group_finder_search',
+    signInLinkRequested: 'sign_in_link_requested',
+    signInComplete: 'sign_in_complete',
+    signOut: 'sign_out',
+    saveProgressPromptShown: 'save_progress_prompt_shown',
 } as const;

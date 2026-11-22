@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { findLesson } from '@/lib/curriculum';
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics';
+import { fetchFriendChallenges, saveFriendChallenges } from '@/lib/api';
+import { getUserId, isSignedIn } from '@/lib/identity';
 import {
     FRIEND_CHALLENGES,
     loadChallengeProgress,
@@ -34,8 +36,27 @@ export default function FriendChallenges({ stage, isPro }: { stage: LifeStage; i
     const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
-        setProgress(loadChallengeProgress());
+        const local = loadChallengeProgress();
+        setProgress(local);
         setLoaded(true);
+
+        // Signed-in users: merge with the copy saved to their account.
+        const uid = getUserId();
+        if (!uid || !isSignedIn()) return;
+        fetchFriendChallenges(uid)
+            .then((remote) => {
+                const merged: ChallengeProgress = { ...(remote as ChallengeProgress) };
+                for (const [id, entry] of Object.entries(local)) {
+                    const other = merged[id];
+                    if (!other || entry.done_at < other.done_at) merged[id] = entry;
+                }
+                setProgress(merged);
+                saveChallengeProgress(merged);
+                if (JSON.stringify(merged) !== JSON.stringify(remote)) {
+                    saveFriendChallenges(uid, merged).catch(() => undefined);
+                }
+            })
+            .catch(() => undefined); // offline or not signed in on the server: stay local
     }, []);
 
     useEffect(() => {
@@ -50,6 +71,8 @@ export default function FriendChallenges({ stage, isPro }: { stage: LifeStage; i
     const update = (nextProgress: ChallengeProgress) => {
         setProgress(nextProgress);
         saveChallengeProgress(nextProgress);
+        const uid = getUserId();
+        if (uid && isSignedIn()) saveFriendChallenges(uid, nextProgress).catch(() => undefined);
     };
 
     const complete = (challenge: FriendChallenge, feeling?: ChallengeFeeling) => {

@@ -9,6 +9,7 @@ import { ensureUser, type UserProfile } from '@/lib/api'
 import { curriculum, nextLessonFor, totalLessonsFor, type Lesson } from '@/lib/curriculum'
 import { trackEvent, ANALYTICS_EVENTS } from '@/lib/analytics'
 import ThemeToggle from '@/components/ThemeToggle'
+import SaveProgressCard from '@/components/SaveProgressCard'
 
 export default function AppDashboard() {
   const router = useRouter()
@@ -29,7 +30,16 @@ export default function AppDashboard() {
   useEffect(() => {
     if (!userId) return
     ensureUser(userId)
-      .then(setProfile)
+      .then((p) => {
+        setProfile(p)
+        // Keep this device's signed-in flag in line with the server.
+        try {
+          if (p.signed_in) localStorage.setItem('cf_signed_in', '1')
+          else localStorage.removeItem('cf_signed_in')
+        } catch {
+          /* ignore */
+        }
+      })
       .catch((err) => setProfileError(err.message))
   }, [userId])
 
@@ -67,7 +77,15 @@ export default function AppDashboard() {
         >
           ← ConvoForge
         </Link>
-        <ThemeToggle />
+        <div className="flex items-center gap-3">
+          <Link
+            href="/signin"
+            className="text-xs font-semibold text-zinc-600 dark:text-zinc-300 hover:underline"
+          >
+            {profile?.signed_in ? 'Account' : 'Sign in'}
+          </Link>
+          <ThemeToggle />
+        </div>
       </div>
 
       <h1 className="text-3xl md:text-4xl font-black text-center tracking-tight">
@@ -111,6 +129,10 @@ export default function AppDashboard() {
               </ul>
               <p className="text-xs mt-2 text-amber-700 dark:text-amber-300">Camera + microphone required. Nothing leaves your device.</p>
             </div>
+          )}
+
+          {profile && !profile.signed_in && completedCount > 0 && (
+            <SaveProgressCard streak={effectiveStreak} sessions={completedCount} />
           )}
 
           {profile && nextLesson && (

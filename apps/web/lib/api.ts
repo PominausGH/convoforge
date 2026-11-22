@@ -9,6 +9,8 @@ export type UserProfile = {
   weekly_session_count: number
   weekly_session_limit: number | null
   completed_module_ids: number[]
+  signed_in?: boolean
+  email_hint?: string | null
 }
 
 export type SessionCreateResponse = {
@@ -156,4 +158,52 @@ export async function suggestGroups(payload: {
     throw new Error(typeof data?.detail === 'string' ? data.detail : 'Suggestions failed')
   }
   return data
+}
+
+export async function requestSignInLink(email: string, userId: string | null): Promise<void> {
+  const res = await fetch('/api/auth/request-link', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, user_id: userId }),
+  })
+  if (res.status === 204) return
+  const data = await res.json().catch(() => ({}))
+  throw new Error(typeof data?.detail === 'string' ? data.detail : 'Could not send the email')
+}
+
+export type SignInResult = {
+  user_id: string
+  email: string
+  tier: 'free' | 'pro'
+  streak_days: number
+  switched_account: boolean
+  moved_sessions: number
+}
+
+export async function verifySignIn(token: string, userId: string | null): Promise<SignInResult> {
+  const res = await fetch('/api/auth/verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token, user_id: userId }),
+  })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(typeof data?.detail === 'string' ? data.detail : 'Sign-in failed')
+  return data
+}
+
+export async function fetchFriendChallenges(userId: string): Promise<Record<string, { done_at: string; feeling?: string }>> {
+  const res = await fetch(`/api/users/${userId}/friend-challenges`, { cache: 'no-store' })
+  if (!res.ok) throw new Error(`sync unavailable (${res.status})`)
+  return res.json()
+}
+
+export async function saveFriendChallenges(
+  userId: string,
+  progress: Record<string, { done_at: string; feeling?: string }>,
+): Promise<void> {
+  await fetch(`/api/users/${userId}/friend-challenges`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(progress),
+  })
 }

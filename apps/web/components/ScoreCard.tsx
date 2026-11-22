@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { captureEmail } from '@/lib/api';
 import UpgradeButton from '@/components/UpgradeButton';
 import type { PauseStats } from '@/lib/pauses';
@@ -66,6 +66,14 @@ export default function ScoreCard({
     const [shareState, setShareState] = useState<'idle' | 'copied' | 'shared' | 'error'>('idle');
     const [email, setEmail] = useState('');
     const [emailState, setEmailState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+    const [signedIn, setSignedIn] = useState(false);
+    useEffect(() => {
+        try {
+            setSignedIn(localStorage.getItem('cf_signed_in') === '1');
+        } catch {
+            /* ignore */
+        }
+    }, []);
     const shareText = `I scored ${score} on my Daily Forge 🔥 #ConvoForge`;
 
     const saveEmail = async (e: React.FormEvent) => {
@@ -252,9 +260,9 @@ export default function ScoreCard({
                 )}
 
                 {/* Non-mandatory email capture — survives browser clears + weekly lesson email */}
-                {emailState === 'saved' ? (
+                {signedIn ? null : emailState === 'saved' ? (
                     <div className="bg-green-500/10 border border-green-500/20 p-3 rounded-2xl mb-4 text-green-200 text-xs text-center">
-                        Saved. We&apos;ll send you a new lesson once a week — nothing else.
+                        Check your email and tap <b>Confirm my email</b>. Then you can sign in on any device.
                     </div>
                 ) : (
                     <form

@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from db import get_db
 from mailer import send_email, pro_upgrade_email, cancellation_email
+from routers.auth import confirm_link_for
 from models.user import User
 from models.payment import Payment
 
@@ -130,7 +131,12 @@ async def stripe_webhook(request: Request, db: AsyncSession = Depends(get_db)):
                     (session.get("consent_collection") or {}).get("promotions") == "opt_in"
                     or (session.get("consent") or {}).get("promotions") == "opt_in"
                 )
-                if email and consented:
+                email = (email or "").strip().lower() or None
+                if user.email_verified_at:
+                    # A confirmed email is only changed through sign-in.
+                    if email and consented and email == user.email:
+                        user.newsletter_opt_in = True
+                elif email and consented:
                     user.email = email
                     user.newsletter_opt_in = True
                     user.email_captured_at = datetime.utcnow()
@@ -149,10 +155,11 @@ async def stripe_webhook(request: Request, db: AsyncSession = Depends(get_db)):
                     status="succeeded"
                 )
                 db.add(payment)
+                confirm_link = await confirm_link_for(db, user)
                 await db.commit()
 
                 if user.email:
-                    subject, html = pro_upgrade_email()
+                    subject, html = pro_upgrade_email(confirm_link)
                     await send_email(user.email, subject, html)
 
     elif event["type"] == "customer.subscription.deleted":
